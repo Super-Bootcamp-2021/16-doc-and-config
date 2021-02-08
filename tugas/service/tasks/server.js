@@ -1,12 +1,7 @@
 const { createServer } = require('http');
 const url = require('url');
 const { stdout } = require('process');
-const {
-  listSvc,
-  registerSvc,
-  removeSvc,
-  infoSvc,
-} = require('./worker.service');
+const { addSvc, cancelSvc, doneSvc, listSvc } = require('./task.service');
 
 let server;
 
@@ -27,9 +22,9 @@ function run() {
     try {
       const uri = url.parse(req.url, true);
       switch (uri.pathname) {
-        case '/register':
+        case '/add':
           if (req.method === 'POST') {
-            return registerSvc(req, res);
+            return addSvc(req, res);
           } else {
             respond(404);
           }
@@ -41,16 +36,16 @@ function run() {
             respond(404);
           }
           break;
-        case '/info':
-          if (req.method === 'GET') {
-            return infoSvc(req, res);
+        case '/done':
+          if (req.method === 'PUT') {
+            return doneSvc(req, res);
           } else {
             respond(404);
           }
           break;
-        case '/remove':
-          if (req.method === 'DELETE') {
-            return removeSvc(req, res);
+        case '/cancel':
+          if (req.method === 'PUT') {
+            return cancelSvc(req, res);
           } else {
             respond(404);
           }
@@ -64,9 +59,9 @@ function run() {
   });
 
   // run server
-  const PORT = 7001;
+  const PORT = 7002;
   server.listen(PORT, () => {
-    stdout.write(`🚀 worker service listening on port ${PORT}\n`);
+    stdout.write(`🚀 task service listening on port ${PORT}\n`);
   });
 }
 

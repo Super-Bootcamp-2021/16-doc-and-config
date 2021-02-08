@@ -26,6 +26,15 @@ function list() {
   return workerRepo.find();
 }
 
+async function info(id) {
+  const workerRepo = getConnection().getRepository('Worker');
+  const worker = await workerRepo.findOne(id);
+  if (!worker) {
+    throw ERROR_WORKER_NOT_FOUND;
+  }
+  return worker;
+}
+
 async function remove(id) {
   const workerRepo = getConnection().getRepository('Worker');
   const worker = await workerRepo.findOne(id);
@@ -40,6 +49,7 @@ module.exports = {
   register,
   list,
   remove,
+  info,
   ERROR_REGISTER_DATA_INVALID,
   ERROR_WORKER_NOT_FOUND,
 };

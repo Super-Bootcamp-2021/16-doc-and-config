@@ -2,24 +2,22 @@ const Busboy = require('busboy');
 const url = require('url');
 const { Writable } = require('stream');
 const {
-  register,
+  add,
+  cancel,
+  done,
   list,
-  remove,
-  info,
-  ERROR_REGISTER_DATA_INVALID,
-  ERROR_WORKER_NOT_FOUND,
-} = require('./worker');
+  ERROR_TASK_DATA_INVALID,
+  ERROR_TASK_NOT_FOUND,
+} = require('./task');
 const { saveFile } = require('../lib/storage');
 
-function registerSvc(req, res) {
+function addSvc(req, res) {
   const busboy = new Busboy({ headers: req.headers });
 
   const data = {
-    name: '',
-    age: 0,
-    bio: '',
-    address: '',
-    photo: '',
+    job: '',
+    assigneeId: 0,
+    attachment: null,
   };
 
   let finished = false;
@@ -34,19 +32,19 @@ function registerSvc(req, res) {
 
   busboy.on('file', async (fieldname, file, filename, encoding, mimetype) => {
     switch (fieldname) {
-      case 'photo':
+      case 'attachment':
         try {
-          data.photo = await saveFile(file, mimetype);
+          data.attachment = await saveFile(file, mimetype);
         } catch (err) {
           abort();
         }
         if (finished) {
           try {
-            const worker = await register(data);
+            const task = await add(data);
             res.setHeader('content-type', 'application/json');
-            res.write(JSON.stringify(worker));
+            res.write(JSON.stringify(task));
           } catch (err) {
-            if (err === ERROR_REGISTER_DATA_INVALID) {
+            if (err === ERROR_TASK_DATA_INVALID) {
               res.statusCode = 401;
             } else {
               res.statusCode = 500;
@@ -68,8 +66,13 @@ function registerSvc(req, res) {
   });
 
   busboy.on('field', (fieldname, val) => {
-    if (['name', 'age', 'bio', 'address'].includes(fieldname)) {
-      data[fieldname] = val;
+    switch (fieldname) {
+      case 'job':
+        data.job = val;
+        break;
+      case 'assignee_id':
+        data.assigneeId = parseInt(val, 10);
+        break;
     }
   });
 
@@ -85,9 +88,9 @@ function registerSvc(req, res) {
 
 async function listSvc(req, res) {
   try {
-    const workers = await list();
+    const tasks = await list();
     res.setHeader('content-type', 'application/json');
-    res.write(JSON.stringify(workers));
+    res.write(JSON.stringify(tasks));
     res.end();
   } catch (err) {
     res.statusCode = 500;
@@ -96,7 +99,7 @@ async function listSvc(req, res) {
   }
 }
 
-async function infoSvc(req, res) {
+async function doneSvc(req, res) {
   const uri = url.parse(req.url, true);
   const id = uri.query['id'];
   if (!id) {
@@ -106,12 +109,13 @@ async function infoSvc(req, res) {
     return;
   }
   try {
-    const worker = await info(id);
+    const task = await done(id);
     res.setHeader('content-type', 'application/json');
-    res.write(JSON.stringify(worker));
+    res.statusCode = 200;
+    res.write(JSON.stringify(task));
     res.end();
   } catch (err) {
-    if (err === ERROR_WORKER_NOT_FOUND) {
+    if (err === ERROR_TASK_NOT_FOUND) {
       res.statusCode = 404;
       res.write(err);
       res.end();
@@ -123,7 +127,7 @@ async function infoSvc(req, res) {
   }
 }
 
-async function removeSvc(req, res) {
+async function cancelSvc(req, res) {
   const uri = url.parse(req.url, true);
   const id = uri.query['id'];
   if (!id) {
@@ -133,13 +137,13 @@ async function removeSvc(req, res) {
     return;
   }
   try {
-    const worker = await remove(id);
+    const task = await cancel(id);
     res.setHeader('content-type', 'application/json');
     res.statusCode = 200;
-    res.write(JSON.stringify(worker));
+    res.write(JSON.stringify(task));
     res.end();
   } catch (err) {
-    if (err === ERROR_WORKER_NOT_FOUND) {
+    if (err === ERROR_TASK_NOT_FOUND) {
       res.statusCode = 404;
       res.write(err);
       res.end();
@@ -153,7 +157,7 @@ async function removeSvc(req, res) {
 
 module.exports = {
   listSvc,
-  registerSvc,
-  infoSvc,
-  removeSvc,
+  addSvc,
+  doneSvc,
+  cancelSvc,
 };

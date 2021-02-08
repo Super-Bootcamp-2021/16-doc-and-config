@@ -40,7 +40,7 @@ function registerSvc(req, res) {
         } catch (err) {
           abort();
         }
-        if (finished) {
+        if (!req.aborted && finished) {
           try {
             const worker = await register(data);
             res.setHeader('content-type', 'application/json');

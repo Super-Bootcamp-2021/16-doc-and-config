@@ -13,7 +13,14 @@ async function connect(_bucketname, options) {
     useSSL: false,
   });
   bucketname = _bucketname || 'photo';
-  await client.listBuckets();
+  try {
+    await client.makeBucket(bucketname);
+  } catch (err) {
+    if (err?.code === 'BucketAlreadyOwnedByYou') {
+      return;
+    }
+    throw err;
+  }
 }
 
 function randomFileName(mimetype) {

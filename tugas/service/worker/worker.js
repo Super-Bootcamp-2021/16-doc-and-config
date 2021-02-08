@@ -1,5 +1,6 @@
 const { getConnection } = require('typeorm');
 const { Worker } = require('./worker.model');
+const bus = require('../lib/bus');
 
 const ERROR_REGISTER_DATA_INVALID = 'data registrasi pekerja tidak lengkap';
 const ERROR_WORKER_NOT_FOUND = 'pekerja tidak ditemukan';
@@ -18,6 +19,7 @@ async function register(data) {
     data.photo
   );
   await workerRepo.save(worker);
+  bus.publish('worker.registered', worker);
   return worker;
 }
 
@@ -42,6 +44,7 @@ async function remove(id) {
     throw ERROR_WORKER_NOT_FOUND;
   }
   await workerRepo.delete(id);
+  bus.publish('worker.removed', worker);
   return worker;
 }
 

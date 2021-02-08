@@ -1,7 +1,8 @@
 const { createServer } = require('http');
 const url = require('url');
 const { stdout } = require('process');
-const { addSvc, cancelSvc, doneSvc, listSvc } = require('./task.service');
+const { summarySvc } = require('./performance.service');
+const agg = require('./performance.agg');
 
 let server;
 
@@ -22,30 +23,9 @@ function run(callback) {
     try {
       const uri = url.parse(req.url, true);
       switch (uri.pathname) {
-        case '/add':
-          if (req.method === 'POST') {
-            return addSvc(req, res);
-          } else {
-            respond(404);
-          }
-          break;
-        case '/list':
+        case '/summary':
           if (req.method === 'GET') {
-            return listSvc(req, res);
-          } else {
-            respond(404);
-          }
-          break;
-        case '/done':
-          if (req.method === 'PUT') {
-            return doneSvc(req, res);
-          } else {
-            respond(404);
-          }
-          break;
-        case '/cancel':
-          if (req.method === 'PUT') {
-            return cancelSvc(req, res);
+            return summarySvc(req, res);
           } else {
             respond(404);
           }
@@ -58,17 +38,21 @@ function run(callback) {
     }
   });
 
+  // run aggregation
+  agg.run();
+
   // stop handler
   server.on('close', () => {
+    agg.stop();
     if (callback) {
       callback();
     }
   });
 
   // run server
-  const PORT = 7002;
+  const PORT = 7003;
   server.listen(PORT, () => {
-    stdout.write(`🚀 task service listening on port ${PORT}\n`);
+    stdout.write(`🚀 performance service listening on port ${PORT}\n`);
   });
 }
 

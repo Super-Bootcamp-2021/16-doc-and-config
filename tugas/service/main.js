@@ -1,8 +1,12 @@
 const orm = require('./lib/orm');
 const storage = require('./lib/storage');
+const kv = require('./lib/kv');
+const bus = require('./lib/bus');
 const { TaskSchema } = require('./tasks/task.model');
 const { WorkerSchema } = require('./worker/worker.model');
 const workerServer = require('./worker/server');
+const tasksServer = require('./tasks/server');
+const performanceServer = require('./performance/server');
 
 async function init() {
   try {
@@ -18,29 +22,58 @@ async function init() {
     console.log('database connected');
   } catch (err) {
     console.error('database connection failed');
-    return;
+    process.exit(1);
   }
   try {
     console.log('connect to object storage');
-    storage.connect('task-manager');
+    await storage.connect('task-manager', {
+      endPoint: '127.0.0.1',
+      port: 9000,
+      useSSL: false,
+      accessKey: 'local-minio',
+      secretKey: 'local-test-secret',
+    });
     console.log('object storage connected');
   } catch (err) {
     console.error('object storage connection failed');
-    return;
+    process.exit(1);
   }
+  try {
+    console.log('connect to message bus');
+    await bus.connect();
+    console.log('message bus connected');
+  } catch (err) {
+    console.error('message bus connection failed');
+    process.exit(1);
+  }
+  try {
+    console.log('connect to key value store');
+    await kv.connect();
+    console.log('key value store connected');
+  } catch (err) {
+    console.error('key value store connection failed');
+    process.exit(1);
+  }
+}
+
+async function onStop() {
+  bus.close();
+  kv.close();
 }
 
 async function main(command) {
   switch (command) {
     case 'performance':
-      // TODO: implement performance service
+      await init();
+      performanceServer.run(onStop);
       break;
     case 'task':
-      // TODO: implement task service
+      await init();
+      tasksServer.run(onStop);
       break;
     case 'worker':
       await init();
-      workerServer.run();
+      workerServer.run(onStop);
       break;
     default:
       console.log(`${command} tidak dikenali`);

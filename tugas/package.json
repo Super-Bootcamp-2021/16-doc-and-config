@@ -5,8 +5,8 @@
   "main": "index.js",
   "scripts": {
     "test": "nyc mocha",
-    "start": "node .",
-    "dev": "nodemon .",
+    "svc:start": "node .",
+    "svc:dev": "nodemon .",
     "lint": "eslint ."
   },
   "author": "",

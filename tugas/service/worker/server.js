@@ -10,7 +10,7 @@ const {
 
 let server;
 
-function run() {
+function run(callback) {
   server = createServer((req, res) => {
     // cors
     cors(req, res);
@@ -60,6 +60,13 @@ function run() {
       }
     } catch (err) {
       respond(500, 'unkown server error');
+    }
+  });
+
+  // stop handler
+  server.on('close', () => {
+    if (callback) {
+      callback();
     }
   });
 

@@ -25,7 +25,8 @@ function addSvc(req, res) {
   function abort() {
     req.unpipe(busboy);
     if (!req.aborted) {
-      res.statusCode = 413;
+      res.statusCode = 500;
+      res.write('internal server error');
       res.end();
     }
   }
@@ -38,7 +39,7 @@ function addSvc(req, res) {
         } catch (err) {
           abort();
         }
-        if (finished) {
+        if (!req.aborted && finished) {
           try {
             const task = await add(data);
             res.setHeader('content-type', 'application/json');

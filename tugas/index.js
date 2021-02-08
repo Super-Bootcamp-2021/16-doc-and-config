@@ -1,1 +1,1 @@
-require('./tugas/main');
+require('./service/main');

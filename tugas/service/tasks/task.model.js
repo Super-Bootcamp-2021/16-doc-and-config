@@ -36,6 +36,7 @@ const TaskSchema = new EntitySchema({
     attachment: {
       type: 'varchar',
       length: 255,
+      nullable: true,
     },
     addedAt: {
       type: 'timestamp',

@@ -1,0 +1,41 @@
+{
+  "name": "task-manager",
+  "version": "1.0.0",
+  "description": "sample service mesh implementation",
+  "main": "index.js",
+  "scripts": {
+    "test": "nyc mocha",
+    "start": "node .",
+    "dev": "nodemon .",
+    "lint": "eslint ."
+  },
+  "author": "",
+  "license": "ISC",
+  "devDependencies": {
+    "eslint": "^7.19.0",
+    "eslint-config-google": "^0.14.0",
+    "eslint-plugin-prettier": "^3.3.1",
+    "prettier": "^2.2.1",
+    "css-loader": "^5.0.1",
+    "style-loader": "^2.0.0",
+    "webpack": "^5.17.0",
+    "webpack-cli": "^4.4.0",
+    "webpack-dev-server": "^3.11.2"
+  },
+  "dependencies": {
+    "busboy": "^0.3.1",
+    "mariadb": "^2.5.2",
+    "mime-types": "^2.1.28",
+    "minio": "^7.0.18",
+    "mysql": "^2.18.1",
+    "nats": "^1.4.12",
+    "nodemon": "^2.0.7",
+    "pg": "^8.5.1",
+    "pg-hstore": "^2.3.3",
+    "redis": "^3.0.2",
+    "typeorm": "^0.2.30",
+    "@reduxjs/toolkit": "^1.5.0",
+    "rxjs": "^6.6.3",
+    "redux-thunk": "^2.3.0"
+  }
+}

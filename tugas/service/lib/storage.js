@@ -36,12 +36,12 @@ function randomFileName(mimetype) {
 function saveFile(file, mimetype) {
   const objectName = randomFileName(mimetype);
   return new Promise((resolve, reject) => {
-    client.putObject(bucketname, objectName, file, (err, etag) => {
+    client.putObject(bucketname, objectName, file, (err) => {
       if (err) {
         reject(err);
         return;
       }
-      resolve(etag);
+      resolve(objectName);
     });
   });
 }
@@ -66,4 +66,5 @@ module.exports = {
   readFile,
   connect,
   ERROR_REQUIRE_OBJECT_NAME,
+  ERROR_FILE_NOT_FOUND,
 };

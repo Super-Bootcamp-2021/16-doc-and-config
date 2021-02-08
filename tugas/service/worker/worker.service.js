@@ -1,5 +1,6 @@
 const Busboy = require('busboy');
 const url = require('url');
+const mime = require('mime-types');
 const { Writable } = require('stream');
 const {
   register,
@@ -9,7 +10,7 @@ const {
   ERROR_REGISTER_DATA_INVALID,
   ERROR_WORKER_NOT_FOUND,
 } = require('./worker');
-const { saveFile } = require('../lib/storage');
+const { saveFile, readFile, ERROR_FILE_NOT_FOUND } = require('../lib/storage');
 
 function registerSvc(req, res) {
   const busboy = new Busboy({ headers: req.headers });
@@ -151,9 +152,37 @@ async function removeSvc(req, res) {
   }
 }
 
+async function getPhotoSvc(req, res) {
+  const uri = url.parse(req.url, true);
+  const objectName = uri.pathname.replace('/photo/', '');
+  if (!objectName) {
+    res.statusCode = 400;
+    res.write('request tidak sesuai');
+    res.end();
+  }
+  try {
+    const objectRead = await readFile(objectName);
+    res.setHeader('Content-Type', mime.lookup(objectName));
+    res.statusCode = 200;
+    objectRead.pipe(res);
+  } catch (err) {
+    if (err === ERROR_FILE_NOT_FOUND) {
+      res.statusCode = 404;
+      res.write(err);
+      res.end();
+      return;
+    }
+    res.statusCode = 500;
+    res.write('gagal membaca file');
+    res.end();
+    return;
+  }
+}
+
 module.exports = {
   listSvc,
   registerSvc,
   infoSvc,
   removeSvc,
+  getPhotoSvc,
 };

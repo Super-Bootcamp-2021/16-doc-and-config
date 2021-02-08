@@ -1,0 +1,61 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta http-equiv="X-UA-Compatible" content="IE=edge" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Task Manager</title>
+  </head>
+  <body>
+    <ul>
+      <li><a href="worker.html">pekerja</a></li>
+      <li><a href="tasks.html">pekerjaan</a></li>
+      <li><a href="performance.html">kinerja</a></li>
+    </ul>
+    <hr />
+    <p id="error-text" class="error"></p>
+    <p id="loading-text" class="primary">memuat...</p>
+    <h4>Daftarkan pekerja baru</h4>
+    <form id="form" action="" method="post">
+      <label for="name">Nama:</label><br>
+      <input type="text" name="name" id="name" placeholder="misal budiman" /><br/>
+      <label for="age">Umur:</label><br>
+      <input type="number" name="age" id="age" placeholder="misal 23" /><br/>
+      <label for="photo">Foto:</label><br>
+      <input type="file" name="photo" id="photo" /><br/>
+      <label for="photo">Biodata singkat:</label><br>
+      <textarea
+        name="bio"
+        id="bio"
+        cols="30"
+        rows="3"
+        placeholder="biodata singkat pekerja"
+      ></textarea><br/>
+      <label for="photo">Alamat:</label><br>
+      <textarea
+        name="address"
+        id="address"
+        cols="30"
+        rows="3"
+        placeholder="alamat pekerja"
+      ></textarea><br/>
+      <button type="submit">kirim</button>
+    </form>
+    <hr />
+    <h4>Daftar pekerja</h4>
+    <div id="list">
+      <div>
+        <img src="https://i.pravatar.cc/150?img=29" alt="" width="30px" height="30px">
+        <span>Hahahaha</span>
+        <button class="remove">hapus</button>
+      </div>
+      <div>
+        <img src="https://i.pravatar.cc/150?img=29" alt="" width="30px" height="30px">
+        <span>Hahahaha</span>
+        <button class="remove">hapus</button>
+      </div>
+    </div>
+  </body>
+
+  <script type="text/javascript" src="worker.js"></script>
+</html>

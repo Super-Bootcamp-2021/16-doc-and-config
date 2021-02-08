@@ -7,20 +7,50 @@
     {
       "type": "node",
       "request": "launch",
-      "name": "Launch Program",
+      "name": "service",
       "skipFiles": ["<node_internals>/**"],
       "program": "${workspaceFolder}\\index.js",
-      "args": ["performance"],
+      "args": ["worker"],
       "console": "integratedTerminal"
     },
     {
       "type": "node",
       "request": "launch",
-      "name": "Mocha",
+      "name": "test",
       "program": "${workspaceFolder}/node_modules/mocha/bin/_mocha",
       "args": [],
       "console": "integratedTerminal",
       "internalConsoleOptions": "neverOpen"
+    },
+    {
+      "type": "chrome",
+      "request": "launch",
+      "name": "chrome",
+      "url": "http://localhost:7000",
+      "webRoot": "${workspaceFolder}/webapp/src",
+      "breakOnLoad": true,
+      "sourceMapPathOverrides": {
+        "webpack://task-manager/./webapp/src/*": "${webRoot}/*"
+      }
+    },
+    {
+      "type": "firefox",
+      "request": "launch",
+      "name": "firefox",
+      "url": "http://localhost:7000",
+      "webRoot": "${workspaceFolder}/webapp/src",
+      "pathMappings": [
+        {
+          "url": "webpack://task-manager/webapp/src",
+          "path": "${webRoot}"
+        }
+      ]
+    },
+  ],
+  "compounds": [
+    {
+      "name": "service-chrome",
+      "configurations": ["service", "chrome"]
     }
   ]
 }

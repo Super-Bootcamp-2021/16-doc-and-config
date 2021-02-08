@@ -7,7 +7,9 @@
     "test": "nyc mocha",
     "svc:start": "node .",
     "svc:dev": "nodemon .",
-    "lint": "eslint ."
+    "lint": "eslint .",
+    "web:build": "webpack --mode production",
+    "web:dev": "webpack serve --open --mode development"
   },
   "author": "",
   "license": "ISC",

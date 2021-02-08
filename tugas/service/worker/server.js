@@ -6,6 +6,7 @@ const {
   registerSvc,
   removeSvc,
   infoSvc,
+  getPhotoSvc,
 } = require('./worker.service');
 
 let server;
@@ -13,8 +14,8 @@ let server;
 function run(callback) {
   server = createServer((req, res) => {
     // cors
-    cors(req, res);
-    if (req.aborted) {
+    const aborted = cors(req, res);
+    if (aborted) {
       return;
     }
 
@@ -56,6 +57,9 @@ function run(callback) {
           }
           break;
         default:
+          if (/^\/photo\/\w+/.test(uri.pathname)) {
+            return getPhotoSvc(req, res);
+          }
           respond(404);
       }
     } catch (err) {
@@ -81,12 +85,16 @@ function cors(req, res) {
   // handle preflight request
   res.setHeader('Access-Control-Allow-Origin', '*');
   res.setHeader('Access-Control-Request-Method', '*');
-  res.setHeader('Access-Control-Allow-Methods', 'OPTIONS, GET, POST, PUT');
+  res.setHeader(
+    'Access-Control-Allow-Methods',
+    'OPTIONS, GET, POST, PUT, DELETE'
+  );
   res.setHeader('Access-Control-Allow-Headers', '*');
 
   if (req.method === 'OPTIONS') {
-    res.writeHead(204);
+    res.statusCode = 204;
     res.end();
+    return true;
   }
 }
 

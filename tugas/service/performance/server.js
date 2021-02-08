@@ -9,8 +9,8 @@ let server;
 function run(callback) {
   server = createServer((req, res) => {
     // cors
-    cors(req, res);
-    if (req.aborted) {
+    const aborted = cors(req, res);
+    if (aborted) {
       return;
     }
 
@@ -66,6 +66,7 @@ function cors(req, res) {
   if (req.method === 'OPTIONS') {
     res.writeHead(204);
     res.end();
+    return true;
   }
 }
 

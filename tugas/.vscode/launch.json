@@ -10,7 +10,7 @@
       "name": "service",
       "skipFiles": ["<node_internals>/**"],
       "program": "${workspaceFolder}\\index.js",
-      "args": ["task"],
+      "args": ["performance"],
       "console": "integratedTerminal"
     },
     {

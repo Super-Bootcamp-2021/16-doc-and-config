@@ -1,0 +1,12 @@
+swagger: '2.0'
+info:
+  title: 'Todo Service'
+  description: 'API to amanage todo activity'
+  version: '1.0.0'
+  license:
+    name: 'GPL-3.0'
+    url: 'https://www.gnu.org/licenses/gpl-3.0.en.html'
+host: 'localhost'
+basePath: '/'
+schemes:
+  - 'http'

@@ -1,10 +1,10 @@
 const path = require('path');
-const { webpack } = require('webpack');
+const { DefinePlugin } = require('webpack');
 
 module.exports = {
   entry: {
     main: './src/main.js',
-    assignment: './src/assignment/main.js',
+    schema: './schema/main.js',
   },
   output: {
     path: path.resolve(__dirname, 'www'),
@@ -16,7 +16,7 @@ module.exports = {
     port: 5757,
   },
   plugins: [
-    new webpack.DefinePlugin({
+    new DefinePlugin({
       VERSION: JSON.stringify(require('./package.json').version),
     }),
   ],
@@ -25,6 +25,10 @@ module.exports = {
       {
         test: /\.css$/i,
         use: ['style-loader', 'css-loader'],
+      },
+      {
+        test: /\.yaml$/,
+        use: [{ loader: 'json-loader' }, { loader: 'yaml-loader' }],
       },
     ],
   },

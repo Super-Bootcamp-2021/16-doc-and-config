@@ -16,6 +16,17 @@
       }
     },
     {
+      "type": "chrome",
+      "request": "launch",
+      "name": "schema",
+      "url": "http://localhost:5757",
+      "webRoot": "${workspaceFolder}/schema",
+      "breakOnLoad": true,
+      "sourceMapPathOverrides": {
+        "webpack://webclient/./schema/*": "${webRoot}/*"
+      }
+    },
+    {
       "type": "firefox",
       "request": "launch",
       "name": "firefox",

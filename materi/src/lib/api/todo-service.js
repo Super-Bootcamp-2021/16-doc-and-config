@@ -1,5 +1,6 @@
 /** @module todoService */
 
+const { TODO_SERVICE_BASEURL } = require('../config');
 const { client } = require('./client');
 
 /**
@@ -7,7 +8,7 @@ const { client } = require('./client');
  * @returns {Promise<Task[]>} daftar pekerjaan
  */
 async function fetchTasksApi() {
-  return await client.get('http://localhost:9999/list');
+  return await client.get(`${TODO_SERVICE_BASEURL}/list`);
 }
 
 /**
@@ -23,7 +24,7 @@ async function fetchTasksApi() {
  * };
  */
 async function addTaskApi(task) {
-  return await client.post('http://localhost:9999/add', { task });
+  return await client.post(`${TODO_SERVICE_BASEURL}/add`, { task });
 }
 
 /**
@@ -32,7 +33,7 @@ async function addTaskApi(task) {
  * @returns {Promise<Task>} detail pekerjaan yang sudah disimpan
  */
 async function doneTaskApi(id) {
-  return await client.put(`http://localhost:9999/done?id=${id}`);
+  return await client.put(`${TODO_SERVICE_BASEURL}/done?id=${id}`);
 }
 
 /**
@@ -42,7 +43,7 @@ async function doneTaskApi(id) {
  * @returns {Promise<Task>} detail pekerjaan yang sudah disimpan
  */
 async function undoneTaskApi(id) {
-  return await client.put(`http://localhost:9999/undone?id=${id}`);
+  return await client.put(`${TODO_SERVICE_BASEURL}/undone?id=${id}`);
 }
 
 module.exports = {

@@ -1,5 +1,5 @@
+const DotenvWebpackPlugin = require('dotenv-webpack');
 const path = require('path');
-const { DefinePlugin } = require('webpack');
 
 module.exports = {
   entry: {
@@ -16,8 +16,9 @@ module.exports = {
     port: 5757,
   },
   plugins: [
-    new DefinePlugin({
-      VERSION: JSON.stringify(require('./package.json').version),
+    new DotenvWebpackPlugin({
+      path: './.env',
+      safe: true,
     }),
   ],
   module: {

@@ -1,0 +1,224 @@
+swagger: '2.0'
+info:
+  title: 'Worker Service'
+  description: 'API to manage workers'
+  version: '1.0.0'
+  license:
+    name: 'GPL-3.0'
+    url: 'https://www.gnu.org/licenses/gpl-3.0.en.html'
+host: 'localhost'
+tags:
+  - name: 'worker'
+    description: 'endpoint untuk memanajemen info pekerja'
+schemes:
+  - 'http'
+paths:
+  /register:
+    post:
+      summary: Add new worker.
+      tags:
+        - 'worker'
+      operationId: 'registerWorker'
+      description: 'untuk menambahkan pekerja baru'
+      consumes:
+        - 'application/json'
+        - 'multipart/form-data'
+      produces:
+        - 'application/json'
+        - 'text/plain'
+        - 'multipart/form-data'
+      parameters:
+        - in: formData
+          name: photo
+          type: file
+          required: true
+          description: photo pekerja
+          x-mimetype: jpg/jpeg/png/gif
+        - in: formData
+          name: name
+          type: string
+          description: nama pekerja
+          required: true
+        - in: formData
+          name: age
+          type: number
+          description: usia pekerja
+          required: true
+        - in: formData
+          name: bio
+          type: string
+          description: biodata singkat pekerja
+          required: true  
+        - in: formData
+          name: address
+          type: string
+          description: alamat domisili pekerja
+          required: true   
+        
+      responses:
+        200:
+          description: Data pekerja baru yang berhasil ditambahkan
+          schema:
+            $ref: '#/definitions/Worker'
+        401:
+          $ref: '#/responses/Unauthorized'
+        404:
+          $ref: '#/responses/NotFound'
+        500:
+          $ref: '#/responses/ServerEror'
+  /list:
+    get:
+      summary: Gets all worker data.
+      operationId: 'listWorker'
+      description: mengembalikan data keseluruhan pekerja
+      tags:
+        - 'worker'
+      consumes:
+        - 'application/json'
+      produces:
+        - 'application/json'
+        - 'text/plain'
+      responses:
+        200:
+          description: Daftar keseluruhan profil pekerja berhasil ditemukan
+          schema:
+            type: array
+            items:
+              $ref: '#/definitions/Worker'
+        401:
+          $ref: '#/responses/Unauthorized'
+        404:
+          $ref: '#/responses/NotFound'
+        500:
+          $ref: '#/responses/ServerEror'
+  
+  /info:
+    get:
+      summary: Gets a worker by ID.
+      operationId: 'infoWorker'
+      description: mengembalikan data pekerja berdasarkan id
+      tags:
+        - 'worker'
+      parameters:
+        - in: query
+          name: id
+          type: integer
+          description: nomor id dari pekerja yang akan dilihat profilnya
+      responses:
+        200:
+          description: Data pekerja berdasarkan id yang dicari berhasil ditemukan
+          schema:
+            $ref: '#/definitions/Worker'
+        401:
+          $ref: '#/responses/Unauthorized'
+        404:
+          $ref: '#/responses/NotFound'
+        500:
+          $ref: '#/responses/ServerEror'
+  
+  /photo/{phototitle}:
+    get:
+      summary: Gets a worker photo.
+      operationId: 'photoWorker'
+      description: mengembalikan data foto pekerja
+      tags:
+        - 'worker'
+      parameters:
+        - name: phototitle
+          in: path
+          type: string
+          description: photo title
+          required: true
+      responses:
+        '200':
+          description: Worker photo in jpg/jpeg/png format
+          schema:
+            $ref: '#/definitions/Photo'
+        401:
+          $ref: '#/responses/Unauthorized'
+        404:
+          $ref: '#/responses/NotFound'
+        500:
+          $ref: '#/responses/ServerEror'        
+          
+  /remove:
+    delete:
+      summary: Delete a worker by ID.
+      operationId: 'deleteWorker'
+      description: menghapus data pekerja berdasarkan id
+      tags:
+        - 'worker'
+      parameters:
+        - in: query
+          name: id
+          type: integer
+          description: nomor id dari pekerja yang akan dihapus
+      responses:
+        200:
+          description: Data pekerja telah dihapus
+          schema:
+            $ref: '#/definitions/Worker'
+        401:
+          $ref: '#/responses/Unauthorized'
+        404:
+          $ref: '#/responses/NotFound'
+        500:
+          $ref: '#/responses/ServerEror'         
+  
+responses:
+  NotFound:
+    description: The specified resource was not found
+    schema:
+      $ref: '#/definitions/Error'
+  Unauthorized:
+    description: Unauthorized
+    schema:
+      $ref: '#/definitions/Error'
+  ServerEror:
+    description: Unauthorized
+    schema:
+      $ref: '#/definitions/Error'         
+
+definitions:
+  Worker:
+    type: object
+    properties:
+      id:
+        type: number
+        description: identifier worker
+        example: 1
+      name:
+        type: string
+        description: nama lengkap pekerja
+        example: yudi sutrisno
+      age:
+        type: number
+        description: usia pekerja
+        example: 15
+      bio:
+        type: string
+        description: biodata singkat pekerja
+        example: yudi merupakan pekerja yang sangat antusias dalam mengoding program
+      address:
+        type: string
+        description: alamat domisili pekerja
+        example: BTN Graha Permai, Jakarta Utara
+      photo:
+        type: string
+        description: foto pekerja
+        example: foto1.png
+  Photo:
+    type: object
+    
+  Error:
+    type: object
+    properties:
+      code:
+        type: string
+        example: 404/404/500/etc
+      message:
+        type: string
+        example: Error! Not Found / etc..
+    required:
+      - code
+      - message   

@@ -67,5 +67,10 @@ async function main(command) {
       console.log('command yang valid: task, worker, performance');
   }
 }
-
 main(process.argv[2]);
+
+// init();
+// const PORT = 9999;
+// server.listen(PORT, () => {
+//   stdout.write(`server listening on port ${PORT}\n`);
+// });

@@ -11,6 +11,13 @@ const refresh = document.getElementById('refresh');
 const errorTxt = document.getElementById('error-text');
 const loadingTxt = document.getElementById('loading-text');
 
+
+/**
+ * melakukan render / menampilkan informasi dari state ke user interface client
+ * @param {Object<any>} summary data laporan performa pekerja
+ */
+
+
 // presentation layer
 store$.subscribe(() => {
   const state = store$.getState();
@@ -24,6 +31,11 @@ store$.dispatch(summary);
 refresh.onclick = () => {
   store$.dispatch(summary);
 };
+
+/**
+ * @function reder fungsi untuk menampilkan data pada DOM
+ *  @param {Object < loading, error, summary >} state  object berisi informasi yang akan ditampilkan client
+ */
 
 function render(state) {
   // render error

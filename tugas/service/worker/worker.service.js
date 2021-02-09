@@ -1,3 +1,4 @@
+/** @module workerService */
 const Busboy = require('busboy');
 const url = require('url');
 const mime = require('mime-types');
@@ -11,7 +12,14 @@ const {
   ERROR_WORKER_NOT_FOUND,
 } = require('./worker');
 const { saveFile, readFile, ERROR_FILE_NOT_FOUND } = require('../lib/storage');
+// eslint-disable-next-line no-unused-vars
+const { IncomingMessage, ServerResponse } = require('http');
 
+/**
+ * service untuk menambahkan data pekerja baru
+ * @param {IncomingMessage} req
+ * @param {ServerResponse} res
+ */
 function registerSvc(req, res) {
   const busboy = new Busboy({ headers: req.headers });
 
@@ -84,6 +92,12 @@ function registerSvc(req, res) {
   req.pipe(busboy);
 }
 
+/**
+ * service untuk mendapatkan data semua pekerja
+ * @async
+ * @param {IncomingMessage} req
+ * @param {ServerResponse} res
+ */
 async function listSvc(req, res) {
   try {
     const workers = await list();
@@ -97,6 +111,12 @@ async function listSvc(req, res) {
   }
 }
 
+/**
+ * service untuk mendapatkan data pekerja dengan id tertentu
+ * @async
+ * @param {IncomingMessage} req
+ * @param {ServerResponse} res
+ */
 async function infoSvc(req, res) {
   const uri = url.parse(req.url, true);
   const id = uri.query['id'];
@@ -124,6 +144,12 @@ async function infoSvc(req, res) {
   }
 }
 
+/**
+ * service untuk menghapus data pekerja dengan id tertentu
+ * @async
+ * @param {IncomingMessage} req
+ * @param {ServerResponse} res
+ */
 async function removeSvc(req, res) {
   const uri = url.parse(req.url, true);
   const id = uri.query['id'];
@@ -152,6 +178,12 @@ async function removeSvc(req, res) {
   }
 }
 
+/**
+ * service untuk mendapatkan file foto pekerja
+ * @async
+ * @param {IncomingMessage} req
+ * @param {ServerResponse} res
+ */
 async function getPhotoSvc(req, res) {
   const uri = url.parse(req.url, true);
   const objectName = uri.pathname.replace('/photo/', '');

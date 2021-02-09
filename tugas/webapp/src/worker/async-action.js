@@ -1,3 +1,5 @@
+/**@module async-action-worker */
+
 const {
   loadingAction,
   errorAction,
@@ -7,6 +9,11 @@ const {
 } = require('./store');
 const workerSvc = require('./worker.client');
 
+/**
+ * memasukkan data pekerja
+ * @function
+ * @param {WorkerData} data 
+ */
 exports.register = (data) => async (dispatch) => {
   dispatch(loadingAction());
   try {
@@ -17,6 +24,11 @@ exports.register = (data) => async (dispatch) => {
   }
 };
 
+/**
+ * menghapus data pekerja dengan id tertentu
+ * @function
+ * @param {number} id
+ */
 exports.remove = (id) => async (dispatch) => {
   dispatch(loadingAction());
   try {
@@ -27,6 +39,10 @@ exports.remove = (id) => async (dispatch) => {
   }
 };
 
+/**
+ * memuat semua data pekerja
+ * @function 
+ */
 exports.getList = async (dispatch) => {
   dispatch(loadingAction());
   try {

@@ -7,7 +7,7 @@ const defaultConfig = {
     port: 5432,
     username: 'postgres',
     password: '',
-    database: 'database',
+    database: 'database'
   },
   server: {
     workerPort: 7001,

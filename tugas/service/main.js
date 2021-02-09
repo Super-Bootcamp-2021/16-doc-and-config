@@ -15,6 +15,7 @@ async function init() {
     await orm.connect([WorkerSchema, TaskSchema], config.database);
     console.log('database connected');
   } catch (err) {
+    console.error(err);
     console.error('database connection failed');
     process.exit(1);
   }

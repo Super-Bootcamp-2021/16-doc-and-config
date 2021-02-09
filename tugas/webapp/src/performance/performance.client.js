@@ -1,9 +1,14 @@
+/** @module todoService */
 const { client } = require('../lib/http-client');
 
-const { SERVICE_BASEURL } = require('./config');
+const { PERFORMANCE_SERVICE_BASEURL } = require('./config');
 
+/**
+ * mengambil resume dari task & worker
+ * @returns {Promise<Summary[]>} daftar resume task & worker
+ */
 function summary() {
-  return client.get(`${SERVICE_BASEURL}/summary`);
+  return client.get(`${PERFORMANCE_SERVICE_BASEURL}/summary`);
 }
 
 module.exports = {

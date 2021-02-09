@@ -26,6 +26,9 @@ async function init() {
   }
 }
 
+/**
+ * intiate server
+ */
 const server = createServer((req, res) => {
   let method = req.method;
   // handle preflight request

@@ -1,3 +1,5 @@
+/** @module worker */
+
 const { getConnection } = require('typeorm');
 const { Worker } = require('./worker.model');
 const bus = require('../lib/bus');
@@ -5,6 +7,12 @@ const bus = require('../lib/bus');
 const ERROR_REGISTER_DATA_INVALID = 'data registrasi pekerja tidak lengkap';
 const ERROR_WORKER_NOT_FOUND = 'pekerja tidak ditemukan';
 
+/**
+ * add new worker
+ * @param {WorkerData} data data worker
+ * @returns {Promise<Worker>} new worker data with id
+ * @throws {string} when data not contain worker property
+ */
 async function register(data) {
   if (!data.name || !data.age || !data.bio || !data.address || !data.photo) {
     throw ERROR_REGISTER_DATA_INVALID;
@@ -23,11 +31,21 @@ async function register(data) {
   return worker;
 }
 
+/**
+ * get list worker
+ * @returns {Promise<Worker[]>} list of workers
+ */
 function list() {
   const workerRepo = getConnection().getRepository('Worker');
   return workerRepo.find();
 }
 
+/**
+ * get worker detail by id
+ * @param {number} id worker's id
+ * @returns {Promise<Worker>} get worker 
+ * @throws {string} when worker id not found in database
+ */
 async function info(id) {
   const workerRepo = getConnection().getRepository('Worker');
   const worker = await workerRepo.findOne(id);
@@ -37,6 +55,12 @@ async function info(id) {
   return worker;
 }
 
+/**
+ * remove worker by id
+ * @param {number} id worker's id
+ * @returns {Promise<Worker>} remove worker 
+ * @throws {string} when worker id not found in database
+ */
 async function remove(id) {
   const workerRepo = getConnection().getRepository('Worker');
   const worker = await workerRepo.findOne(id);

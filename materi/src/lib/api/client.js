@@ -1,3 +1,11 @@
+/** @module httpClient */
+
+/**
+ * basic client untuk request ke server
+ * @param {string} endpoint target / url endpoint
+ * @param {RequestInit} options tambahan opsi request
+ * @returns {Promise<any>} hasil request
+ */
 async function client(endpoint, { method, body, ...customConf } = {}) {
   const headers = { 'Content-Type': 'application/json' };
 
@@ -28,14 +36,31 @@ async function client(endpoint, { method, body, ...customConf } = {}) {
   }
 }
 
+/**
+ * request dengan method GET
+ * @param {string} endpoint target / url endpoint
+ * @param {RequestInit} options tambahan opsi request
+ */
 client.get = (endpoint, customConf = {}) => {
   return client(endpoint, { method: 'GET', ...customConf });
 };
 
+/**
+ * request dengan method POST
+ * @param {string} endpoint target / url endpoint
+ * @param {Object} body konten dari request
+ * @param {RequestInit} options tambahan opsi request
+ */
 client.post = (endpoint, body, customConf = {}) => {
   return client(endpoint, { method: 'POST', body, ...customConf });
 };
 
+/**
+ * request dengan method PUT
+ * @param {string} endpoint target / url endpoint
+ * @param {Object} body konten dari request
+ * @param {RequestInit} options tambahan opsi request
+ */
 client.put = (endpoint, body, customConf = {}) => {
   return client(endpoint, { method: 'PUT', body, ...customConf });
 };

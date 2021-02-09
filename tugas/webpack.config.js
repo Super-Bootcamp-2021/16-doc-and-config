@@ -6,7 +6,7 @@ module.exports = {
     tasks: './webapp/src/tasks/main.js',
     worker: './webapp/src/worker/main.js',
     performance: './webapp/src/performance/main.js',
-    schema: './schema/main.js',
+    schema: './schema/main.js'
   },
   output: {
     path: path.resolve(__dirname, './webapp/www'),
@@ -14,7 +14,7 @@ module.exports = {
   },
   devtool: 'inline-source-map',
   devServer: {
-    contentBase: './webapp/www',
+    contentBase: './webapp/www/',
     port: 7000,
   },
   plugins: [

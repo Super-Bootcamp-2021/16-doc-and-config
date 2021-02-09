@@ -1,0 +1,297 @@
+swagger: '2.0'
+info:
+  title: 'Worker Service'
+  description: 'API to manage Worker Service'
+  version: '1.0.0'
+  license:
+    name: 'GPL-3.0'
+    url: 'https://www.gnu.org/licenses/gpl-3.0.en.html'
+host: 'localhost:7001'
+tags:
+  - name: 'Worker Service'
+    description: 'endpoint untuk mengedit data pekerja/worker'
+schemes:
+  - 'http'
+paths:
+  
+  # http://localhost:7001/register
+  /register:
+    post:
+      tags:
+        - 'Worker Service'
+      operationId: 'addWorker'
+      description: 'Untuk menambahkan profil pekerja baru ke database'
+      consumes:
+        - 'application/json'
+      produces:
+        - 'application/json'
+        - 'text/plain'
+      parameters:
+        - in: body
+          name: body
+          description: Profil pekerja yang telah ditambahkan
+          required: true
+          schema:
+            $ref: '#/definitions/WorkerRegisterRequest'
+      responses:
+        '200':
+          description: ''
+          schema:
+            $ref: '#/definitions/WorkerRegisterResponse'
+        '400':
+          description: ''
+        '401':
+          description: 'data registrasi pekerja tidak lengkap'
+        '404':
+          description: ''
+        '500':
+          description: 'unkown server error'   
+
+  # http://localhost:7001/list
+  /list:
+    get:
+      operationId: 'listWorker'
+      description: Mengambil data perkerja yang ada di database
+      tags:
+        - 'Worker Service'
+      consumes:
+        - 'application/json'
+      produces:
+        - 'application/json'
+        - 'text/plain'
+      responses:
+        '200':
+          description: Daftar pekerja yang ada di database
+          schema:
+            type: array
+            items:
+              $ref: '#/definitions/WorkerListResponse'
+        '404':
+          description: ''
+        '500':
+          description: 'unkown server error'         
+          
+  # http://localhost:7001/info?id=1
+  /info:
+    get:
+      operationId: 'infoWorker'
+      description: Menampilkan profil pekerja berdasarkan ID pekerja
+      parameters:
+        - in: query
+          name: id
+          required: true
+          type: integer
+          description: ID dari pekerja
+      tags:
+        - 'Worker Service'
+      consumes:
+        - 'application/json'
+      produces:
+        - 'application/json'
+        - 'text/plain'
+      responses:
+        '200':
+          description: Profil pekerja
+          schema:
+            type: array
+            items:
+              $ref: '#/definitions/WorkerInfoResponse'
+        '404':
+          description: 'pekerja tidak ditemukan'
+        '500':
+          description: 'unkown server error'
+
+  # http://localhost:7001/remove?id=1
+  /remove:
+    get:
+      operationId: 'removeWorker'
+      description: Menghapus profil pekerja berdasarkan ID pekerja
+      parameters:
+        - in: query
+          name: id
+          required: true
+          type: integer
+          description: ID dari pekerja yang akan dihapus
+      tags:
+        - 'Worker Service'
+      consumes:
+        - 'application/json'
+      produces:
+        - 'application/json'
+        - 'text/plain'
+      responses:
+        '200':
+          description: Profil pekerja yang dihapus
+          schema:
+            type: array
+            items:
+              $ref: '#/definitions/WorkerRemoveResponse'
+        '401':
+          description: 'parameter id tidak ditemukan'
+        '404':
+          description: 'pekerja tidak ditemukan'
+        '500':
+          description: ''
+
+definitions:
+  # request body /register
+  WorkerRegisterRequest:
+    type: object
+    properties:
+      name:
+        type: string
+        description: nama pekerja
+        example: Moh. Ilham Burhanuddin
+      age:
+        type: string
+        description: umur pekerja
+        example: 23
+      bio:
+        type: string
+        description: bio pekerja
+        example: Ini adalah bio saya
+      address:
+        type: string
+        description: alamat pekerja
+        example: Jln. Halim Perdana Kusuma
+      photo:
+        type: string
+        description: nama foto pekerja yang di upload
+        example: '/home/ilham76c/Dokumen/foto-profil.jpg'
+  
+  # response /register
+  WorkerRegisterResponse:
+    type: object
+    properties:
+      name:
+        type: string
+        description: nama pekerja
+        example: Moh. Ilham Burhanuddin
+      age:
+        type: number
+        description: umur pekerja
+        example: 23
+      bio:
+        type: string
+        description: bio pekerja
+        example: Ini adalah bio saya
+      address:
+        type: string
+        description: alamat pekerja
+        example: Jln. Halim Perdana Kusuma
+      photo:
+        type: string
+        description: nama foto pekerja setelah di upload
+        example: '312-434.jpg'
+
+  # response /list
+  WorkerListResponse:    
+    type: array
+    items:
+      $ref: '#/definitions/WorkerListModel'
+    example:
+      - id: 1
+        name: Moh. Ilham Burhanuddin
+        age: 23
+        bio: ini adalah bio sherlock
+        address: Surabaya
+        photo: '123-131.jpg'
+      - id: 2
+        name: Simon
+        age: 22
+        bio: ini adalah bio Simon
+        address: Jakarta
+        photo: '899-221.jpg'
+      - id: 3
+        name: Listi
+        age: 20
+        bio: ini adalah bio Listi Chan
+        address: Bandung
+        photo: '445-765.jpg'
+  
+  # Model untuk response /list
+  WorkerListModel:    
+    type: object
+    properties:
+      id:
+        type: integer
+        description: id dari pekerja
+        example: 1
+      name:
+        type: string
+        description: nama pekerja
+        example: ilham
+      age:
+        type: number
+        description: umur pekerja
+        example: 23
+      bio:
+        type: string
+        description: bio pekerja
+        example: ini adalah bio saya
+      address:
+        type: string
+        description: alamat pekerja
+        example: Jln. Halim Perdana Kusuma
+      photo:
+        type: string
+        description: nama foto pekerja setelah di upload
+        example: '312-434.jpg'
+
+  # response /info
+  WorkerInfoResponse:
+    type: object
+    properties:
+      id:
+        type: integer
+        description: id dari pekerja
+        example: 1
+      name:
+        type: string
+        description: nama pekerja
+        example: Moh. Ilham Burhanuddin
+      age:
+        type: number
+        description: umur pekerja
+        example: 23
+      bio:
+        type: string
+        description: bio pekerja
+        example: ini adalah bio saya
+      address:
+        type: string
+        description: alamat pekerja
+        example: Jln. Halim Perdana Kusuma
+      photo:
+        type: string
+        description: nama foto pekerja setelah di upload
+        example: '312-434.jpg'
+
+  # response /remove
+  WorkerRemoveResponse:
+    type: object
+    properties:
+      id:
+        type: integer
+        description: id dari pekerja
+        example: 1
+      name:
+        type: string
+        description: nama pekerja
+        example: Moh. Ilham Burhanuddin
+      age:
+        type: number
+        description: umur pekerja
+        example: 23
+      bio:
+        type: string
+        description: bio pekerja
+        example: ini adalah bio saya
+      address:
+        type: string
+        description: alamat pekerja
+        example: Jln. Halim Perdana Kusuma
+      photo:
+        type: string
+        description: nama foto pekerja setelah di upload
+        example: '312-434.jpg'

@@ -5,8 +5,8 @@
   "main": "index.js",
   "scripts": {
     "test": "nyc mocha",
-    "svc:start": "node .",
-    "svc:dev": "nodemon .",
+    "svc:start": "node ./service/main.js",
+    "svc:dev": "nodemon ./service/main.js",
     "lint": "eslint .",
     "web:build": "webpack --mode production",
     "web:dev": "webpack serve --open --mode development",
@@ -32,6 +32,7 @@
     "yaml-loader": "^0.6.0"
   },
   "dependencies": {
+    "@reduxjs/toolkit": "^1.5.0",
     "busboy": "^0.3.1",
     "mariadb": "^2.5.2",
     "mime-types": "^2.1.28",

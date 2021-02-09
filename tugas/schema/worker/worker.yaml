@@ -1,0 +1,160 @@
+swagger: '2.0'
+info:
+  title: 'Worker Service'
+  description: 'API untuk mengelola data pekerja'
+  version: '1.0.0'
+  license:
+    name: 'GPL-3.0'
+    url: 'https://www.gnu.org/licenses/gpl-3.0.en.html'
+host: 'localhost:7001'
+tags:
+  - name: 'worker'
+    description: 'endpoint untuk mengelola daftar pekerja'
+schemes:
+  - 'http'
+paths:
+  /register:
+    post:
+      operationId: 'addWorker'
+      description: menambah worker baru
+      tags:
+        - 'worker'
+      consumes:
+        - multipart/form-data
+      parameters:
+        - in: formData
+          name: photo
+          type: file
+          description: The file to upload.
+        - in: formData
+          name: name
+          type: string
+          description: Nama pekerja
+        - in: formData
+          name: address
+          type: string
+          description: Alamat pekerja
+        - in: formData
+          name: age
+          type: number
+          description: Umur pekerja
+        - in: formData
+          name: bio
+          type: string
+          description: Biiografi pekerja
+      produces:
+        - 'application/json'
+        - 'text/plain'
+      responses:
+        '200':
+          description: detail pekerja dengan id
+          schema:
+            $ref: '#/definitions/worker'
+        '401':
+          description: 'data registrasi pekerja tidak lengkap'
+        '404':
+          description: 'method tidak diperbolehkan'
+        '500':
+          description: 'kesalahan server'
+  /list:
+    get:
+      operationId: 'listWorker'
+      description: mengembalikan daftar pekerja
+      tags:
+        - 'worker'
+      produces:
+        - 'application/json'
+        - 'text/plain'
+      responses:
+        '200':
+          description: daftar pekerja
+          schema:
+            type: array
+            items:
+              $ref: '#/definitions/worker'
+        '404':
+          description: 'method tidak diperbolehkan'
+        '500':
+          description: 'kesalahan server'
+  /info:
+    get:
+      operationId: 'infoWorker'
+      description: mengembalikan detail pekerja
+      tags:
+        - 'worker'
+      parameters:
+        - in: query
+          name: id
+          type: integer
+          description: worker ID
+      produces:
+        - 'application/json'
+        - 'text/plain'
+      responses:
+        '200':
+          description: info detail pekerja
+          schema:
+            $ref: '#/definitions/worker'
+        '401':
+          description: 'parameter id tidak ditemukan'
+        '404':
+          description: 'pekerja tidak ditemukan'
+        '500':
+          description: 'kesalahan server'
+  /remove:
+    delete:
+      operationId: 'removeWorker'
+      description: menghapus daftar pekerja
+      tags:
+        - 'worker'
+      consumes:
+      - application/json
+      parameters:
+      - in: query
+        name: id
+        type: integer
+        required: true
+        description: worker ID
+      produces:
+        - 'application/json'
+        - 'text/plain'
+      responses:
+        '200':
+          description: info detail pekerja yang dihapus
+          schema:
+            $ref: '#/definitions/worker'
+        '401':
+          description: 'parameter id tidak ditemukan'
+        '404':
+          description: 'pekerja tidak ditemukan'
+        '500':
+          description: 'kesalahan server'
+
+definitions:
+  worker:
+    type: object
+    properties:
+      id:
+        type: number
+        description: id pekerja
+        example: 20
+      name:
+        type: string
+        description: nama pekerja
+        example: Budi
+      age:
+        type: number
+        description: umur pekerja
+        example: 30
+      bio:
+        type: string
+        description: biografi pekerja
+        example: seorang programmer
+      address:
+        type: string
+        description: alamat pekerja
+        example: Jalan ramai sekali, Bandung
+      photo:
+        type: string
+        description: nama file foto pekerja
+        example: 1612874959796-184.png

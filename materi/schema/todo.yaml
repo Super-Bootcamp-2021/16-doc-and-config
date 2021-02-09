@@ -6,15 +6,19 @@ info:
   license:
     name: 'GPL-3.0'
     url: 'https://www.gnu.org/licenses/gpl-3.0.en.html'
-host: 'localhost:9999'
-basePath: '/'
+host: 'localhost'
+tags:
+  - name: 'todo'
+    description: 'endpoint untuk mengedit todo'
 schemes:
   - 'http'
 paths:
   /add:
     post:
+      tags:
+        - 'todo'
       operationId: 'addTask'
-      description: untuk menambahkan task baru
+      description: 'untuk menambahkan task baru'
       consumes:
         - 'application/json'
       produces:
@@ -29,11 +33,31 @@ paths:
             $ref: '#/definitions/TaskData'
       responses:
         '200':
-          description: task yang baru di input
+          description: 'task yang baru di input'
           schema:
             $ref: '#/definitions/Task'
         '400':
-          description: data pekerjaan tidak valid
+          description: 'data pekerjaan tidak valid'
+        '500':
+          description: 'kesalahan server'
+  /list:
+    get:
+      operationId: 'listTask'
+      description: mengembalikan daftar task
+      tags:
+        - 'todo'
+      consumes:
+        - 'application/json'
+      produces:
+        - 'application/json'
+        - 'text/plain'
+      responses:
+        '200':
+          description: daftar task
+          schema:
+            type: array
+            items:
+              $ref: '#/definitions/Task'
         '500':
           description: kesalahan server
 
@@ -49,9 +73,9 @@ definitions:
     type: object
     properties:
       id:
-        type: string
+        type: number
         description: identifier pekerjaan
-        example: "1"
+        example: 1
       task:
         type: string
         description: detail pekerjaan / tugas
@@ -59,4 +83,3 @@ definitions:
       done:
         type: boolean
         description: 'true mendandakan pekerjaan sudah selesai'
-      

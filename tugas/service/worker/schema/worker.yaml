@@ -26,25 +26,34 @@ paths:
       parameters:
          - in: formData
            name: name
+           description: worker's name
            type: string
            required: true
+           example: budiman
          - in: formData
            name: address
+           description: worker's address
            type: string
            required: true
+           example: Jakarta
          - in: formData
            name: age
+           description: worker's age
            type: string
            required: true
+           example: 20
          - in: formData
            name: bio
+           description: worker's biografi
            type: string
            required: true
+           example: suka olahraga
          - in: formData
            name: photo
+           description: worker's photo
            type: file
            required: true
-        
+           example: "myphoto.jpg"
           
       responses:
         '200':

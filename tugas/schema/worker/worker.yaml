@@ -1,143 +1,154 @@
 swagger: '2.0'
 info:
-  title : 'Worker Service'
-  description: 'Api to manage worker activity'
+  title: 'Worker Service'
+  description: 'API untuk melihat data worker dan task'
   version: '1.0.0'
   license:
     name: 'GPL-3.0'
     url: 'https://www.gnu.org/licenses/gpl-3.0.en.html'
 host: 'localhost:7001'
-tags: 
-  - name: 'worker'
-    description: 'endpoint untuk mengedit worker'
+tags:
+  - name: 'performance'
+    description: 'endpoint untuk mendapatkan info task dan pekerja'
 schemes:
   - 'http'
-paths: 
+paths:
   /register:
     post:
-      operationId: 'registerWorker'
-      description: 'untuk menambahkan data pekerja'
+      operationId: 'addWorker'
+      description: menambah worker baru
+      tags:
+        - 'worker'
       consumes:
-        - 'multipart/form-data'
-      produces:
-        - 'application/json'
-        - 'text/plain'
+        - multipart/form-data
       parameters:
-        - in: formData
-          name: name
-          type: file
-          required: true
-          description: 'informasi nama pekerja'
-        - in: formData
-          name: age
-          type: string
-          required: true
-          description: 'informasi usia pekerja'
-        - in: formData
-          name: bio
-          type: string
-          required: true
-          description: 'informasi biografi singkat pekerja'
-        - in: formData
-          name: address
-          type: string
-          required: true
-          description: 'informasi alamat pekerja'
         - in: formData
           name: photo
           type: file
-          required: true
-          description: 'potret pekerja'
+          description: The file to upload.
+        - in: formData
+          name: name
+          type: string
+          description: Nama pekerja
+        - in: formData
+          name: address
+          type: string
+          description: Alamat pekerja
+        - in: formData
+          name: age
+          type: number
+          description: Umur pekerja
+        - in: formData
+          name: bio
+          type: string
+          description: Biiografi pekerja
+      produces:
+        - 'application/json'
+        - 'text/plain'
       responses:
         '200':
-          description: 'data pekerja baru berhasil diinput'
+          description: detail pekerja dengan id
           schema:
-            $ref: '#/definitions/Worker'
-        '413':
-          description: ukuran file terlalu besar
-        '401':
-          description: data registrasi pekerja tidak lengkap
+            $ref: '#/definitions/worker'
+        '404':
+          description: 'method tidak diperbolehkan'
         '500':
-          description: internal server error
+          description: 'kesalahan server'
   /list:
     get:
       operationId: 'listWorker'
-      description: 'mendapatkan seluruh data pekerja'
-      consumes:
-        - 'multipart/form-data'
+      description: mengembalikan daftar pekerja
+      tags:
+        - 'worker'
       produces:
         - 'application/json'
         - 'text/plain'
-      responses: 
+      responses:
         '200':
-          description: 'berhasil mendapatkan data pekerja'
+          description: daftar pekerja
           schema:
             type: array
             items:
-              $ref: '#/definitions/Worker'
+              $ref: '#/definitions/worker'
+        '404':
+          description: 'method tidak diperbolehkan'
         '500':
-          description: internal server error
+          description: 'kesalahan server'
   /info:
     get:
       operationId: 'infoWorker'
-      description: 'mendapatkan data pekerja yang diinginkan'
-      consumes:
-        - 'multipart/form-data'
+      description: mengembalikan detail pekerja
+      tags:
+        - 'worker'
+      parameters:
+        - in: query
+          name: id
+          type: integer
+          description: worker ID
       produces:
         - 'application/json'
         - 'text/plain'
       responses:
         '200':
-          description: 'berhasil mendapatkan data pekerja'
+          description: info detail pekerja
           schema:
-            type: object
-            items:
-              $ref: '#/definitions/Worker'
-        '401':
-          description: 'parameter id tidak ditemukan'
+            $ref: '#/definitions/worker'
         '404':
-          description: 'data tidak ditemukan'
+          description: 'method tidak diperbolehkan'
         '500':
-          description: 'internal server error'
+          description: 'kesalahan server'
   /remove:
     delete:
-      operationId: 'deleteWorker'
-      description: 'menghapus data pekerja berdasarkan id'
+      operationId: 'removeWorker'
+      description: menghapus daftar pekerja
+      tags:
+        - 'worker'
+      consumes:
+      - application/json
+      parameters:
+      - in: query
+        name: id
+        type: integer
+        required: true
+        description: worker ID
+      produces:
+        - 'application/json'
+        - 'text/plain'
       responses:
-      '200':
-          description: 'berhasil menghapus data pekerja'
+        '200':
+          description: info detail pekerja yang dihapus
           schema:
-            type: object
-            items:
-              $ref: '#/definitions/Worker'
-        '401':
-          description: 'parameter id tidak ditemukan'
+            $ref: '#/definitions/worker'
         '404':
-          description: 'data tidak ditemukan'
+          description: 'method tidak diperbolehkan'
         '500':
-          description: 'internal server error'
+          description: 'kesalahan server'
 
-
-definitions: 
-  Worker:
+definitions:
+  worker:
     type: object
     properties:
+      id:
+        type: number
+        description: id pekerja
+        example: 20
       name:
         type: string
-        description: 'informasi nama pekerja'
-        example: Hana
+        description: nama pekerja
+        example: Budi
       age:
         type: number
-        description: 'informasi usia pekerja'
-        example: 18
+        description: umur pekerja
+        example: 30
       bio:
         type: string
-        description: 'informasi biografi singkat pekerja'
-        example: pekerja pernah menyelesaikan projek software berskala besar pada tahun 2012
+        description: biografi pekerja
+        example: seorang programmer
       address:
         type: string
-        description: 'informasi alamat pekerja'
-        example: jalan anggrek no 12
+        description: alamat pekerja
+        example: Jalan ramai sekali, Bandung
       photo:
         type: string
-        description: 'informasi potret diri dari pekerja'
+        description: nama file foto pekerja
+        example: 1612874959796-184.png

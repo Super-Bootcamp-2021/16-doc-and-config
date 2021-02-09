@@ -47,7 +47,7 @@ exports.remove = (id) => async (dispatch) => {
 /**
  * Async action for get all data worker in database
  * add pass to state with @see workersLoadedAction()
- * @function remove
+ * @function getList
  * @param {any} dispatch dispatch
  */
 exports.getList = async (dispatch) => {

@@ -10,10 +10,10 @@
     "lint": "eslint .",
     "web:build": "webpack --mode production",
     "web:dev": "webpack serve --open --mode development",
-    "docs:svc": "jsdoc -c service/worker/docs.json",
-    "docs:web": "jsdoc -c webapp/src/worker/docs.json",
-    "live:svc-worker": "live-server service/worker/docs",
-    "live:web-worker": "live-server webapp/src/worker/docs"
+    "docs:svc:worker": "jsdoc -c service/worker/docs.json",
+    "docs:web:worker": "jsdoc -c webapp/src/worker/docs.json",
+    "live:svc:worker": "live-server service/worker/docs",
+    "live:web:worker": "live-server webapp/src/worker/docs"
   },
   "author": "",
   "license": "ISC",

@@ -2,7 +2,7 @@ swagger: '2.0'
 info:
   title: 'Worker Service'
   description: 'API to manage worker list'
-  version: '1.0.0'
+  version: '1.1.0'
   license:
     name: 'GPL-3.0'
     url: 'https://www.gnu.org/licenses/gpl-3.0.en.html'
@@ -141,7 +141,9 @@ paths:
       consumes:
         - 'application/json'
       produces:
-        - 'application/json'
+        - 'image/jpeg'
+        - 'image/bmp'
+        - 'image/png'
       parameters:
         - in: path
           name: file

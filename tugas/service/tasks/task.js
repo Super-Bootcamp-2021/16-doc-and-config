@@ -1,3 +1,5 @@
+/** @module task */
+
 const { getConnection } = require('typeorm');
 const workerClient = require('./worker.client');
 const bus = require('../lib/bus');
@@ -6,6 +8,14 @@ const ERROR_TASK_DATA_INVALID = 'data pekerjaan baru tidak lengkap';
 const ERROR_TASK_NOT_FOUND = 'pekerjaan tidak ditemukan';
 const ERROR_TASK_ALREADY_DONE = 'pekerjaan sudah selesai';
 
+/**
+ * function to add task data
+ * 
+ * @param {object} data 
+ * @throws Will throw Error if no data.job or data.assigneeId
+ * @throws Will throw Error if task not found in repository
+ * @returns {object} task
+ */
 async function add(data) {
   if (!data.job || !data.assigneeId) {
     throw ERROR_TASK_DATA_INVALID;
@@ -25,6 +35,14 @@ async function add(data) {
   return task;
 }
 
+/**
+ * function to mark task as done (by id)
+ * 
+ * @param {number} id task's ID
+ * @throws Will throw Error if task not found in repository
+ * @throws Will throw Error if task already done
+ * @returns {object} task
+ */
 async function done(id) {
   const taskRepo = getConnection().getRepository('Task');
   const task = await taskRepo.findOne(id, { relations: ['assignee'] });
@@ -40,6 +58,12 @@ async function done(id) {
   return task;
 }
 
+/**
+ * function to cancel task (by id)
+ * @param {number} id
+ * @throws Will throw Error if task not found in repository
+ * @returns {object} task
+ */
 async function cancel(id) {
   const taskRepo = getConnection().getRepository('Task');
   const task = await taskRepo.findOne(id, { relations: ['assignee'] });
@@ -52,6 +76,9 @@ async function cancel(id) {
   return task;
 }
 
+/**
+ * function to view list of tasks
+ */
 function list() {
   const taskRepo = getConnection().getRepository('Task');
   return taskRepo.find({ relations: ['assignee'] });

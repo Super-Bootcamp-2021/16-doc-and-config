@@ -15,6 +15,8 @@ const { ClientRequest, IncomingMessage, ServerResponse } = require('http');
 
 /**
  * service to get list of todos
+ * @async
+ * @function listSvc
  * @param {IncomingMessage} req
  * @param {ServerResponse} res
  */

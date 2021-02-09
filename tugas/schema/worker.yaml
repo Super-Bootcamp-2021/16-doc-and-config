@@ -101,6 +101,38 @@ paths:
         '500':
           description: 'unkown server error'
 
+  # http://localhost:7001/remove?id=1
+  /remove:
+    get:
+      operationId: 'removeWorker'
+      description: Menghapus profil pekerja berdasarkan ID pekerja
+      parameters:
+        - in: query
+          name: id
+          required: true
+          type: integer
+          description: ID dari pekerja yang akan dihapus
+      tags:
+        - 'Worker Service'
+      consumes:
+        - 'application/json'
+      produces:
+        - 'application/json'
+        - 'text/plain'
+      responses:
+        '200':
+          description: Profil pekerja yang dihapus
+          schema:
+            type: array
+            items:
+              $ref: '#/definitions/WorkerRemoveResponse'
+        '401':
+          description: 'parameter id tidak ditemukan'
+        '404':
+          description: 'pekerja tidak ditemukan'
+        '500':
+          description: ''
+
 definitions:
   # request body /register
   WorkerRegisterRequest:
@@ -208,6 +240,35 @@ definitions:
 
   # response /info
   WorkerInfoResponse:
+    type: object
+    properties:
+      id:
+        type: integer
+        description: id dari pekerja
+        example: 1
+      name:
+        type: string
+        description: nama pekerja
+        example: Moh. Ilham Burhanuddin
+      age:
+        type: number
+        description: umur pekerja
+        example: 23
+      bio:
+        type: string
+        description: bio pekerja
+        example: ini adalah bio saya
+      address:
+        type: string
+        description: alamat pekerja
+        example: Jln. Halim Perdana Kusuma
+      photo:
+        type: string
+        description: nama foto pekerja setelah di upload
+        example: '312-434.jpg'
+
+  # response /remove
+  WorkerRemoveResponse:
     type: object
     properties:
       id:

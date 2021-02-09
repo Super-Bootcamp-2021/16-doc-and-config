@@ -6,6 +6,10 @@ const agg = require('./performance.agg');
 
 let server;
 
+/**
+ * to run performance server
+ * @param {callback} callback 
+ */
 function run(callback) {
   server = createServer((req, res) => {
     // cors
@@ -70,6 +74,9 @@ function cors(req, res) {
   }
 }
 
+/**
+ * function to stop performance server
+ */
 function stop() {
   if (server) {
     server.close();

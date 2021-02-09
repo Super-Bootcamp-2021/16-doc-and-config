@@ -7,7 +7,8 @@
     "build": "webpack --mode production",
     "dev": "webpack serve --open --mode development",
     "lint": "eslint .",
-    "service": "nodemon service/server.js"
+    "service": "nodemon service/server.js",
+    "docs:svc": "jsdoc -c service/docs.json"
   },
   "author": "",
   "license": "ISC",

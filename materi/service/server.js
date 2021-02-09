@@ -12,7 +12,7 @@ const {
 const { TodoSchema } = require('./todo.model');
 
 /**
- * intiate database and other stroage dependency
+ * intiate database connection
  */
 async function init() {
   try {
@@ -22,8 +22,8 @@ async function init() {
       host: 'localhost',
       port: 5432,
       username: 'postgres',
-      password: 'rizkymr',
-      database: 'sanbercode2',
+      password: 'postgres',
+      database: 'sanbercode1',
     });
     console.log('database connected');
   } catch (err) {

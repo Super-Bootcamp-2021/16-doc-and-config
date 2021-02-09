@@ -1,3 +1,6 @@
+/**
+ * main.js of service
+ */
 const orm = require('./lib/orm');
 const storage = require('./lib/storage');
 const kv = require('./lib/kv');
@@ -8,6 +11,9 @@ const workerServer = require('./worker/server');
 const tasksServer = require('./tasks/server');
 const performanceServer = require('./performance/server');
 
+/**
+ * to connect all database
+ */
 async function init() {
   try {
     console.log('connect to database');
@@ -55,12 +61,18 @@ async function init() {
     process.exit(1);
   }
 }
-
+/**
+ * to stop message bus and KV
+ */
 async function onStop() {
   bus.close();
   kv.close();
 }
 
+/**
+ * to serve performance, task, or worker service
+ * @param {*} command 
+ */
 async function main(command) {
   switch (command) {
     case 'performance':

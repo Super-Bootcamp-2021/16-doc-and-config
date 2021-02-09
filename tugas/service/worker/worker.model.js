@@ -1,6 +1,18 @@
 const { EntitySchema } = require('typeorm');
 
+/**
+ * worker model
+ */
 class Worker {
+  /**
+   * 
+   * @param {number} id 
+   * @param {string} name 
+   * @param {number} age 
+   * @param {string} bio 
+   * @param {string} address 
+   * @param {string} photo 
+   */
   constructor(id, name, age, bio, address, photo) {
     this.id = id;
     this.name = name;

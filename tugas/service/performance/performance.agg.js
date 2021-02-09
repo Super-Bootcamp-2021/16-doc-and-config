@@ -15,6 +15,9 @@ let increaseCancelledTaskSub;
 let increaseTotalWorkerSub;
 let decreaseTotalWorkerSub;
 
+/**
+ * Run NATS Subscribe Service of Performance to listen topic
+ */
 function run() {
   increaseTotalTaskSub = bus.subscribe('task.added', increaseTotalTask);
   increaseDoneTaskSub = bus.subscribe('task.done', increaseDoneTask);
@@ -29,6 +32,9 @@ function run() {
   decreaseTotalWorkerSub = bus.subscribe('worker.removed', decreaseTotalWorker);
 }
 
+/**
+ * Stop NATS Subscribe Service of Performance to unsubscribe topic
+ */
 function stop() {
   if (increaseTotalTaskSub) {
     bus.unsubscribe(increaseTotalTaskSub);

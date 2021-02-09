@@ -1,4 +1,4 @@
-/** @module performanceService */
+/** @module performance_service */
 const { summary } = require('./performance');
 // eslint-disable-next-line no-unused-vars
 const { ClientRequest, IncomingMessage, ServerResponse } = require('http');

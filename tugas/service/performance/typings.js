@@ -1,5 +1,6 @@
 /**
- * Todo type definition
+ * @memberof performance
+ * Summary type definition
  * @typedef {Object} SummaryData
  * @property {number} total_task total_task count of all task
  * @property {number} task_done task_done count of task with done status

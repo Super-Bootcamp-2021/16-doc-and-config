@@ -13,37 +13,10 @@ tags:
 schemes:
   - 'http'
 paths:
-  /add:
-    post:
-      tags:
-        - 'performance'
-      operationId: 'addTask'
-      description: 'untuk menambahkan task baru'
-      consumes:
-        - 'application/json'
-      produces:
-        - 'application/json'
-        - 'text/plain'
-      parameters:
-        - in: body
-          name: body
-          description: informasi tugas
-          required: true
-          schema:
-            $ref: '#/definitions/TaskData'
-      responses:
-        '200':
-          description: 'task yang baru di input'
-          schema:
-            $ref: '#/definitions/Task'
-        '400':
-          description: 'data pekerjaan tidak valid'
-        '500':
-          description: 'kesalahan server'
-  /list:
+  /summary:
     get:
-      operationId: 'listTask'
-      description: mengembalikan daftar task
+      operationId: 'resumePerformance'
+      description: Menampilkan resume dari task & worker
       tags:
         - 'performance'
       consumes:
@@ -53,33 +26,30 @@ paths:
         - 'text/plain'
       responses:
         '200':
-          description: daftar task
+          description: resume task & worker
           schema:
-            type: array
-            items:
-              $ref: '#/definitions/Task'
-        '500':
-          description: kesalahan server
+            $ref: '#/definitions/Resume'
 
 definitions:
-  TaskData:
+  Resume:
     type: object
     properties:
-      task:
-        type: string
-        description: detail pekerjaan / tugas
-        example: makan
-  Task:
-    type: object
-    properties:
-      id:
-        type: number
-        description: identifier pekerjaan
-        example: 1
-      task:
-        type: string
-        description: detail pekerjaan / tugas
-        example: makan
-      done:
-        type: boolean
-        description: 'true mendandakan pekerjaan sudah selesai'
+      data:
+        type: object
+        properties:
+          total_task:
+            type: integer
+            description: count of all task
+            example: 10
+          task_done:
+            type: integer
+            description: count of total task with done status
+            example: 4
+          task_cancelled:
+            type: integer
+            description: count of total task with cancel status
+            example: 2
+          total_worker:
+            type: integer
+            description: count of total worker
+            example: 2

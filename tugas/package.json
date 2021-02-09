@@ -46,8 +46,8 @@
     "redis": "^3.0.2",
     "redux-thunk": "^2.3.0",
     "rxjs": "^6.6.3",
-    "swagger-ui": "^3.42.0",
     "sqlite3": "^5.0.1",
+    "swagger-ui": "^3.42.0",
     "typeorm": "^0.2.31"
   }
 }

@@ -14,6 +14,13 @@ const defaultConfig = {
     taskPort: 7002,
     performancePort: 7003,
   },
+  minio: {
+    endPoint: '127.0.0.1',
+    port: 9000,
+    useSSL: false,
+    accessKey: 'local-minio',
+    secretKey: 'local-test-secret',
+  }
 };
 
 const config = rc('tm', defaultConfig);

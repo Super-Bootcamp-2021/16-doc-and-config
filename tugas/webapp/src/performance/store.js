@@ -1,13 +1,33 @@
+/**
+ * @module Webapp_PerformanceStore
+ */
 const {
   createAction,
   createReducer,
   configureStore,
+  // eslint-disable-next-line no-unused-vars
+  PayloadAction,
 } = require('@reduxjs/toolkit');
 const { initialState, error, loading, summaryLoaded } = require('./reducer');
 const thunkMiddleware = require('redux-thunk');
 
+/**
+ * error Action Reducer
+ * @function errorAction
+ * @returns {PayloadAction<State, 'error'>}
+ */
 const errorAction = createAction('error');
+/**
+ * loading Action Reducer
+ * @function loadingAction
+ * @returns {PayloadAction<State, 'loading'>}
+ */
 const loadingAction = createAction('loading');
+/**
+ * summary Action Reducer
+ * @function loadingAction
+ * @returns {PayloadAction<State, 'summaryLoaded'>}
+ */
 const summaryLoadedAction = createAction('summaryLoaded');
 
 const reducer = createReducer(initialState, {

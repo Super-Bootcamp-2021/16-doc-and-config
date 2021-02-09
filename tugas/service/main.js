@@ -21,13 +21,7 @@ async function init() {
   }
   try {
     console.log('connect to object storage');
-    await storage.connect('task-manager', {
-      endPoint: '127.0.0.1',
-      port: 9000,
-      useSSL: false,
-      accessKey: 'local-minio',
-      secretKey: 'local-test-secret',
-    });
+    await storage.connect('task-manager', config.minio);
     console.log('object storage connected');
   } catch (err) {
     console.error('object storage connection failed');

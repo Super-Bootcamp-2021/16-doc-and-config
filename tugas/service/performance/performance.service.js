@@ -1,5 +1,14 @@
+/** @module performanceService */
 const { summary } = require('./performance');
+// eslint-disable-next-line no-unused-vars
+const { ClientRequest, IncomingMessage, ServerResponse } = require('http');
 
+/**
+ * service to get list of todos
+ * @async
+ * @param {IncomingMessage} req
+ * @param {ServerResponse} res
+ */
 async function summarySvc(req, res) {
   try {
     const sums = await summary();

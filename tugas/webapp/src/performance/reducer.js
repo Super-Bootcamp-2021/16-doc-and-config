@@ -1,3 +1,7 @@
+/**
+ * @module Webapp_PerformanceReducer
+ */
+
 // setup state
 const initialState = {
   loading: false,
@@ -10,16 +14,30 @@ const initialState = {
   },
 };
 
+/**
+ * loading Reducer
+ * @param {State} state state of application
+ */
 function loading(state) {
   state.loading = true;
   state.error = null;
 }
 
+/**
+ * error Reducer
+ * @param {State} state state of application
+ * @param {*} action 
+ */
 function error(state, action) {
   state.loading = false;
   state.error = action.payload;
 }
 
+/**
+ * 
+ * @param {State} state state of application
+ * @param {*} action 
+ */
 function summaryLoaded(state, action) {
   state.summary = action.payload;
   state.loading = false;

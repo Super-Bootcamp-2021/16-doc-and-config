@@ -1,0 +1,200 @@
+swagger: '2.0'
+info:
+  title: 'Worker Service'
+  description: 'API to manage workers'
+  version: '1.0.0'
+  license:
+    name: 'GPL-3.0'
+    url: 'https://www.gnu.org/licenses/gpl-3.0.en.html'
+host: 'localhost:7001'
+tags:
+  - name: "Worker"
+    description: "Endpoint for management Worker"
+schemes:
+  - 'http'
+paths:
+  /register:
+    post:
+      summary: 'Menambah kan Pekerja baru'
+      tags:
+        - 'Worker'
+      operationId: 'addWorker'
+      description: 'untuk menambahkan Pekerja baru'
+      consumes:
+        - 'multipart/form-data'
+      produces:
+        - 'application/json'
+        - 'text/plain'
+      parameters:
+      - name: "name"
+        in: "formData"
+        description: "Nama pekerjaan"
+        required: true
+        type: "string"
+      - name: "age"
+        in: "formData"
+        description: "Pekerja yang dikenai pekerjaan"
+        required: true
+        type: "number"
+      - name: "bio"
+        in: "formData"
+        description: "Pekerja yang dikenai pekerjaan"
+        required: true
+        type: "string"
+      - name: "address"
+        in: "formData"
+        description: "Pekerja yang dikenai pekerjaan"
+        required: true
+        type: "string"
+      - name: "photo"
+        in: "formData"
+        description: "file attachment"
+        required: true
+        type: "file"
+      responses:
+        '200':
+          description: 'task yang baru di input'
+          schema:
+            $ref: '#/definitions/Assignee'
+        '400':
+          description: 'data pekerja tidak valid'
+        '404':
+          description: 'Alamat tidak ditemukan'
+        '413':
+          description: 'File di input error'
+        '500':
+          description: 'kesalahan server'
+  /list:
+    get:
+      summary: 'Menampilkan semua Worker yang ada'
+      operationId: 'listWorker'
+      description: mengembalikan daftar pekerja
+      tags:
+        - 'Worker'
+      produces:
+        - 'application/json'
+        - 'text/plain'
+      responses:
+        '200':
+          description: daftar task
+          schema:
+            type: array
+            items:
+              $ref: '#/definitions/Assignee'
+        '401':
+          description: 'query tidak benar'
+        '404':
+          description: 'Alamat tidak ditemukan'
+        '500':
+          description: 'kesalahan server'
+  /info:
+    get:
+      summary: 'Mencari Pekerja'
+      operationId: 'infoOneWorker'
+      description: Mencari 1 pekerja
+      tags:
+        - 'Worker'
+      produces:
+        - 'application/json'
+        - 'text/plain'
+      parameters:
+        - in: query
+          name: id
+          description: dari task yang mau di selesaikan
+          required: true
+          type: "integer"
+          format: "int64"
+      responses:
+        '200':
+          description: Task yang berhasil
+          schema:
+            $ref: '#/definitions/Assignee'
+        '401':
+          description: 'query tidak benar'
+        '404':
+          description: 'Alamat tidak ditemukan'
+        '500':
+          description: 'kesalahan server'
+  /remove:
+    delete:
+      summary: 'Menghapus pekerja'
+      operationId: 'deleteWorker'
+      description: Menghapus pekerja yang ada
+      tags:
+        - 'Worker'
+      produces:
+        - 'application/json'
+        - 'text/plain'
+      parameters:
+        - in: query
+          name: id
+          description: dari task yang mau di selesaikan
+          required: true
+          type: "integer"
+          format: "int64"
+      responses:
+        '200':
+          description: Task yang berhasil
+          schema:
+            $ref: '#/definitions/Assignee'
+        '404':
+          description: 'data pekerjaan tidak ditemukan'  
+        '500':
+          description: kesalahan server
+  /photo/{namefile}:
+    get:
+      summary: 'Menampilkan foto worker'
+      operationId: 'photoWorker'
+      description: manpilkan foto pekerja
+      tags:
+        - 'Worker'
+      produces:
+        - 'application/pdf'
+        - 'image/png'
+      parameters:
+        - in: path
+          name: namefile
+          description: Nama file dari Worker
+          required: true
+          type: string
+      responses:
+        '200':
+          description: Task yang berhasil
+          schema:
+           example: Ini-gambar.png
+        '401':
+          description: 'query tidak benar'
+        '404':
+          description: 'Alamat tidak ditemukan'
+        '500':
+          description: 'kesalahan server'
+
+definitions:    
+  Assignee:
+    type: object
+    properties:
+      id:
+        type: number
+        description: identifier pekerjaan
+        example: 1
+      name:
+        type: string
+        description: nama Pekerja
+        example: Annas
+      age:
+        type: string
+        description: Umur pekerja
+        example: 23
+      bio:
+        type: string
+        description: Detail pekerja
+        example: QA
+      address:
+        type: string
+        description: Alamat pekerja
+        example: Jl semarang
+      photo:
+        type: string
+        description: Foto Pekerja
+        example: 1612858486704-99.jpeg                
+      

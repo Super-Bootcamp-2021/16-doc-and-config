@@ -1,3 +1,5 @@
+/** @module storage */
+
 const mime = require('mime-types');
 const { Client } = require('minio');
 
@@ -7,6 +9,11 @@ const ERROR_FILE_NOT_FOUND = 'error file tidak ditemukan';
 let client;
 let bucketname;
 
+/**
+ * koneksi ke object storage
+ * @param {string} _bucketname nama bucket
+ * @param {*} options options
+ */
 async function connect(_bucketname, options) {
   client = new Client({
     ...options,
@@ -23,6 +30,11 @@ async function connect(_bucketname, options) {
   }
 }
 
+/**
+ * membuat nama file
+ * @param {*} mimetype nama bucket
+ * @returns {string} nama file yang telah dibuat
+ */
 function randomFileName(mimetype) {
   return (
     new Date().getTime() +
@@ -33,6 +45,11 @@ function randomFileName(mimetype) {
   );
 }
 
+/**
+ * menyimpan file ke object storage
+ * @param {*} file
+ * @param {*} mimetype
+ */
 function saveFile(file, mimetype) {
   const objectName = randomFileName(mimetype);
   return new Promise((resolve, reject) => {
@@ -46,6 +63,10 @@ function saveFile(file, mimetype) {
   });
 }
 
+/**
+ * membaca file pada object storage
+ * @param {string} objectName nama file
+ */
 async function readFile(objectName) {
   if (!objectName) {
     throw ERROR_REQUIRE_OBJECT_NAME;

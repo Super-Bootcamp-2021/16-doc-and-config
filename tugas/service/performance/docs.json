@@ -1,0 +1,12 @@
+{
+  "plugins": ["plugins/markdown"],
+  "source": {
+    "include": ["./service/performance"],
+    "exclude": []
+  },
+  "opts": {
+    "destination": "./service/performance/docs",
+    "recurse": true,
+    "readme": "./service/performance/README.md"
+  }
+}

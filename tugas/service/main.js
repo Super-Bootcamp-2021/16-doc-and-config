@@ -9,35 +9,35 @@ const tasksServer = require('./tasks/server');
 const performanceServer = require('./performance/server');
 
 async function init() {
-  try {
-    console.log('connect to database');
-    await orm.connect([WorkerSchema, TaskSchema], {
-      type: 'postgres',
-      host: 'localhost',
-      port: 5432,
-      username: 'postgres',
-      password: 'postgres',
-      database: 'sanbercode2',
-    });
-    console.log('database connected');
-  } catch (err) {
-    console.error('database connection failed');
-    process.exit(1);
-  }
-  try {
-    console.log('connect to object storage');
-    await storage.connect('task-manager', {
-      endPoint: '127.0.0.1',
-      port: 9000,
-      useSSL: false,
-      accessKey: 'local-minio',
-      secretKey: 'local-test-secret',
-    });
-    console.log('object storage connected');
-  } catch (err) {
-    console.error('object storage connection failed');
-    process.exit(1);
-  }
+  // try {
+  //   console.log('connect to database');
+  //   await orm.connect([WorkerSchema, TaskSchema], {
+  //     type: 'postgres',
+  //     host: 'localhost',
+  //     port: 5432,
+  //     username: 'postgres',
+  //     password: 'postgres',
+  //     database: 'sanbercode2',
+  //   });
+  //   console.log('database connected');
+  // } catch (err) {
+  //   console.error('database connection failed');
+  //   process.exit(1);
+  // }
+  // try {
+  //   console.log('connect to object storage');
+  //   await storage.connect('task-manager', {
+  //     endPoint: '127.0.0.1',
+  //     port: 9000,
+  //     useSSL: false,
+  //     accessKey: 'local-minio',
+  //     secretKey: 'local-test-secret',
+  //   });
+  //   console.log('object storage connected');
+  // } catch (err) {
+  //   console.error('object storage connection failed');
+  //   process.exit(1);
+  // }
   try {
     console.log('connect to message bus');
     await bus.connect();

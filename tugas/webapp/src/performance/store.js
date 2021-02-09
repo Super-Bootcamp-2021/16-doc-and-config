@@ -1,3 +1,5 @@
+/**@module store */
+
 const {
   createAction,
   createReducer,
@@ -6,6 +8,11 @@ const {
 const { initialState, error, loading, summaryLoaded } = require('./reducer');
 const thunkMiddleware = require('redux-thunk');
 
+/**
+ * add Action
+ * @function errorAction
+ * @returns {PayloadAction<Data, 'error'>}
+ */
 const errorAction = createAction('error');
 const loadingAction = createAction('loading');
 const summaryLoadedAction = createAction('summaryLoaded');

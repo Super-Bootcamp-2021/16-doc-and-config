@@ -1,4 +1,12 @@
+/** @module performanceService */
+
 const { summary } = require('./performance');
+
+/**
+ * service to get sum of performance
+ * @param {Data} req 
+ * @param {Data} res 
+ */
 
 async function summarySvc(req, res) {
   try {

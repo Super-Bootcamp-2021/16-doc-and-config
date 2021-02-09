@@ -1,0 +1,244 @@
+swagger: '2.0'
+info:
+  title: 'Task Service'
+  description: 'API to manage task activity'
+  version: '1.0.0'
+  license:
+    name: 'GPL-3.0'
+    url: 'https://www.gnu.org/licenses/gpl-3.0.en.html'
+host: 'localhost'
+tags:
+  - name: 'task'
+    description: 'endpoint untuk mengedit task'
+schemes:
+  - 'http'
+paths:
+  /add:
+    post:
+      tags:
+        - 'todo'
+      operationId: 'addTask'
+      description: 'untuk menambahkan task baru'
+      consumes:
+        - 'application/json'
+      produces:
+        - 'application/json'
+        - 'text/plain'
+      parameters:
+        - in: body
+          name: body
+          description: tugas baru dan pekerja yang mengerjakan
+          required: true
+          schema:
+            $ref: '#/definitions/TaskData'
+      responses:
+        '200':
+          description: 'task yang baru di input'
+          schema:
+            $ref: '#/definitions/Task'
+        '401':
+          description: 'data pekerjaan baru tidak lengkap'
+        '404':
+          description: 'method request bukan POST'
+        '500':
+          description: 'terjadi kesalahan server pada server'
+  /list:
+    get:
+      operationId: 'listTask'
+      description: menampilkan list task yang ada
+      tags:
+        - 'todo'
+      consumes:
+        - 'application/json'
+      produces:
+        - 'application/json'
+        - 'text/plain'
+      responses:
+        '200':
+          description: list task yang ada
+          schema:
+            type: array
+            items:
+              $ref: '#/definitions/Task'
+        '404':
+          description: 'method request bukan GET'
+        '500':
+          description: 'terjadi kesalahan server pada server'
+  /done:
+    put:
+      operationId: 'doneTask'
+      description: menandakan pekerjaan selesai
+      tags:
+        - 'todo'
+      consumes:
+        - 'application/json'
+      produces:
+        - 'application/json'
+        - 'text/plain'
+      parameters:
+        - in: query
+          name: id
+          type: integer
+          minimum: 1
+          description: 'merubah status pekerjaan menjadi selesai'
+      responses:
+        '200':
+          description: 'hasil perubahan status done menjadi true'
+          schema:
+            items:
+              $ref: '#/definitions/TaskDone'
+        '401':
+          description: 'parameter id tidak ditemukan'
+        '404':
+          description: 'method request bukan PUT'
+        '500':
+          description: 'terjadi kesalahan server pada server'
+  /undone:
+    put:
+      operationId: 'undoneTask'
+      description: 'merubah status pekerjaan menjadi belum selesai'
+      tags:
+        - 'todo'
+      consumes:
+        - 'application/json'
+      produces:
+        - 'application/json'
+        - 'text/plain'
+      parameters:
+        - in: query
+          name: id
+          type: integer
+          minimum: 1
+          description: 'merubah status pekerjaan menjadi belum selesai'
+      responses:
+        '200':
+          description: 'hasil perubahan status done menjadi false'
+          schema:
+            items:
+              $ref: '#/definitions/Task'
+        '401':
+          description: 'parameter id tidak ditemukan'
+        '404':
+          description: 'method request bukan PUT'
+        '500':
+          description: 'terjadi kesalahan server pada server'
+  /cancel:
+    get:
+      operationId: 'cancelTask'
+      description: 'menandakan bahwa pekerjaan telah di batalkan'
+      tags:
+        - 'todo'
+      consumes:
+        - 'application/json'
+      produces:
+        - 'application/json'
+        - 'text/plain'
+      responses:
+        '200':
+          description: 'hasil perubahan status cancelled menjadi true'
+          schema:
+            items:
+              $ref: '#/definitions/TaskCancel'
+        '401':
+          description: 'parameter id tidak ditemukan'
+        '404':
+          description: 'method request bukan PUT'
+        '500':
+          description: 'terjadi kesalahan server pada server'
+definitions:
+  TaskData:
+    type: object
+    properties:
+      job:
+        type: string
+        description: nama pekerjaan
+        example: belajar
+      attachment:
+        type: string
+        description: 'nama file yang berisikan deskripsi lengkap tentang pekerjaan'
+        example: belajar.txt
+      assignee:
+        type: number
+        description: identifier dari tabel pekerja (foreign key)
+        example: 1
+  Task:
+    type: object
+    properties:
+      id:
+        type: number
+        description: identifier pekerjaan
+        example: 1
+      job:
+        type: string
+        description: nama pekerjaan
+        example: belajar
+      done:
+        type: boolean
+        example: false
+        description: 'true mendandakan pekerjaan sudah selesai'
+      cancelled:
+        type: boolean
+        example: false
+        description: 'true mendandakan pekerjaan sudah di cancel (tidak ada lagi)'
+      attachment:
+        type: string
+        description: 'nama file yang berisikan deskripsi lengkap tentang pekerjaan'
+        example: belajar.txt
+      assignee:
+        type: number
+        description: identifier dari tabel pekerja (foreign key)
+        example: 1
+  TaskDone:
+    type: object
+    properties:
+      id:
+        type: number
+        description: identifier pekerjaan
+        example: 1
+      job:
+        type: string
+        description: nama pekerjaan
+        example: belajar
+      done:
+        type: boolean
+        example: true
+        description: 'true mendandakan pekerjaan sudah selesai'
+      cancelled:
+        type: boolean
+        example: false
+        description: 'true mendandakan pekerjaan sudah di cancel (tidak ada lagi)'
+      attachment:
+        type: string
+        description: 'nama file yang berisikan deskripsi lengkap tentang pekerjaan'
+        example: belajar.txt
+      assignee:
+        type: number
+        description: identifier dari tabel pekerja (foreign key)
+        example: 1
+  TaskCancel:
+    type: object
+    properties:
+      id:
+        type: number
+        description: identifier pekerjaan
+        example: 1
+      job:
+        type: string
+        description: nama pekerjaan
+        example: belajar
+      done:
+        type: boolean
+        example: false
+        description: 'true mendandakan pekerjaan sudah selesai'
+      cancelled:
+        type: boolean
+        example: true
+        description: 'true mendandakan pekerjaan sudah di cancel (tidak ada lagi)'
+      attachment:
+        type: string
+        description: 'nama file yang berisikan deskripsi lengkap tentang pekerjaan'
+        example: belajar.txt
+      assignee:
+        type: number
+        description: identifier dari tabel pekerja (foreign key)
+        example: 1

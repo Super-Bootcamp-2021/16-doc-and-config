@@ -16,7 +16,7 @@
   "author": "",
   "license": "ISC",
   "devDependencies": {
-    "css-loader": "^5.0.1",
+    "css-loader": "^5.0.2",
     "dotenv-webpack": "^6.0.0",
     "eslint": "^7.19.0",
     "eslint-config-google": "^0.14.0",
@@ -46,7 +46,8 @@
     "redis": "^3.0.2",
     "redux-thunk": "^2.3.0",
     "rxjs": "^6.6.3",
+    "swagger-ui": "^3.42.0",
     "sqlite3": "^5.0.1",
-    "typeorm": "^0.2.30"
+    "typeorm": "^0.2.31"
   }
 }

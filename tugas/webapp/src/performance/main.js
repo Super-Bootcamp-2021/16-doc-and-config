@@ -1,6 +1,5 @@
 const { summary } = require('./async-action');
 const { store$ } = require('./store');
-
 require('./main.css');
 
 const workers = document.getElementById('workers');
@@ -25,6 +24,10 @@ refresh.onclick = () => {
   store$.dispatch(summary);
 };
 
+/**
+ * @function render performance
+ * @param {Object<any>} state object berisi informasi yang akan ditampilkan client
+ */
 function render(state) {
   // render error
   if (state.error) {

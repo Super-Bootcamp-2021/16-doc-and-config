@@ -14,6 +14,11 @@ function connect(url, config) {
   });
 }
 
+/**
+ *publish message to subscriber
+ * @param {string} subject
+ * @param {object} data
+ */
 function publish(subject, data) {
   client.publish(subject, JSON.stringify(data));
 }

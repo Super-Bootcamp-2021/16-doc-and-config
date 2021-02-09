@@ -1,6 +1,18 @@
+/** @module TaskSchema */
+
 const { EntitySchema } = require('typeorm');
 
 class Task {
+  /**
+   * buat instance baru dari task model
+   * @param {string} id id dari pekerjaan
+   * @param {string} job nama dari pekerjaannya
+   * @param {boolean} done true jika pekerjaan selesai
+   * @param {boolean} cancelled true jika pekerjaan dibatalkan
+   * @param {string} addedAt detail waktu saat pekerjaan dibuat
+   * @param {string} attachment nama lampiran dari pekerjaan
+   * @param {string} assignee id dari pekerja yang dikenai pekerjaan
+   */
   constructor(id, job, assignee, done, cancelled, attachment, addedAt) {
     this.id = id;
     this.job = job;
@@ -12,6 +24,9 @@ class Task {
   }
 }
 
+/**
+ * enty schema of task model
+ */
 const TaskSchema = new EntitySchema({
   name: 'Task',
   tableName: 'tasks',

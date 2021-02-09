@@ -48,4 +48,11 @@ Syarat :
   ```bash
   npm run web:dev
   ``` 
-  
+
+## Changelog Versi 1.1
+menambahkan :
+- schema worker service
+- schema performance service
+- dokumentasi library service
+- config rc untuk service
+- config env untuk webapp

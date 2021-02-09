@@ -1,0 +1,55 @@
+swagger: '2.0'
+info:
+  title: 'Performance Service'
+  description: 'API untuk melihat data worker dan task'
+  version: '1.0.0'
+  license:
+    name: 'GPL-3.0'
+    url: 'https://www.gnu.org/licenses/gpl-3.0.en.html'
+host: 'localhost'
+tags:
+  - name: 'performance'
+    description: 'endpoint untuk mendapatkan info task dan pekerja'
+schemes:
+  - 'http'
+paths:
+  /summary:
+    get:
+      operationId: 'summaryPerformance'
+      description: mengembalikan daftar jumlah pekerja dan pekerjaan
+      tags:
+        - 'performance'
+      produces:
+        - 'application/json'
+        - 'text/plain'
+      responses:
+        '200':
+          description: informasi jumlah pekerja, pekerjaan yang dibuat, batal dan selesai
+          schema:
+            $ref: '#/definitions/summaryData'
+        '404':
+          description: 'method tidak diperbolehkan'
+        '500':
+          description: 'kesalahan server'
+
+definitions:
+  summaryData:
+    type: object
+    properties:
+      total_task:
+        type: number
+        description: jumlah pekerjaan yang ada
+        example: 20
+      task_done:
+        type: number
+        description: jumlah pekerjaan yang sudah selesai
+        example: 15
+      task_cancelled:
+        type: number
+        description: jumlah pekerjaan yang dibatalkan
+        example: 10
+      total_worker:
+        type: number
+        description: jumlah total pekerja
+        example: 10
+      

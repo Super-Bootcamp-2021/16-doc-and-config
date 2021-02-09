@@ -1,5 +1,12 @@
+/** @module performanceService */
+
 const { summary } = require('./performance');
 
+/**
+ * service untuk mendapatkan rangkuman tentang pekerja dan pekerjaan
+ * @param {IncomingMessage} req
+ * @param {ServerResponse} res
+ */
 async function summarySvc(req, res) {
   try {
     const sums = await summary();

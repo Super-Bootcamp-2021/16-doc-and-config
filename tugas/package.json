@@ -10,8 +10,10 @@
     "lint": "eslint .",
     "web:build": "webpack --mode production",
     "web:dev": "webpack serve --open --mode development",
-    "docs:svc": "jsdoc -c service/tasks/docs.json",
-    "docs:web": "jsdoc -c docs.json"
+    "docs:svc:task": "jsdoc -c service/tasks/docs.json",
+    "docs:web:task": "jsdoc -c webapp/src/tasks/docs.json",
+    "live:svc:task": "live-server service/tasks/docs",
+    "live:web:task": "live-server webapp/src/tasks/docs"
   },
   "author": "",
   "license": "ISC",

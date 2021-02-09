@@ -1,3 +1,5 @@
+/** @module AsyncAction */
+
 const {
   loadingAction,
   errorAction,
@@ -10,6 +12,14 @@ const {
 const workerSvc = require('./worker.client');
 const taskSvc = require('./task.client');
 
+/**
+ * Async action for add new data to database and state
+ * This action will dispatch to @see loadingAction() for change state to loading. 
+ * Then if removing data success will dispatch to @see addedAction() or
+ * if failed witll dispatch to @see errorAction()
+ * @function add
+ * @param {Task} data worker data wich want to add to database and state
+ */
 exports.add = (data) => async (dispatch) => {
   dispatch(loadingAction());
   try {
@@ -20,6 +30,14 @@ exports.add = (data) => async (dispatch) => {
   }
 };
 
+/**
+ * Async action for task's done data in database and state with id.
+ * This action will dispatch to @see loadingAction() for change state to loading. 
+ * Then if removing data success will dispatch to @see doneAction() or
+ * if failed witll dispatch to @see errorAction()
+ * @function done
+ * @param {number} id task's id
+ */
 exports.done = (id) => async (dispatch) => {
   dispatch(loadingAction());
   try {
@@ -30,6 +48,14 @@ exports.done = (id) => async (dispatch) => {
   }
 };
 
+/**
+ * Async action for cancel task data in database and state with id.
+ * This action will dispatch to @see loadingAction() for change state to loading. 
+ * Then if removing data success will dispatch to @see canceledAction() or
+ * if failed witll dispatch to @see errorAction()
+ * @function done
+ * @param {number} id task's id
+ */
 exports.cancel = (id) => async (dispatch) => {
   dispatch(loadingAction());
   try {
@@ -40,6 +66,12 @@ exports.cancel = (id) => async (dispatch) => {
   }
 };
 
+/**
+ * Async action for get all data task in database
+ * add pass to state with @see tasksLoadedAction()
+ * @function getList
+ * @param {any} dispatch dispatch
+ */
 exports.getList = async (dispatch) => {
   dispatch(loadingAction());
   try {
@@ -50,6 +82,12 @@ exports.getList = async (dispatch) => {
   }
 };
 
+/**
+ * Async action for get all data worker in database
+ * add pass to state with @see workersLoadedAction()
+ * @function getWorkersList
+ * @param {any} dispatch dispatch
+ */
 exports.getWorkersList = async (dispatch) => {
   dispatch(loadingAction());
   try {

@@ -3,5 +3,5 @@ node_modules
 *.db
 file-storage
 docs
-.taskrc
+.tmrc
 .env

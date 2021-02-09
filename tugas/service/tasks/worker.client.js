@@ -1,3 +1,5 @@
+/** @module workerClient */
+
 const http = require('http');
 
 const WORKER_HOST = 'http://localhost:7001';

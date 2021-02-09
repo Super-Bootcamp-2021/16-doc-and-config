@@ -110,7 +110,7 @@ function cors(req, res) {
 }
 
 /**
- * Menmatikan server
+ * Mematikan server
  */
 function stop() {
   if (server) {

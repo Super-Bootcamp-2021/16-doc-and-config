@@ -45,7 +45,31 @@ paths:
         '404':
           description: ''
         '500':
-          description: 'unkown server error'            
+          description: 'unkown server error'   
+
+  # http://localhost:7001/list
+  /list:
+    get:
+      operationId: 'listWorker'
+      description: mengembalikan daftar perkerja yang ada di database
+      tags:
+        - 'Worker Service'
+      consumes:
+        - 'application/json'
+      produces:
+        - 'application/json'
+        - 'text/plain'
+      responses:
+        '200':
+          description: daftar task
+          schema:
+            type: array
+            items:
+              $ref: '#/definitions/WorkerList'
+        '404':
+          description: ''
+        '500':
+          description: 'unkown server error'         
           
 definitions:
   # request body /register
@@ -97,4 +121,55 @@ definitions:
         type: string
         description: nama foto pekerja setelah di upload
         example: '312-434.jpg'
-          
+
+  # response /list
+  WorkerList:    
+    type: array
+    items:
+      $ref: '#/definitions/WorkerModel'
+    example:
+      - id: 1
+        name: Sherlock
+        age: 22
+        bio: ini adalah bio sherlock
+        address: Surabaya
+        photo: '123-131.jpg'
+      - id: 2
+        name: Simon
+        age: 23
+        bio: ini adalah bio Simon
+        address: Jakarta
+        photo: '899-221.jpg'
+      - id: 3
+        name: Listi
+        age: 20
+        bio: ini adalah bio Listi Chan
+        address: Bandung
+        photo: '445-765.jpg'
+  WorkerModel:
+    type: object
+    properties:
+      id:
+        type: integer
+        description: id dari pekerja
+        example: 1
+      name:
+        type: string
+        description: nama pekerja
+        example: ilham
+      age:
+        type: number
+        description: umur pekerja
+        example: 23
+      bio:
+        type: string
+        description: bio pekerja
+        example: ini adalah bio saya
+      address:
+        type: string
+        description: alamat pekerja
+        example: Jln. Halim Perdana Kusuma
+      photo:
+        type: string
+        description: nama foto pekerja setelah di upload
+        example: '312-434.jpg'

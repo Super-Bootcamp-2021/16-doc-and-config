@@ -1,5 +1,5 @@
 /**
- * Todo type definition
+ * Worker type definition
  * @typedef {Object} Worker
  * @property {number} id id of a worker
  * @property {string} name worker's name

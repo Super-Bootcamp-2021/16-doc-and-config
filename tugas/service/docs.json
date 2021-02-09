@@ -7,6 +7,15 @@
   "opts": {
     "destination": "./docs/service",
     "recurse": true,
-    "readme": "service/README.md"
+    "readme": "service/README.md",
+    "encoding": "utf8"
+  },
+  "templates": {
+    "referenceTitle": "Task Manager Service",
+    "disableSort": false,
+    "collapse": true,
+    "resources": {
+        "google": "https://www.google.com/"
+    }
   }
 }

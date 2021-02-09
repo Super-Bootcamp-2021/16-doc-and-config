@@ -1,3 +1,4 @@
+/** @module performanceAggregator */
 const bus = require('../lib/bus');
 const {
   increaseTotalTask,

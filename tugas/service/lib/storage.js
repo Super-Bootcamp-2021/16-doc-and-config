@@ -1,3 +1,4 @@
+/** @module objStorage */
 const mime = require('mime-types');
 const { Client } = require('minio');
 
@@ -7,6 +8,24 @@ const ERROR_FILE_NOT_FOUND = 'error file tidak ditemukan';
 let client;
 let bucketname;
 
+/**
+ * Membuat koneksi ke object storage dan membuat bucket baru jika bucket belum ada
+ * @async
+ * @param {string} _bucketname nama bucket untuk menyimpan/mengambil file
+ * @param {Object} options konfigurasi koneksi ke object storage
+ * @throws {*} ketika bucket sudah ada
+ *
+ * @example
+ * async function init() {
+ *  await storage.connect('task-manager', {
+ *    endPoint: '127.0.0.1',
+ *    port: 9000,
+ *    useSSL: false,
+ *    accessKey: 'minioadmin',
+ *    secretKey: 'minioadmin',
+ *  });
+ * }
+ */
 async function connect(_bucketname, options) {
   client = new Client({
     ...options,
@@ -23,6 +42,11 @@ async function connect(_bucketname, options) {
   }
 }
 
+/**
+ * Membuat nama acak untuk nama file
+ * @param {string} mimetype ekstensi dari file
+ * @returns {string} nama file setelah diacak
+ */
 function randomFileName(mimetype) {
   return (
     new Date().getTime() +
@@ -33,6 +57,12 @@ function randomFileName(mimetype) {
   );
 }
 
+/**
+ * Menyimpan file ke dalam object storage
+ * @param {Blob} file file yang akan disimpan
+ * @param {string} mimetype ekstensi dari file
+ * @returns {Promise<string>} mengembalikan nama file yang berhasil disimpan
+ */
 function saveFile(file, mimetype) {
   const objectName = randomFileName(mimetype);
   return new Promise((resolve, reject) => {
@@ -46,6 +76,15 @@ function saveFile(file, mimetype) {
   });
 }
 
+/**
+ * Mengambil file dari object storage
+ * @async
+ * @param {string} objectName nama file yang akan diambil
+ * @throws {string} ketika nama file kosong
+ * @throws {string} ketika file tidak ditemukan di dalam object storage
+ *
+ * @returns {Blob} file dengan nama yang telah diberikan
+ */
 async function readFile(objectName) {
   if (!objectName) {
     throw ERROR_REQUIRE_OBJECT_NAME;

@@ -1,0 +1,87 @@
+swagger: '2.0'
+info:
+  title: 'Task Service'
+  description: 'API to manage task feature'
+  version: '1.0.0'
+  license:
+    name: 'GPL-3.0'
+    url: 'https://www.gnu.org/licenses/gpl-3.0.en.html'
+host: 'localhost'
+tags:
+  - name: 'task'
+    description: 'endpoint to edit task'
+schemes:
+  - 'http'
+paths:
+  /add:
+    post:
+      operationId: 'addtask'
+      description: 'to add new task'
+      consumes:
+      - 'application/json'
+      produces:
+      - 'application/json'
+      - 'text/plain'
+      tags:
+        - 'performance'
+      produces:
+        - 'application/json'
+        - 'text/plain'
+      parameters:
+      - in: body
+        name: body
+        description: task information
+        required: true
+      responses:
+        '200':
+          description: 'new Task'
+          schema:
+            $ref: '#/definitions/taskData'
+        '404':
+          description: 'Data tidak Valid'
+        '500':
+          description: 'kesalahan server'
+    /list:
+    get:
+      operationId: 'listTask'
+      description: display task list
+      tags:
+        - 'todo'
+      consumes:
+        - 'application/json'
+      produces:
+        - 'application/json'
+        - 'text/plain'
+      responses:
+        '200':
+          description: daftar task
+          schema:
+            type: array
+            items:
+              $ref: '#/definitions/listTask'
+        '500':
+          description: kesalahan server
+
+
+definitions:
+  taskData:
+    type: object
+    properties:
+      task:
+        type: string
+        description: 'return task information'
+        example: ngedota
+  listTask:
+    type: object
+    properties:
+      id:
+        type: number
+        description: id of tasks
+        example: 1
+      task:
+        type: string
+        description: 'return task information'
+        example: ngedota
+      done:
+      type: boolean
+      description: 'done or undone tasks'

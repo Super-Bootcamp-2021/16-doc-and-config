@@ -7,10 +7,10 @@ const WORKER_TOTAL_KEY = 'worker.total';
 
 async function summary() {
   const data = {
-    total_task: parseInt((await read(TASK_TOTAL_KEY)) || '0', 0),
-    task_done: parseInt((await read(TASK_DONE_KEY)) || '0', 0),
-    task_cancelled: parseInt((await read(TASK_CANCELLED_KEY)) || '0', 0),
-    total_worker: parseInt((await read(WORKER_TOTAL_KEY)) || '0', 0),
+    total_task: parseInt((await read(TASK_TOTAL_KEY)) || '0', 10),
+    task_done: parseInt((await read(TASK_DONE_KEY)) || '0', 10),
+    task_cancelled: parseInt((await read(TASK_CANCELLED_KEY)) || '0', 10),
+    total_worker: parseInt((await read(WORKER_TOTAL_KEY)) || '0', 10),
   };
   return data;
 }

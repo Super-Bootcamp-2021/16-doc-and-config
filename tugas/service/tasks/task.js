@@ -10,7 +10,7 @@ async function add(data) {
   if (!data.job || !data.assigneeId) {
     throw ERROR_TASK_DATA_INVALID;
   }
-  await workerClient.info(data.asigneeId);
+  await workerClient.info(data.assigneeId);
   const taskRepo = getConnection().getRepository('Task');
   const newTask = await taskRepo.save({
     job: data.job,

@@ -32,7 +32,7 @@ async function connect(_bucketname, options) {
 
 /**
  * membuat nama file
- * @param {*} mimetype nama bucket
+ * @param {*} mimetype mimetype
  * @returns {string} nama file yang telah dibuat
  */
 function randomFileName(mimetype) {

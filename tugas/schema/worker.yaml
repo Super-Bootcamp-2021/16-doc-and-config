@@ -9,7 +9,7 @@ info:
 host: 'localhost:7001'
 tags:
   - name: 'Worker Service'
-    description: 'endpoint untuk mengedit data pekerja'
+    description: 'endpoint untuk mengedit data pekerja/worker'
 schemes:
   - 'http'
 paths:
@@ -32,12 +32,12 @@ paths:
           description: Profil pekerja yang telah ditambahkan
           required: true
           schema:
-            $ref: '#/definitions/WorkerData'
+            $ref: '#/definitions/WorkerRegisterRequest'
       responses:
         '200':
           description: ''
           schema:
-            $ref: '#/definitions/Worker'
+            $ref: '#/definitions/WorkerRegisterResponse'
         '400':
           description: ''
         '401':
@@ -65,7 +65,7 @@ paths:
           schema:
             type: array
             items:
-              $ref: '#/definitions/WorkerList'
+              $ref: '#/definitions/WorkerListResponse'
         '404':
           description: ''
         '500':
@@ -95,7 +95,7 @@ paths:
           schema:
             type: array
             items:
-              $ref: '#/definitions/WorkerInfo'
+              $ref: '#/definitions/WorkerInfoResponse'
         '404':
           description: 'pekerja tidak ditemukan'
         '500':
@@ -103,7 +103,7 @@ paths:
 
 definitions:
   # request body /register
-  WorkerData:
+  WorkerRegisterRequest:
     type: object
     properties:
       name:
@@ -128,7 +128,7 @@ definitions:
         example: '/home/ilham76c/Dokumen/foto-profil.jpg'
   
   # response /register
-  Worker:
+  WorkerRegisterResponse:
     type: object
     properties:
       name:
@@ -153,10 +153,10 @@ definitions:
         example: '312-434.jpg'
 
   # response /list
-  WorkerList:    
+  WorkerListResponse:    
     type: array
     items:
-      $ref: '#/definitions/WorkerModel'
+      $ref: '#/definitions/WorkerListModel'
     example:
       - id: 1
         name: Moh. Ilham Burhanuddin
@@ -178,7 +178,7 @@ definitions:
         photo: '445-765.jpg'
   
   # Model untuk response /list
-  WorkerModel:    
+  WorkerListModel:    
     type: object
     properties:
       id:
@@ -207,7 +207,7 @@ definitions:
         example: '312-434.jpg'
 
   # response /info
-  WorkerInfo:
+  WorkerInfoResponse:
     type: object
     properties:
       id:

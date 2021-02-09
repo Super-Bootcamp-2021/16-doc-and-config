@@ -1,0 +1,51 @@
+swagger: '2.0'
+info:
+  title: 'Peformance Service'
+  description: 'API to manage peformance service'
+  version: '1.0.0'
+  license:
+    name: 'GPL-3.0'
+    url: 'https://www.gnu.org/licenses/gpl-3.0.en.html'
+host: 'localhost:7003'
+schemes:
+  - 'http'
+paths:
+  /summary:
+    get:
+      operationId: 'listSummary'
+      description: untuk melihat summary dari task service dan worker
+      consumes:
+        - 'application/json'
+      produces:
+        - 'application/json'
+        - 'text/plain'
+      responses:
+        '200':
+          description: menampilkan summary
+          schema:
+            type: array
+            items:
+              $ref: '#/definitions/Peformance'
+        '500':
+          description: kesalahan server
+
+definitions:
+  Peformance:
+    type: object
+    properties:
+      worker:
+        type: number
+        description: menampilkan jumlah pekerja
+        example: 3
+      task:
+        type: string
+        description: menampilkan jumlah tugas
+        example: 2
+      done:
+        type: boolean
+        description: menampilkan jumlah tugas yang selesai
+        example: 0
+      cancel:
+        type: boolean
+        description: menampilkan jumlah tugas yang batal
+        example: 1

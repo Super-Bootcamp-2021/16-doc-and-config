@@ -20,7 +20,7 @@ paths:
       tags:
         - 'Worker Service'
       operationId: 'addWorker'
-      description: 'Untuk menambah profil pekerja baru'
+      description: 'Untuk menambahkan profil pekerja baru ke database'
       consumes:
         - 'application/json'
       produces:
@@ -29,7 +29,7 @@ paths:
       parameters:
         - in: body
           name: body
-          description: Detail profil pekerja
+          description: Profil pekerja yang telah ditambahkan
           required: true
           schema:
             $ref: '#/definitions/WorkerData'
@@ -51,7 +51,7 @@ paths:
   /list:
     get:
       operationId: 'listWorker'
-      description: mengembalikan daftar perkerja yang ada di database
+      description: Mengambil data perkerja yang ada di database
       tags:
         - 'Worker Service'
       consumes:
@@ -61,7 +61,7 @@ paths:
         - 'text/plain'
       responses:
         '200':
-          description: daftar task
+          description: Daftar pekerja yang ada di database
           schema:
             type: array
             items:
@@ -71,6 +71,36 @@ paths:
         '500':
           description: 'unkown server error'         
           
+  # http://localhost:7001/info?id=1
+  /info:
+    get:
+      operationId: 'infoWorker'
+      description: Menampilkan profil pekerja berdasarkan ID pekerja
+      parameters:
+        - in: query
+          name: id
+          required: true
+          type: integer
+          description: ID dari pekerja
+      tags:
+        - 'Worker Service'
+      consumes:
+        - 'application/json'
+      produces:
+        - 'application/json'
+        - 'text/plain'
+      responses:
+        '200':
+          description: Profil pekerja
+          schema:
+            type: array
+            items:
+              $ref: '#/definitions/WorkerInfo'
+        '404':
+          description: 'pekerja tidak ditemukan'
+        '500':
+          description: 'unkown server error'
+
 definitions:
   # request body /register
   WorkerData:
@@ -129,14 +159,14 @@ definitions:
       $ref: '#/definitions/WorkerModel'
     example:
       - id: 1
-        name: Sherlock
-        age: 22
+        name: Moh. Ilham Burhanuddin
+        age: 23
         bio: ini adalah bio sherlock
         address: Surabaya
         photo: '123-131.jpg'
       - id: 2
         name: Simon
-        age: 23
+        age: 22
         bio: ini adalah bio Simon
         address: Jakarta
         photo: '899-221.jpg'
@@ -146,7 +176,9 @@ definitions:
         bio: ini adalah bio Listi Chan
         address: Bandung
         photo: '445-765.jpg'
-  WorkerModel:
+  
+  # Model untuk response /list
+  WorkerModel:    
     type: object
     properties:
       id:
@@ -157,6 +189,35 @@ definitions:
         type: string
         description: nama pekerja
         example: ilham
+      age:
+        type: number
+        description: umur pekerja
+        example: 23
+      bio:
+        type: string
+        description: bio pekerja
+        example: ini adalah bio saya
+      address:
+        type: string
+        description: alamat pekerja
+        example: Jln. Halim Perdana Kusuma
+      photo:
+        type: string
+        description: nama foto pekerja setelah di upload
+        example: '312-434.jpg'
+
+  # response /info
+  WorkerInfo:
+    type: object
+    properties:
+      id:
+        type: integer
+        description: id dari pekerja
+        example: 1
+      name:
+        type: string
+        description: nama pekerja
+        example: Moh. Ilham Burhanuddin
       age:
         type: number
         description: umur pekerja

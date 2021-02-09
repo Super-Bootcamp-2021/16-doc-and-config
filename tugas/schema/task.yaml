@@ -179,14 +179,14 @@ definitions:
         type: boolean
         description: identifikasi apakah pekerjaan dibatalkan
         example: false
+      addedAt:
+        type: string
+        description: waktu saat pekerjaan ditambahkan
+        example: 2021-02-09T14:19:54.697Z
       attachment:
         type: string
         description: nama file pendukung
         example: 090220211630-332.md
-      addedAt:
-        type: string
-        description: waktu saat pekerjaan ditambahkan
-        example: 16-09-2020 19:20:23
       assignee:
         $ref: '#/definitions/Worker'
   Worker:

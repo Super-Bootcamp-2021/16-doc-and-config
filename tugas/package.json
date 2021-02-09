@@ -9,22 +9,30 @@
     "svc:dev": "nodemon .",
     "lint": "eslint .",
     "web:build": "webpack --mode production",
-    "web:dev": "webpack serve --open --mode development"
+    "web:dev": "webpack serve --open --mode development",
+    "docs:svc": "jsdoc -c service/tasks/docs.json",
+    "docs:web": "jsdoc -c docs.json"
   },
   "author": "",
   "license": "ISC",
   "devDependencies": {
+    "css-loader": "^5.0.1",
+    "dotenv-webpack": "^6.0.0",
     "eslint": "^7.19.0",
     "eslint-config-google": "^0.14.0",
     "eslint-plugin-prettier": "^3.3.1",
+    "jsdoc": "^3.6.6",
+    "json-loader": "^0.5.7",
+    "livereload": "^0.9.1",
     "prettier": "^2.2.1",
-    "css-loader": "^5.0.1",
     "style-loader": "^2.0.0",
     "webpack": "^5.17.0",
     "webpack-cli": "^4.4.0",
-    "webpack-dev-server": "^3.11.2"
+    "webpack-dev-server": "^3.11.2",
+    "yaml-loader": "^0.6.0"
   },
   "dependencies": {
+    "@reduxjs/toolkit": "^1.5.0",
     "busboy": "^0.3.1",
     "mariadb": "^2.5.2",
     "mime-types": "^2.1.28",
@@ -34,10 +42,11 @@
     "nodemon": "^2.0.7",
     "pg": "^8.5.1",
     "pg-hstore": "^2.3.3",
+    "rc": "^1.2.8",
     "redis": "^3.0.2",
-    "typeorm": "^0.2.30",
-    "@reduxjs/toolkit": "^1.5.0",
+    "redux-thunk": "^2.3.0",
     "rxjs": "^6.6.3",
-    "redux-thunk": "^2.3.0"
+    "swagger-ui": "^3.42.0",
+    "typeorm": "^0.2.31"
   }
 }

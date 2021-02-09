@@ -15,9 +15,9 @@ async function init() {
       type: 'postgres',
       host: 'localhost',
       port: 5432,
-      username: 'postgres',
-      password: 'postgres',
-      database: 'sanbercode2',
+      username: 'testing',
+      password: '',
+      database: 'sanbercode5',
     });
     console.log('database connected');
   } catch (err) {
@@ -27,11 +27,11 @@ async function init() {
   try {
     console.log('connect to object storage');
     await storage.connect('task-manager', {
-      endPoint: '127.0.0.1',
+      endPoint: '192.168.0.8',
       port: 9000,
       useSSL: false,
-      accessKey: 'local-minio',
-      secretKey: 'local-test-secret',
+      accessKey: 'minioadmin',
+      secretKey: 'minioadmin',
     });
     console.log('object storage connected');
   } catch (err) {

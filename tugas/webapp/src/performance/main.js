@@ -1,6 +1,5 @@
 const { summary } = require('./async-action');
 const { store$ } = require('./store');
-
 require('./main.css');
 
 const workers = document.getElementById('workers');
@@ -10,13 +9,6 @@ const canceled = document.getElementById('task-canceled');
 const refresh = document.getElementById('refresh');
 const errorTxt = document.getElementById('error-text');
 const loadingTxt = document.getElementById('loading-text');
-
-
-/**
- * melakukan render / menampilkan informasi dari state ke user interface client
- * @param {Object<any>} summary data laporan performa pekerja
- */
-
 
 // presentation layer
 store$.subscribe(() => {
@@ -33,10 +25,9 @@ refresh.onclick = () => {
 };
 
 /**
- * @function reder fungsi untuk menampilkan data pada DOM
- *  @param {Object < loading, error, summary >} state  object berisi informasi yang akan ditampilkan client
+ * @function render performance
+ * @param {Object<any>} state object berisi informasi yang akan ditampilkan client
  */
-
 function render(state) {
   // render error
   if (state.error) {

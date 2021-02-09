@@ -1,11 +1,16 @@
+/**
+ * @module asyncMiddleWarePerformance
+*/
+
 const { loadingAction, errorAction, summaryLoadedAction } = require('./store');
 const perfSvc = require('./performance.client');
 
 /**
- * @param {Function} dispatch redux dispatch function
- * @param {Object<JSON>} summary data laporan performa pekerja
+ * @function summary  data laporan performa pekerja
+ * @param {Function} dispatch penerusan fungsi dispatch redux
+ * @return {Function} 
+ * 
  */
-
 exports.summary = async (dispatch) => {
   dispatch(loadingAction());
   try {

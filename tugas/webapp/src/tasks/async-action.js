@@ -1,3 +1,7 @@
+/**
+ * @module asyncMiddleWareTask
+ */
+
 const {
   loadingAction,
   errorAction,
@@ -67,7 +71,7 @@ exports.getList = async (dispatch) => {
   }
 };
 /**
- * @function getList untuk mendapatkan informasi 'worker' dari state
+ * @function getWorkerList untuk mendapatkan informasi 'worker' dari state
  */
 exports.getWorkersList = async (dispatch) => {
   dispatch(loadingAction());

@@ -1,16 +1,17 @@
+/**
+ * @module task-reducer
+ */
+
 const { SERVICE_BASEURL } = require('./config');
-
-
 
 // setup state
 
-
 /**
- * @param {Object} initialState objek berisi informasi yang akan di tampilak ke client
+ * @var {Object} initialState objek berisi informasi yang akan di tampilak ke client
  * @property {boolean} loading bernilai true / false
  * @property {string} error berisi pesan error yang akan di tampilkan ke client
- * @property {Object <id, name> } workers berisi informasi dari para pekerja
- * @property {Object <id, job, assignee, attachment, done >} tasks berisi informasi tentang tugas dari paara pakerja
+ * @property {Object} workers berisi informasi dari para pekerja
+ * @property {Object} tasks berisi informasi tentang tugas dari paara pakerja
  */
 const initialState = {
   loading: false,
@@ -20,8 +21,8 @@ const initialState = {
 };
 
 /**
- * @param {Object} state initital state baik sudah di update maupun belum
  * @function loading fungsi loading ketika request masih berjalan
+ * @param {Object} state initital state baik sudah di update maupun belum
  */
 
 function loading(state) {
@@ -30,8 +31,8 @@ function loading(state) {
 }
 
 /**
- * @param {Object} state initital state baik sudah di update maupun belum
  * @function error menghandle pesan error yang muncul pada client
+ * @param {Object} state initital state baik sudah di update maupun belum
  */
 
 function error(state, action) {
@@ -40,8 +41,8 @@ function error(state, action) {
 }
 
 /**
- * @param {Object} state initital state baik sudah di update maupun belum
  * @function error menghapus pesan error yang muncul pada client
+ * @param {Object} state initital state baik sudah di update maupun belum
  */
 
 function clearError(state) {
@@ -49,10 +50,10 @@ function clearError(state) {
 }
 
 /**
+ * @function added melakukan penambahan state pada property tasks
  * @param {Object} state initital state baik sudah di update maupun belum
- * @param {Object} action merupakan interface action dari redux 
- * @function added melakukan penambahan state pada property tasks 
- * @returns {Object<state> } 
+ * @param {Object} action merupakan interface action dari redux
+ * @returns {Object<any>}
  */
 
 function added(state, action) {
@@ -69,14 +70,12 @@ function added(state, action) {
   return state;
 }
 
-
 /**
  * @param {Object} state initital state baik sudah di update maupun belum
- * @param {Object} action merupakan interface action dari redux 
- * @function done melakukan perbahan value dari property task.done menjadi true, berdasarkan id 
- * @returns {Object<state> } 
+ * @param {Object} action merupakan interface action dari redux
+ * @function done melakukan perbahan value dari property task.done menjadi true, berdasarkan id
+ * @returns {Object<state> }
  */
-
 
 function done(state, action) {
   const idx = state.tasks.findIndex((t) => t.id === action.payload);
@@ -87,9 +86,10 @@ function done(state, action) {
 }
 
 /**
- * @param {Object} state initital state baik sudah di update maupun belum
+* @function caceled menghapus task berdasarkan id pada state 
+* @param {Object} state initital state baik sudah di update maupun belum
  * @param {Object} action merupakan interface action dari redux 
- * @function caceled menghapus task berdasarkan id pada state
+
  * @returns {Object<state> } 
  */
 
@@ -103,7 +103,7 @@ function canceled(state, action) {
 
 /**
  * @param {Object} state initital state baik sudah di update maupun belum
- * @param {Object} action merupakan interface action dari redux 
+ * @param {Object} action merupakan interface action dari redux
  * @function tasksLoaded menampilkan daftar tugas ke luar state menuju client
  * @returns {Object<state> }
  */
@@ -122,10 +122,10 @@ function tasksLoaded(state, action) {
   return state;
 }
 /**
- * @param {Object} state initital state baik sudah di update maupun belum
- * @param {Object} action merupakan interface action dari redux 
  * @function workersLoaded menampilkan daftar pekerja berisi nama dan id pekerja ke luar state menuju client
- * @returns {Object<state>} 
+ * @param {Object} state initital state baik sudah di update maupun belum
+ * @param {Object} action merupakan interface action dari redux
+ * @returns {Object<state>}
  */
 function workersLoaded(state, action) {
   state.workers = action.payload.map((worker) => ({

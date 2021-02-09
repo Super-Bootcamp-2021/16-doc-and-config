@@ -53,6 +53,10 @@ render(state);
 store$.dispatch(getList);
 store$.dispatch(getWorkersList);
 
+/**
+ * render task application
+ * @param {Task[]} state state of task application
+ */
 function render(state) {
   // render error
   if (state.error) {

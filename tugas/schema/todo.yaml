@@ -1,0 +1,401 @@
+swagger: '2.0'
+info:
+  title: 'Task Service'
+  description: 'API to manage task of worker activity'
+  version: '1.0.0'
+  license:
+    name: 'GPL-3.0'
+    url: 'https://www.gnu.org/licenses/gpl-3.0.en.html'
+host: 'localhost:7001'
+tags:
+  - name: 'Task'
+    description: 'Endpoint for management task'
+  - name: "Worker"
+    description: "Endpoint for management Worker"
+  - name: "Performance"
+    description: "Endpoint for management Performance"
+schemes:
+  - 'http'
+paths:
+  /add:
+    post:
+      summary: 'Menambah kan task baru'
+      tags:
+        - 'Task'
+      operationId: 'addTask'
+      description: 'untuk menambahkan task baru'
+      consumes:
+        - 'multipart/form-data'
+      produces:
+        - 'application/json'
+        - 'text/plain'
+      parameters:
+      - name: "job"
+        in: "formData"
+        description: "Nama pekerjaan"
+        required: true
+        type: "string"
+      - name: "assignee_id"
+        in: "formData"
+        description: "Pekerja yang dikenai pekerjaan"
+        required: true
+        type: "number"
+      - name: "attachment"
+        in: "formData"
+        description: "file attachment"
+        required: true
+        type: "file"
+      responses:
+        '200':
+          description: 'task yang baru di input'
+          schema:
+            $ref: '#/definitions/Task'
+        '400':
+          description: 'data pekerjaan tidak valid'
+        '413':
+          description: 'File di input error'
+        '500':
+          description: 'kesalahan server'
+  /done:
+    put:
+      summary: 'Update task menjadi selesai'
+      operationId: 'doneTask'
+      description: Mengubah task menjadi selesai
+      tags:
+        - 'Task'
+      produces:
+        - 'application/json'
+        - 'text/plain'
+      parameters:
+        - in: query
+          name: id
+          description: dari task yang mau di selesaikan
+          required: true
+          type: "integer"
+          format: "int64"
+      responses:
+        '200':
+          description: Task yang berhasil
+          schema:
+            $ref: '#/definitions/Task'
+        '404':
+          description: 'data pekerjaan tidak ditemukan'  
+        '500':
+          description: kesalahan server
+  /cancel:
+    put:
+      summary: 'Membatalkan task'
+      operationId: 'cancelTask'
+      description: Mengubah task menjadi batal
+      tags:
+        - 'Task'
+      produces:
+        - 'application/json'
+        - 'text/plain'
+      parameters:
+        - in: query
+          name: id
+          description: dari task yang mau di selesaikan
+          required: true
+          type: "integer"
+          format: "int64"
+      responses:
+        '200':
+          description: Task yang berhasil
+          schema:
+            $ref: '#/definitions/Task'
+        '404':
+          description: 'data pekerjaan tidak ditemukan'  
+        '500':
+          description: kesalahan server
+          
+  /attachment/{namefile}:
+    get:
+      summary: 'Menampilkan attachment task'
+      operationId: 'attachmentTask'
+      description: Mengubah task menjadi batal
+      tags:
+        - 'Task'
+      produces:
+        - 'application/pdf'
+        - 'image/png'
+      parameters:
+        - in: path
+          name: namefile
+          description: Nama file dari task
+          required: true
+          type: string
+      responses:
+        '200':
+          description: Task yang berhasil
+          schema:
+           example: Ini-gambar.png
+        '404':
+          description: 'data pekerjaan tidak ditemukan'  
+        '500':
+          description: kesalahan server
+          
+  /listTask:
+    get:
+      summary: 'Menampilkan semua task yang ada'
+      operationId: 'listTask'
+      description: mengembalikan daftar task
+      tags:
+        - 'Task'
+      consumes:
+        - 'application/json'
+      produces:
+        - 'application/json'
+        - 'text/plain'
+      responses:
+        '200':
+          description: daftar task
+          schema:
+            type: array
+            items:
+              $ref: '#/definitions/Task'
+        '500':
+          description: kesalahan server
+  /register:
+    post:
+      summary: 'Menambah kan Pekerja baru'
+      tags:
+        - 'Worker'
+      operationId: 'addWorker'
+      description: 'untuk menambahkan Pekerja baru'
+      consumes:
+        - 'multipart/form-data'
+      produces:
+        - 'application/json'
+        - 'text/plain'
+      parameters:
+      - name: "name"
+        in: "formData"
+        description: "Nama pekerjaan"
+        required: true
+        type: "string"
+      - name: "age"
+        in: "formData"
+        description: "Pekerja yang dikenai pekerjaan"
+        required: true
+        type: "number"
+      - name: "bio"
+        in: "formData"
+        description: "Pekerja yang dikenai pekerjaan"
+        required: true
+        type: "string"
+      - name: "address"
+        in: "formData"
+        description: "Pekerja yang dikenai pekerjaan"
+        required: true
+        type: "string"
+      - name: "photo"
+        in: "formData"
+        description: "file attachment"
+        required: true
+        type: "file"
+      responses:
+        '200':
+          description: 'task yang baru di input'
+          schema:
+            $ref: '#/definitions/Assignee'
+        '401':
+          description: 'data pekerjaan tidak valid'
+        '413':
+          description: 'File di input error'
+        '500':
+          description: 'kesalahan server'
+  /list:
+    get:
+      summary: 'Menampilkan semua Worker yang ada'
+      operationId: 'listWorker'
+      description: mengembalikan daftar pekerja
+      tags:
+        - 'Worker'
+      produces:
+        - 'application/json'
+        - 'text/plain'
+      responses:
+        '200':
+          description: daftar task
+          schema:
+            type: array
+            items:
+              $ref: '#/definitions/Assignee'
+        '500':
+          description: kesalahan server
+  /info:
+    get:
+      summary: 'Mencari Pekerja'
+      operationId: 'infoOneWorker'
+      description: Mencari 1 pekerja
+      tags:
+        - 'Worker'
+      produces:
+        - 'application/json'
+        - 'text/plain'
+      parameters:
+        - in: query
+          name: id
+          description: dari task yang mau di selesaikan
+          required: true
+          type: "integer"
+          format: "int64"
+      responses:
+        '200':
+          description: Task yang berhasil
+          schema:
+            $ref: '#/definitions/Assignee'
+        '404':
+          description: 'data pekerjaan tidak ditemukan'  
+        '500':
+          description: kesalahan server
+  /remove:
+    put:
+      summary: 'Menghapus pekerja'
+      operationId: 'deleteWorker'
+      description: Menghapus pekerja yang ada
+      tags:
+        - 'Worker'
+      produces:
+        - 'application/json'
+        - 'text/plain'
+      parameters:
+        - in: query
+          name: id
+          description: dari task yang mau di selesaikan
+          required: true
+          type: "integer"
+          format: "int64"
+      responses:
+        '200':
+          description: Task yang berhasil
+          schema:
+            $ref: '#/definitions/Assignee'
+        '404':
+          description: 'data pekerjaan tidak ditemukan'  
+        '500':
+          description: kesalahan server
+  /photo/{namefile}:
+    get:
+      summary: 'Menampilkan foto worker'
+      operationId: 'photoWorker'
+      description: manpilkan foto pekerja
+      tags:
+        - 'Worker'
+      produces:
+        - 'application/pdf'
+        - 'image/png'
+      parameters:
+        - in: path
+          name: namefile
+          description: Nama file dari Worker
+          required: true
+          type: string
+      responses:
+        '200':
+          description: Task yang berhasil
+          schema:
+           example: Ini-gambar.png
+        '404':
+          description: 'data pekerjaan tidak ditemukan'  
+        '500':
+          description: kesalahan server
+  /summary:
+    get:
+      summary: 'Menampilkan semua performance yang ada'
+      operationId: 'performance'
+      description: mengembalikan logging worker dan task
+      tags:
+        - 'Performance'
+      produces:
+        - 'application/json'
+        - 'text/plain'
+      responses:
+        '200':
+          description: daftar task
+          schema:
+            type: array
+            items:
+              $ref: '#/definitions/Performance'
+        '500':
+          description: kesalahan server
+
+definitions:
+  Task:
+    type: object
+    properties:
+      id:
+        type: number
+        description: identifier pekerjaan
+        example: 1
+      job:
+        type: string
+        description: detail pekerjaan / tugas
+        example: membuat Dokumentasi    
+      done:
+        type: boolean
+        description: 'true mendandakan pekerjaan sudah selesai'
+      cancelled:
+        type: boolean
+        description: 'true mendandakan pekerjaan sudah dihapus'
+      addedAt:
+        type: string
+        format: date-time
+        description: tanggal pekerjaan / tugas
+        example: '2021-02-09T08:14:57.558Z'
+      attachment:
+        type: string
+        description: file attachmanet dari pekerjaan
+        example: '1612858497484-148.png'
+      assiggne:
+        $ref: '#/definitions/Assignee'
+          
+  Assignee:
+    type: object
+    properties:
+      id:
+        type: number
+        description: identifier pekerjaan
+        example: 1
+      name:
+        type: string
+        description: nama Pekerja
+        example: Annas
+      age:
+        type: string
+        description: Umur pekerja
+        example: 23
+      bio:
+        type: string
+        description: Detail pekerja
+        example: QA
+      address:
+        type: string
+        description: Alamat pekerja
+        example: Jl semarang
+      photo:
+        type: string
+        description: Foto Pekerja
+        example: 1612858486704-99.jpeg                
+  Performance:
+    type: object
+    properties:
+      total_task:
+        type: number
+        description: Total task yang sudah ada
+        example: 3
+      task_done:
+        type: number
+        description: Total task yang sudah selesai
+        example: 7
+      task_cancelled:
+        type: number
+        description: Total task yang batal
+        example: 1
+      total_worker:
+        type: number
+        description: Total pekerja yang sudah ada
+        example: 9
+      
+      

@@ -12,12 +12,12 @@ async function init() {
   try {
     console.log('connect to database');
     await orm.connect([WorkerSchema, TaskSchema], {
-      type: 'postgres',
+      type: 'mysql',
       host: 'localhost',
-      port: 5432,
-      username: 'postgres',
-      password: 'postgres',
-      database: 'sanbercode2',
+      port: 3306,
+      username: 'root',
+      password: '',
+      database: 'dubnium',
     });
     console.log('database connected');
   } catch (err) {
@@ -30,8 +30,8 @@ async function init() {
       endPoint: '127.0.0.1',
       port: 9000,
       useSSL: false,
-      accessKey: 'local-minio',
-      secretKey: 'local-test-secret',
+      accessKey: 'admin',
+      secretKey: 'password',
     });
     console.log('object storage connected');
   } catch (err) {

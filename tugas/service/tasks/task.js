@@ -10,7 +10,7 @@ async function add(data) {
   if (!data.job || !data.assigneeId) {
     throw ERROR_TASK_DATA_INVALID;
   }
-  await workerClient.info(data.asigneeId);
+  await workerClient.info(data.assigneeId);
   const taskRepo = getConnection().getRepository('Task');
   const newTask = await taskRepo.save({
     job: data.job,
@@ -28,7 +28,7 @@ async function add(data) {
 async function done(id) {
   const taskRepo = getConnection().getRepository('Task');
   const task = await taskRepo.findOne(id, { relations: ['assignee'] });
-  if (!task || task?.cancelled) {
+  if (!task || task.cancelled) {
     throw ERROR_TASK_NOT_FOUND;
   }
   if (task.done) {
@@ -43,7 +43,7 @@ async function done(id) {
 async function cancel(id) {
   const taskRepo = getConnection().getRepository('Task');
   const task = await taskRepo.findOne(id, { relations: ['assignee'] });
-  if (!task || task?.cancelled) {
+  if (!task || task.cancelled) {
     throw ERROR_TASK_NOT_FOUND;
   }
   task.cancelled = true;

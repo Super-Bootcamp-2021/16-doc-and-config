@@ -53,6 +53,10 @@ render(state);
 store$.dispatch(getList);
 store$.dispatch(getWorkersList);
 
+/**
+ * ### Render aplikasi berdasarkan state
+ * @param {State} state
+ */
 function render(state) {
   // render error
   if (state.error) {

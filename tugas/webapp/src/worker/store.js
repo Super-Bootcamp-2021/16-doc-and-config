@@ -1,3 +1,7 @@
+/**
+ * @module Store Worker
+ */
+
 const {
   createAction,
   createReducer,

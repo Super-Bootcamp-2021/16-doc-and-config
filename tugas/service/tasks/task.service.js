@@ -76,6 +76,7 @@ function addSvc(req, res) {
         data.assigneeId = parseInt(val, 10);
         break;
     }
+    console.log(fieldname, val)
   });
 
   busboy.on('finish', async () => {
@@ -104,6 +105,7 @@ async function listSvc(req, res) {
 async function doneSvc(req, res) {
   const uri = url.parse(req.url, true);
   const id = uri.query['id'];
+  console.log(id)
   if (!id) {
     res.statusCode = 401;
     res.write('parameter id tidak ditemukan');

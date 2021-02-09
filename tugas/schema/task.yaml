@@ -8,17 +8,17 @@ info:
     url: 'https://www.gnu.org/licenses/gpl-3.0.en.html'
 host: 'localhost'
 tags:
-  - name: 'todo'
-    description: 'endpoint untuk mengedit todo'
+  - name: 'Task'
+    description: 'Endpoint untuk mengedit Task'
 schemes:
   - 'http'
 paths:
   /add:
     post:
       tags:
-        - 'todo'
+        - 'Task'
       operationId: 'addTask'
-      description: 'untuk menambahkan task baru'
+      description: 'Untuk menambahkan job baru'
       consumes:
         - 'application/json'
       produces:
@@ -27,13 +27,22 @@ paths:
       parameters:
         - in: body
           name: body
-          description: informasi tugas
+          description: input task
           required: true
           schema:
-            $ref: '#/definitions/TaskData'
+            properties:
+              job:
+                type: string
+                example: makan geprek
+              assignee_id:
+                type: number
+                example: 1
+              attachment:
+                type: string
+                example: 1612867757630-580.bin
       responses:
         '200':
-          description: 'task yang baru di input'
+          description: task yang baru di input
           schema:
             $ref: '#/definitions/Task'
         '400':
@@ -45,12 +54,13 @@ paths:
       operationId: 'listTask'
       description: mengembalikan daftar task
       tags:
-        - 'todo'
+        - 'Task'
       consumes:
         - 'application/json'
       produces:
         - 'application/json'
         - 'text/plain'
+      # summary: Gets all users
       responses:
         '200':
           description: daftar task
@@ -60,26 +70,103 @@ paths:
               $ref: '#/definitions/Task'
         '500':
           description: kesalahan server
+  /done:
+    put:
+      operationId: 'doneTask'
+      description: merubah status 'done' ke selesai (true)
+      tags:
+        - 'Task'
+      consumes:
+        - 'application/json'
+      produces:
+        - 'application/json'
+        - 'text/plain'
+      parameters:
+        - in: query
+          name: id
+          required: true
+          schema:
+            type: string
+      responses:
+        '200':
+          description: task
+          schema:
+            $ref: '#/definitions/Task'
+  /cancel:
+    put:
+      operationId: 'doneTask'
+      description: merubah status 'cancel' ke selesai (true)
+      tags:
+        - 'Task'
+      consumes:
+        - 'application/json'
+      produces:
+        - 'application/json'
+        - 'text/plain'
+      parameters:
+        - in: query
+          name: id
+          required: true
+          schema:
+            type: string
+      responses:
+        '200':
+          description: task
+          schema:
+            $ref: '#/definitions/Task'
+            
 
 definitions:
-  TaskData:
-    type: object
-    properties:
-      task:
-        type: string
-        description: detail pekerjaan / tugas
-        example: makan
   Task:
     type: object
     properties:
       id:
         type: number
-        description: identifier pekerjaan
-        example: 1
-      task:
+        description: id task
+      job:
         type: string
-        description: detail pekerjaan / tugas
-        example: makan
+        description: nama pekerjaan / tugas
       done:
         type: boolean
-        description: 'true mendandakan pekerjaan sudah selesai'
+        description: status progress pekerjaan 
+      cancelled:
+        type: boolean
+        description: status pembatalan pekerjaan
+      attachment:
+        type: string
+        description: file tambahan dari pekerjaan
+        example: 1612867757630-580.bin
+      added_at:
+        type: date
+        description: tanggal saat pekerjaan dibuat
+        example: 2021-02-09 17:49:18.09079
+      assigneeId:
+        $ref: '#/definitions/Worker'
+  Worker:
+    type: object
+    properties:
+      id:
+        type: number
+        description: identifier pekerja
+        example: 1
+      name:
+        type: string
+        description: nama pekerja
+        example: risky
+      age:
+        type: number
+        description: umur pekerja
+        example: 50
+      bio:
+        type: string
+        description: deskripsi pekerja
+        example: web developer
+      address:
+        type: string
+        description: alamat pekerja
+        example: jl. sanbercode no. 5
+      photo:
+        type: string
+        description: file foto pekerja
+        example: 1612861039515-181.bin
+  

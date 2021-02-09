@@ -13,8 +13,8 @@ const taskSvc = require('./task.client');
 exports.add = (data) => async (dispatch) => {
   dispatch(loadingAction());
   try {
-    const worker = await taskSvc.add(data);
-    dispatch(addedAction(worker));
+    const task = await taskSvc.add(data);
+    dispatch(addedAction(task));
   } catch (err) {
     dispatch(errorAction(`gagal menambahkan ${data.job}`));
   }

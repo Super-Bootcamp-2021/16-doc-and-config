@@ -97,7 +97,7 @@ const server = createServer((req, res) => {
 });
 
 init();
-const PORT = config.server?.port;
+const PORT = config.server.port;
 server.listen(PORT, () => {
   stdout.write(`server listening on port ${PORT}\n`);
 });

@@ -1,0 +1,100 @@
+swagger: '2.0'
+info:
+  title: 'Worker Service'
+  description: 'API to manage Worker Service'
+  version: '1.0.0'
+  license:
+    name: 'GPL-3.0'
+    url: 'https://www.gnu.org/licenses/gpl-3.0.en.html'
+host: 'localhost:7001'
+tags:
+  - name: 'Worker Service'
+    description: 'endpoint untuk mengedit data pekerja'
+schemes:
+  - 'http'
+paths:
+  
+  # http://localhost:7001/register
+  /register:
+    post:
+      tags:
+        - 'Worker Service'
+      operationId: 'addWorker'
+      description: 'Untuk menambah profil pekerja baru'
+      consumes:
+        - 'application/json'
+      produces:
+        - 'application/json'
+        - 'text/plain'
+      parameters:
+        - in: body
+          name: body
+          description: Detail profil pekerja
+          required: true
+          schema:
+            $ref: '#/definitions/WorkerData'
+      responses:
+        '200':
+          description: ''
+          schema:
+            $ref: '#/definitions/Worker'
+        '400':
+          description: ''
+        '401':
+          description: 'data registrasi pekerja tidak lengkap'
+        '404':
+          description: ''
+        '500':
+          description: 'unkown server error'            
+          
+definitions:
+  # request body /register
+  WorkerData:
+    type: object
+    properties:
+      name:
+        type: string
+        description: nama pekerja
+        example: Moh. Ilham Burhanuddin
+      age:
+        type: string
+        description: umur pekerja
+        example: 23
+      bio:
+        type: string
+        description: bio pekerja
+        example: Ini adalah bio saya
+      address:
+        type: string
+        description: alamat pekerja
+        example: Jln. Halim Perdana Kusuma
+      photo:
+        type: string
+        description: nama foto pekerja yang di upload
+        example: '/home/ilham76c/Dokumen/foto-profil.jpg'
+  
+  # response /register
+  Worker:
+    type: object
+    properties:
+      name:
+        type: string
+        description: nama pekerja
+        example: Moh. Ilham Burhanuddin
+      age:
+        type: number
+        description: umur pekerja
+        example: 23
+      bio:
+        type: string
+        description: bio pekerja
+        example: Ini adalah bio saya
+      address:
+        type: string
+        description: alamat pekerja
+        example: Jln. Halim Perdana Kusuma
+      photo:
+        type: string
+        description: nama foto pekerja setelah di upload
+        example: '312-434.jpg'
+          

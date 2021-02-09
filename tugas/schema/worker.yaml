@@ -13,39 +13,59 @@ tags:
 schemes:
   - 'http'
 paths:
-  /add:
+  /register:
     post:
       tags:
-        - 'todo'
-      operationId: 'addTask'
-      description: 'untuk menambahkan task baru'
+        - 'worker'
+      operationId: 'registerWorker'
+      description: 'untuk menambahkan worker baru'
       consumes:
-        - 'application/json'
+        - 'multipart/form-data'
       produces:
         - 'application/json'
-        - 'text/plain'
       parameters:
-        - in: body
-          name: body
-          description: informasi tugas
+        - in: formData
+          name: name
+          type: string
+          description: informasi pekerja
           required: true
-          schema:
-            $ref: '#/definitions/TaskData'
+        - in: formData
+          name: age
+          type: number
+          description: umur pekerja
+          required: true
+        - in: formData
+          name: bio
+          type: string
+          description: biografi pekerja
+          required: true
+        - in: formData
+          name: address
+          type: string
+          description: alamat pekerja
+          required: true
+        - in: formData
+          name: photo
+          type: file
+          description: foto pekerja
+          required: true
       responses:
         '200':
-          description: 'task yang baru di input'
+          description: 'worker yang baru di input'
           schema:
-            $ref: '#/definitions/Task'
-        '400':
-          description: 'data pekerjaan tidak valid'
+            $ref: '#/definitions/Worker'
+        '401':
+          description: 'data registrasi pekerja tidak lengkap'
+        '403':
+          description: 'aborted'
         '500':
           description: 'kesalahan server'
   /list:
     get:
-      operationId: 'listTask'
-      description: mengembalikan daftar task
+      operationId: 'listWorker'
+      description: mengembalikan daftar worker
       tags:
-        - 'todo'
+        - 'worker'
       consumes:
         - 'application/json'
       produces:
@@ -53,33 +73,115 @@ paths:
         - 'text/plain'
       responses:
         '200':
-          description: daftar task
+          description: daftar worker
           schema:
             type: array
             items:
-              $ref: '#/definitions/Task'
+              $ref: '#/definitions/Worker'
         '500':
           description: kesalahan server
-
+  /info:
+    get:
+      tags:
+        - 'worker'
+      operationId: 'infoWorker'
+      description: 'untuk mendapatkan worker dengan id tertentu'
+      parameters:
+        - in: query
+          name: id
+          type: number
+          description: id pekerja
+      consumes:
+        - 'application/json'
+      produces:
+        - 'application/json'
+      responses:
+        '200':
+          description: 'data worker dengan id yang diinput'
+          schema:
+            $ref: '#/definitions/Worker'
+        '401':
+          description: 'parameter id tidak ditemukan'
+        '404':
+          description: 'pekerja tidak ditemukan'
+        '500':
+          description: 'kesalahan server'
+  /remove:
+    delete:
+      tags:
+        - 'worker'
+      operationId: 'removeWorker'
+      description: 'untuk menghapus data worker tertentu'
+      consumes:
+        - 'application/json'
+      produces:
+        - 'application/json'
+      parameters:
+        - in: query
+          name: id
+          type: number
+          description: id pekerja
+      responses:
+        '200':
+          description: 'data worker yang dihapus'
+          schema:
+            $ref: '#/definitions/Worker'
+        '401':
+          description: 'parameter id tidak ditemukan'
+        '404':
+          description: 'pekerja tidak ditemukan'
+        '500':
+          description: 'kesalahan server'
+  /photo/{file}:
+    get:
+      tags:
+        - 'worker'
+      operationId: 'readPhoto'
+      description: 'untuk menampilkan foto worker'
+      consumes:
+        - 'application/json'
+      produces:
+        - 'application/json'
+      parameters:
+        - in: path
+          name: file
+          type: string
+          required: true
+          description: nama file.
+      responses:
+        '200':
+          description: 'file yang dibaca'
+        '400':
+          description: 'request tidak sesuai'
+        '404':
+          description: 'error file tidak ditemukan'
+        '500':
+          description: 'kesalahan server'
 definitions:
-  TaskData:
-    type: object
-    properties:
-      task:
-        type: string
-        description: detail pekerjaan / tugas
-        example: makan
-  Task:
+  Worker:
     type: object
     properties:
       id:
         type: number
         description: identifier pekerjaan
         example: 1
-      task:
+      name:
         type: string
-        description: detail pekerjaan / tugas
-        example: makan
-      done:
-        type: boolean
-        description: 'true mendandakan pekerjaan sudah selesai'
+        description: nama pekerja
+        example: bambang
+      age:
+        type: number
+        description: umur pekerja
+        example: 31
+      bio:
+        type: string
+        description: biografi pekerja
+        example: developer keren
+      address:
+        type: string
+        description: alamat pekerja
+        example: jalan gagak no 10
+      photo:
+        type: string
+        description: nama file foto pekerja
+        example: 090220211649-220.jpg

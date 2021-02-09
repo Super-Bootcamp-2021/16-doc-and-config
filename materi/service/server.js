@@ -10,6 +10,7 @@ const {
   undoneSvc,
 } = require('./todo.service');
 const { TodoSchema } = require('./todo.model');
+const { config } = require('./config');
 
 /**
  * intiate database connection
@@ -17,14 +18,7 @@ const { TodoSchema } = require('./todo.model');
 async function init() {
   try {
     console.log('connect to database');
-    await connect([TodoSchema], {
-      type: 'postgres',
-      host: 'localhost',
-      port: 5432,
-      username: 'postgres',
-      password: 'postgres',
-      database: 'sanbercode1',
-    });
+    await connect([TodoSchema], config.database);
     console.log('database connected');
   } catch (err) {
     console.error('database connection failed');
@@ -103,7 +97,7 @@ const server = createServer((req, res) => {
 });
 
 init();
-const PORT = 9999;
+const PORT = config.server?.port;
 server.listen(PORT, () => {
   stdout.write(`server listening on port ${PORT}\n`);
 });

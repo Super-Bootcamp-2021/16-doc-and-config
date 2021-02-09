@@ -3,3 +3,4 @@ node_modules
 *.db
 file-storage
 docs
+.todorc

@@ -1,3 +1,4 @@
+const DotenvWebpackPlugin = require('dotenv-webpack');
 const path = require('path');
 
 module.exports = {
@@ -12,14 +13,24 @@ module.exports = {
   },
   devtool: 'inline-source-map',
   devServer: {
-    contentBase: './webapp//www',
+    contentBase: './webapp/www',
     port: 7000,
   },
+	plugins: [
+    new DotenvWebpackPlugin({
+      path: './.env',
+      safe: true,
+    }),
+  ],
   module: {
     rules: [
       {
         test: /\.css$/i,
         use: ['style-loader', 'css-loader'],
+      },
+			{
+        test: /\.yaml$/,
+        use: [{ loader: 'json-loader' }, { loader: 'yaml-loader' }],
       },
     ],
   },

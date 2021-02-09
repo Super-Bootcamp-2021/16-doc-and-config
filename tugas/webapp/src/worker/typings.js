@@ -6,7 +6,7 @@
  * @property {number} age worker's age
  * @property {string} bio worker's biografi
  * @property {string} address worker's address
- * @property {string} photo url worker's photo
+ * @property {Object} photo workers's files photo
  */
 
 /**

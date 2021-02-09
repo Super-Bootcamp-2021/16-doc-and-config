@@ -1,9 +1,9 @@
 /** @module httpClient */
 
 /**
- * basic client untuk request ke server
+ * ### basic client untuk request ke `server`
  * @param {string} endpoint target / url endpoint
- * @param {RequestInit} options tambahan opsi request
+ * @param {RequestInit} options tambahan opsi [request](http://localhost)
  * @returns {Promise<any>} hasil request
  */
 async function client(endpoint, { method, body, ...customConf } = {}) {

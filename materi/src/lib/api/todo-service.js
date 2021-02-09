@@ -3,20 +3,6 @@
 const { client } = require('./client');
 
 /**
- * Task type definition
- * @typedef {Object} Task
- * @property {string} id id of a task
- * @property {string} task task description
- * @property {boolean} done true when task are finished
- */
-
-/**
- * TaskData type definition
- * @typedef {Object} TaskData
- * @property {string} task task description
- */
-
-/**
  * mengambil daftar pekerjaan
  * @returns {Promise<Task[]>} daftar pekerjaan
  */
@@ -25,9 +11,16 @@ async function fetchTasksApi() {
 }
 
 /**
- * menambahkan pekerjaan baru
+ * menambahkan pekerjaan baru ke daftar entar
+ *
  * @param {TaskData} task data pekerjaan
  * @returns {Promise<Task>} detail pekerjaan yang sudah disimpan
+ *
+ * @example
+ * const addTaskAsync = (task) => async (dispatch) => {
+ *   const taskData = await addTaskApi(task);
+ *   dispatch(addAction(taskData));
+ * };
  */
 async function addTaskApi(task) {
   return await client.post('http://localhost:9999/add', { task });
@@ -44,6 +37,7 @@ async function doneTaskApi(id) {
 
 /**
  * menandakan pekerjaan belum selesai
+ * @deprecated jangan pake undone pake `done()`
  * @param {number} id id dari pekerjaan
  * @returns {Promise<Task>} detail pekerjaan yang sudah disimpan
  */

@@ -1,0 +1,143 @@
+swagger: '2.0'
+info:
+  title : 'Worker Service'
+  description: 'Api to manage worker activity'
+  version: '1.0.0'
+  license:
+    name: 'GPL-3.0'
+    url: 'https://www.gnu.org/licenses/gpl-3.0.en.html'
+host: 'localhost:7001'
+tags: 
+  - name: 'worker'
+    description: 'endpoint untuk mengedit worker'
+schemes:
+  - 'http'
+paths: 
+  /register:
+    post:
+      operationId: 'registerWorker'
+      description: 'untuk menambahkan data pekerja'
+      consumes:
+        - 'multipart/form-data'
+      produces:
+        - 'application/json'
+        - 'text/plain'
+      parameters:
+        - in: formData
+          name: name
+          type: file
+          required: true
+          description: 'informasi nama pekerja'
+        - in: formData
+          name: age
+          type: string
+          required: true
+          description: 'informasi usia pekerja'
+        - in: formData
+          name: bio
+          type: string
+          required: true
+          description: 'informasi biografi singkat pekerja'
+        - in: formData
+          name: address
+          type: string
+          required: true
+          description: 'informasi alamat pekerja'
+        - in: formData
+          name: photo
+          type: file
+          required: true
+          description: 'potret pekerja'
+      responses:
+        '200':
+          description: 'data pekerja baru berhasil diinput'
+          schema:
+            $ref: '#/definitions/Worker'
+        '413':
+          description: ukuran file terlalu besar
+        '401':
+          description: data registrasi pekerja tidak lengkap
+        '500':
+          description: internal server error
+  /list:
+    get:
+      operationId: 'listWorker'
+      description: 'mendapatkan seluruh data pekerja'
+      consumes:
+        - 'multipart/form-data'
+      produces:
+        - 'application/json'
+        - 'text/plain'
+      responses: 
+        '200':
+          description: 'berhasil mendapatkan data pekerja'
+          schema:
+            type: array
+            items:
+              $ref: '#/definitions/Worker'
+        '500':
+          description: internal server error
+  /info:
+    get:
+      operationId: 'infoWorker'
+      description: 'mendapatkan data pekerja yang diinginkan'
+      consumes:
+        - 'multipart/form-data'
+      produces:
+        - 'application/json'
+        - 'text/plain'
+      responses:
+        '200':
+          description: 'berhasil mendapatkan data pekerja'
+          schema:
+            type: object
+            items:
+              $ref: '#/definitions/Worker'
+        '401':
+          description: 'parameter id tidak ditemukan'
+        '404':
+          description: 'data tidak ditemukan'
+        '500':
+          description: 'internal server error'
+  /remove:
+    delete:
+      operationId: 'deleteWorker'
+      description: 'menghapus data pekerja berdasarkan id'
+      responses:
+      '200':
+          description: 'berhasil menghapus data pekerja'
+          schema:
+            type: object
+            items:
+              $ref: '#/definitions/Worker'
+        '401':
+          description: 'parameter id tidak ditemukan'
+        '404':
+          description: 'data tidak ditemukan'
+        '500':
+          description: 'internal server error'
+
+
+definitions: 
+  Worker:
+    type: object
+    properties:
+      name:
+        type: string
+        description: 'informasi nama pekerja'
+        example: Hana
+      age:
+        type: number
+        description: 'informasi usia pekerja'
+        example: 18
+      bio:
+        type: string
+        description: 'informasi biografi singkat pekerja'
+        example: pekerja pernah menyelesaikan projek software berskala besar pada tahun 2012
+      address:
+        type: string
+        description: 'informasi alamat pekerja'
+        example: jalan anggrek no 12
+      photo:
+        type: string
+        description: 'informasi potret diri dari pekerja'

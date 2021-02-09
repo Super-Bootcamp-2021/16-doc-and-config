@@ -16,8 +16,8 @@ async function init() {
       host: 'localhost',
       port: 5432,
       username: 'postgres',
-      password: '123456',
-      database: 'sanbercode2',
+      password: 'postgres',
+      database: 'sanbercode1',
     });
     console.log('database connected');
   } catch (err) {

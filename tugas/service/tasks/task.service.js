@@ -51,7 +51,8 @@ function addSvc(req, res) {
             } else {
               res.statusCode = 500;
             }
-            res.write(err);
+						console.log(err);
+            res.write(JSON.stringify(err));
           }
           res.end();
         }

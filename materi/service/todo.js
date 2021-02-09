@@ -8,14 +8,6 @@ const ERROR_ID_INVALID = 'task id tidak valid';
 const ERROR_TODO_NOT_FOUND = 'pekerja tidak ditemukan';
 
 /**
- * Todo type definition
- * @typedef {Object} TodoData
- * @property {string} id id of a task
- * @property {string} task task description
- * @property {boolean} done true when task are finished
- */
-
-/**
  * add new todo
  * @param {TodoData} data todo detail
  * @returns {Promise<Todo>} new todo detail with id

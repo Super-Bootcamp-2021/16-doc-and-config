@@ -8,7 +8,8 @@
     "dev": "webpack serve --open --mode development",
     "lint": "eslint .",
     "service": "nodemon service/server.js",
-    "docs:svc": "jsdoc -c service/docs.json"
+    "docs:svc": "jsdoc -c service/docs.json",
+    "docs:web": "jsdoc -c docs.json"
   },
   "author": "",
   "license": "ISC",
@@ -19,6 +20,7 @@
     "eslint-plugin-prettier": "^3.3.1",
     "jsdoc": "^3.6.6",
     "json-loader": "^0.5.7",
+    "livereload": "^0.9.1",
     "prettier": "^2.2.1",
     "style-loader": "^2.0.0",
     "webpack": "^5.17.0",

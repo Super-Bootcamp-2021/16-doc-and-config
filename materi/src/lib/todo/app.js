@@ -33,6 +33,10 @@ render(state);
 
 store$.dispatch(loadTasksAsync);
 
+/**
+ * render application
+ * @param {Todo[]} state state of application
+ */
 function render(state) {
   list.innerHTML = '';
   for (let i = 0; i < state.length; i++) {

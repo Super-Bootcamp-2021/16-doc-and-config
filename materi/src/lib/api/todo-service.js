@@ -12,10 +12,10 @@ async function doneTaskApi(id) {
   return await client.put(`http://localhost:9999/done?id=${id}`);
 }
 
-async function undoneTaskApi(id){
+async function undoneTaskApi(id) {
   return await client.put(`http://localhost:9999/undone?id=${id}`);
 }
- 
+
 module.exports = {
   fetchTasksApi,
   addTaskApi,

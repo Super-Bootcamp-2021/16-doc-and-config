@@ -1,3 +1,11 @@
+/** @module http_client */
+
+/**
+ * http-client - to set format and how the data is transmitted
+ * @param {any} endpoint 
+ * @param {object} json data-structure 
+ * @returns {Promise} data
+ */
 async function client(endpoint, json, { method, body, ...customConf } = {}) {
   let headers;
   if (json) {
@@ -39,18 +47,50 @@ async function client(endpoint, json, { method, body, ...customConf } = {}) {
   }
 }
 
+/**
+ * use get method for client module
+ * @param {any} endpoint 
+ * @param {array} customConf
+ * @returns {any} data
+ */
 client.get = (endpoint, customConf = {}) => {
   return client(endpoint, true, { method: 'GET', ...customConf });
 };
 
+/**
+ * use post method for client module
+ * @param {any} endpoint 
+ * @param {array} customConf
+ * @param {any} body
+ * @param {object} json
+ * @returns {any} data
+ */
 client.post = (endpoint, body, json, customConf = {}) => {
   return client(endpoint, json, { method: 'POST', body, ...customConf });
 };
 
+
+/**
+ * use putt method for client module
+ * @param {any} endpoint 
+ * @param {array} customConf
+ * @param {any} body
+ * @param {object} json
+ * @returns {any} data
+ */
 client.put = (endpoint, body, json, customConf = {}) => {
   return client(endpoint, json, { method: 'PUT', body, ...customConf });
 };
 
+
+/**
+ * use del method for client module
+ * @param {any} endpoint 
+ * @param {array} customConf
+ * @param {any} body
+ * @param {object} json
+ * @returns {any} data
+ */
 client.del = (endpoint, body, json, customConf = {}) => {
   return client(endpoint, json, { method: 'DELETE', body, ...customConf });
 };

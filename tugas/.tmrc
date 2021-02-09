@@ -4,8 +4,8 @@
     "host": "localhost",
     "port": 5432,
     "username": "postgres",
-    "password": "123456",
-    "database": "sanbercode2"
+    "password": "postgres123",
+    "database": "sanbercode1"
   },
   "objectStorage": {
     "endPoint": "127.0.0.1",
@@ -15,8 +15,8 @@
     "secretKey": "minioadmin"
   },
   "server": {
-    "portWorker": 7001,
-    "portTask": 7002,
-    "portPerformance": 7003
+    "portWorker": 9028,
+    "portTask": 9029,
+    "portPerformance": 9030
   }
 }

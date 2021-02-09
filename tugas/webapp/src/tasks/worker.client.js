@@ -4,7 +4,7 @@
 
 const { client } = require('../lib/http-client');
 
-const { WORKER_SERVICE_BASEURL } = require('./config');
+const { WORKER_SERVICE_BASEURL } = require('../config');
 
 /**
  * to get list worker

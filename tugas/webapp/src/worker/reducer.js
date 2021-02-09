@@ -2,6 +2,9 @@
 
 const { SERVICE_BASEURL } = require('./config');
 
+const { WORKER_SERVICE_BASEURL } = require('../config');
+
+
 // setup state
 const initialState = {
   loading: false,
@@ -47,7 +50,7 @@ function registered(state, action) {
   state.workers.push({
     id: worker.id,
     name: worker.name,
-    photo: `${SERVICE_BASEURL}/photo/${worker.photo}`,
+    photo: `${WORKER_SERVICE_BASEURL}/photo/${worker.photo}`,
     bio: worker.bio,
   });
   state.loading = false;
@@ -79,7 +82,7 @@ function workersLoaded(state, action) {
   state.workers = action.payload.map((worker) => ({
     id: worker.id,
     name: worker.name,
-    photo: `${SERVICE_BASEURL}/photo/${worker.photo}`,
+    photo: `${WORKER_SERVICE_BASEURL}/photo/${worker.photo}`,
     bio: worker.bio,
   }));
   state.loading = false;

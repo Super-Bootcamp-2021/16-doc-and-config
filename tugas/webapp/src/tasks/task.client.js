@@ -4,7 +4,7 @@
 
 const { client } = require('../lib/http-client');
 
-const { SERVICE_BASEURL } = require('./config');
+const { TASK_SERVICE_BASEURL } = require('../config');
 
 /**
  * to add data to task
@@ -13,7 +13,7 @@ const { SERVICE_BASEURL } = require('./config');
  * @return {any} data
  */
 function add(data) {
-  return client.post(`${SERVICE_BASEURL}/add`, data);
+  return client.post(`${TASK_SERVICE_BASEURL}/add`, data);
 }
 
 /**
@@ -22,7 +22,7 @@ function add(data) {
  * @return {any} data
  */
 function list() {
-  return client.get(`${SERVICE_BASEURL}/list`);
+  return client.get(`${TASK_SERVICE_BASEURL}/list`);
 }
 
 /**
@@ -32,7 +32,7 @@ function list() {
  * @return {any} data
  */
 function cancel(id) {
-  return client.put(`${SERVICE_BASEURL}/cancel?id=${id}`);
+  return client.put(`${TASK_SERVICE_BASEURL}/cancel?id=${id}`);
 }
 
 /**
@@ -42,7 +42,7 @@ function cancel(id) {
  * @return {any} data
  */
 function done(id) {
-  return client.put(`${SERVICE_BASEURL}/done?id=${id}`);
+  return client.put(`${TASK_SERVICE_BASEURL}/done?id=${id}`);
 }
 
 module.exports = {

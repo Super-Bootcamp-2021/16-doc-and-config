@@ -1,6 +1,9 @@
+
 /** @module reducer - state management (redux) */
 
 const { SERVICE_BASEURL } = require('./config');
+
+const { TASK_SERVICE_BASEURL } = require('../config');
 
 // setup state
 const initialState = {
@@ -49,7 +52,7 @@ function added(state, action) {
     id: task.id,
     job: task.job,
     assignee: task.assignee.name,
-    attachment: `${SERVICE_BASEURL}/attachment/${task.attachment}`,
+    attachment: `${TASK_SERVICE_BASEURL}/attachment/${task.attachment}`,
     done: false,
   });
   state.loading = false;
@@ -98,7 +101,7 @@ function tasksLoaded(state, action) {
       id: task.id,
       job: task.job,
       assignee: task.assignee.name,
-      attachment: `${SERVICE_BASEURL}/attachment/${task.attachment}`,
+      attachment: `${TASK_SERVICE_BASEURL}/attachment/${task.attachment}`,
       done: task.done,
     }));
   state.loading = false;

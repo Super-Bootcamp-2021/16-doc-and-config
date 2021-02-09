@@ -2,7 +2,7 @@
 
 const { client } = require('../lib/http-client');
 
-const { SERVICE_BASEURL } = require('./config');
+const { PERFORMANCE_SERVICE_BASEURL } = require('../config');
 
 /** 
  * to call summary in performance service
@@ -10,7 +10,7 @@ const { SERVICE_BASEURL } = require('./config');
  * 
 */
 function summary() {
-  return client.get(`${SERVICE_BASEURL}/summary`);
+  return client.get(`${PERFORMANCE_SERVICE_BASEURL}/summary`);
 }
 
 module.exports = {

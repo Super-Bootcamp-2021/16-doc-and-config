@@ -1,6 +1,18 @@
+/**@module Service_TaskModel */
+
 const { EntitySchema } = require('typeorm');
 
 class Task {
+  /**
+   * create new instance of todo model
+   * @property {number} id id of a task
+   * @property {string} job job of a task
+   * @property {boolean} done true when task are finished
+   * @property {boolean} cancelled true when task are canceled
+   * @property {date} addedAt now()
+   * @property {string} attachment of a task
+   * @property {number} assignee id of worker that have a realtionship with task
+   */
   constructor(id, job, assignee, done, cancelled, attachment, addedAt) {
     this.id = id;
     this.job = job;
@@ -12,6 +24,9 @@ class Task {
   }
 }
 
+/**
+ * enty schema of task model
+ */
 const TaskSchema = new EntitySchema({
   name: 'Task',
   tableName: 'tasks',

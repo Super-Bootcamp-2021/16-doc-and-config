@@ -1,5 +1,4 @@
 const nats = require('nats');
-
 let client;
 
 function connect(url, config) {

@@ -1,0 +1,216 @@
+swagger: '2.0'
+info:
+  title: 'Task Service'
+  description: 'API to manage tasks'
+  version: '1.0.0'
+  license:
+    name: 'GPL-3.0'
+    url: 'https://www.gnu.org/licenses/gpl-3.0.en.html'
+host: 'localhost'
+tags:
+  - name: 'task'
+    description: 'endpoint untuk memanajemen info pekerjaan'
+schemes:
+  - 'http'
+paths:
+  /add:
+    post:
+      summary: Add new task.
+      tags:
+        - 'task'
+      operationId: 'addTask'
+      description: 'untuk menambahkan pekerjaan baru'
+      consumes:
+        - 'application/json'
+        - 'multipart/form-data'
+      produces:
+        - 'application/json'
+        - 'text/plain'
+        - 'multipart/form-data'
+      parameters:
+        - in: formData
+          name: attachment
+          type: file
+          required: true
+          description: lampiran detail pekerjaan
+        - in: formData
+          name: job
+          type: string
+          description: nama pekerjaan
+          required: true
+        - in: formData
+          name: assignee_id
+          type: number
+          description: id pekerja
+          required: true
+        
+      responses:
+        200:
+          description: Data pekerja baru yang berhasil ditambahkan
+          schema:
+            $ref: '#/definitions/Task'
+        401:
+          $ref: '#/responses/Unauthorized'
+        404:
+          $ref: '#/responses/NotFound'
+        500:
+          $ref: '#/responses/ServerEror'
+  /list:
+    get:
+      summary: Gets all task data.
+      operationId: 'listTask'
+      description: mengembalikan data keseluruhan pekerjaan
+      tags:
+        - 'task'
+      consumes:
+        - 'application/json'
+      produces:
+        - 'application/json'
+        - 'text/plain'
+      responses:
+        200:
+          description: Daftar keseluruhan pekerjaan berhasil ditemukan
+          schema:
+            type: array
+            items:
+              $ref: '#/definitions/Task'
+        401:
+          $ref: '#/responses/Unauthorized'
+        404:
+          $ref: '#/responses/NotFound'
+        500:
+          $ref: '#/responses/ServerEror'
+  
+  /done:
+    put:
+      summary: Finish task.
+      operationId: 'finishTask'
+      description: menyelesaikan pekerjaan
+      tags:
+        - 'task'
+      parameters:
+        - in: query
+          name: id
+          type: integer
+          description: nomor id dari pekerjaan yang akan diselesaikan
+      responses:
+        200:
+          description: Data pekerjaan berhasil diselesaikan
+          schema:
+            $ref: '#/definitions/Task'
+        401:
+          $ref: '#/responses/Unauthorized'
+        404:
+          $ref: '#/responses/NotFound'
+        500:
+          $ref: '#/responses/ServerEror'
+  
+  /cancel:
+    put:
+      summary: Cancel task.
+      operationId: 'cancelTask'
+      description: membatalkan pekerjaan
+      tags:
+        - 'task'
+      parameters:
+        - in: query
+          name: id
+          type: integer
+          description: nomor id dari pekerjaan yang akan dibatalkan
+      responses:
+        200:
+          description: Data pekerjaan berhasil dibatalkan
+          schema:
+            $ref: '#/definitions/Task'
+        401:
+          $ref: '#/responses/Unauthorized'
+        404:
+          $ref: '#/responses/NotFound'
+        500:
+          $ref: '#/responses/ServerEror'
+          
+  /attachment/{attchtitle}:
+    get:
+      summary: Gets a task attachment.
+      operationId: 'Attachment'
+      description: mengembalikan data attachment pekerjaan
+      tags:
+        - 'task'
+      parameters:
+        - name: attchtitle
+          in: path
+          type: string
+          description: attachment title
+          required: true
+      responses:
+        '200':
+          description: Attachment
+          schema:
+            $ref: '#/definitions/Attachment'
+        401:
+          $ref: '#/responses/Unauthorized'
+        404:
+          $ref: '#/responses/NotFound'
+        500:
+          $ref: '#/responses/ServerEror'        
+          
+responses:
+  NotFound:
+    description: The specified resource was not found
+    schema:
+      $ref: '#/definitions/Error'
+  Unauthorized:
+    description: Unauthorized
+    schema:
+      $ref: '#/definitions/Error'
+  ServerEror:
+    description: Unauthorized
+    schema:
+      $ref: '#/definitions/Error'         
+
+definitions:
+  Task:
+    type: object
+    properties:
+      id:
+        type: number
+        description: identifier task
+        example: 1
+      job:
+        type: string
+        description: nama pekerjaan
+        example: ngoding
+      done:
+        type: boolean
+        default: false
+        description: status selesai
+        example: true
+      cancelled:
+        type: boolean
+        default: false
+        description: status batal
+        example: true
+      addedAt:
+        type: string
+        format: date-time
+        description: waktu ditambahkan
+        example: 2021-02-04 17:01:32
+      assignee_id:
+        type: number
+        description: id pekerja
+        example: 2
+  Attachment:
+    type: object
+    
+  Error:
+    type: object
+    properties:
+      code:
+        type: string
+        example: 404/404/500/etc
+      message:
+        type: string
+        example: Error! Not Found / etc..
+    required:
+      - code
+      - message   

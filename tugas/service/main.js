@@ -12,11 +12,11 @@ async function init() {
   try {
     console.log('connect to database');
     await orm.connect([WorkerSchema, TaskSchema], {
-      type: 'postgres',
+      type: 'mysql',
       host: 'localhost',
-      port: 5432,
-      username: 'postgres',
-      password: 'postgres',
+      port: 3306,
+      username: 'root',
+      password: '',
       database: 'sanbercode2',
     });
     console.log('database connected');
@@ -30,8 +30,8 @@ async function init() {
       endPoint: '127.0.0.1',
       port: 9000,
       useSSL: false,
-      accessKey: 'local-minio',
-      secretKey: 'local-test-secret',
+      accessKey: 'minioadmin',
+      secretKey: 'minioadmin',
     });
     console.log('object storage connected');
   } catch (err) {
@@ -80,5 +80,10 @@ async function main(command) {
       console.log('command yang valid: task, worker, performance');
   }
 }
-
 main(process.argv[2]);
+
+// init();
+// const PORT = 9999;
+// server.listen(PORT, () => {
+//   stdout.write(`server listening on port ${PORT}\n`);
+// });

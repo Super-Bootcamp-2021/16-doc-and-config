@@ -1,6 +1,7 @@
 const http = require('http');
+const { config } = require('../config');
 
-const WORKER_HOST = 'http://localhost:7001';
+const WORKER_HOST = config.server?.port.worker;
 const ERROR_WORKER_NOT_FOUND = 'pekerja tidak ditemukan';
 
 function info(id) {

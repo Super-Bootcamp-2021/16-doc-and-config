@@ -3,6 +3,7 @@ const url = require('url');
 const { stdout } = require('process');
 const { summarySvc } = require('./performance.service');
 const agg = require('./performance.agg');
+const { config } = require('../config');
 
 let server;
 
@@ -50,7 +51,7 @@ function run(callback) {
   });
 
   // run server
-  const PORT = 7003;
+  const PORT = config.server?.port.performance;
   server.listen(PORT, () => {
     stdout.write(`🚀 performance service listening on port ${PORT}\n`);
   });

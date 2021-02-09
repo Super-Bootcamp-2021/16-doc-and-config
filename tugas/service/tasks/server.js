@@ -8,7 +8,7 @@ const {
   listSvc,
   getAttachmentSvc,
 } = require('./task.service');
-
+const { config } = require('../config');
 let server;
 
 function run(callback) {
@@ -75,7 +75,7 @@ function run(callback) {
   });
 
   // run server
-  const PORT = 7002;
+  const PORT = config.server?.port.task;
   server.listen(PORT, () => {
     stdout.write(`🚀 task service listening on port ${PORT}\n`);
   });

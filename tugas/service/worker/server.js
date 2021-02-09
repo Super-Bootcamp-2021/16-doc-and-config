@@ -8,7 +8,7 @@ const {
   infoSvc,
   getPhotoSvc,
 } = require('./worker.service');
-
+const { config } = require('../config');
 let server;
 
 function run(callback) {
@@ -75,7 +75,7 @@ function run(callback) {
   });
 
   // run server
-  const PORT = 7001;
+  const PORT = config.server?.port.worker;
   server.listen(PORT, () => {
     stdout.write(`🚀 worker service listening on port ${PORT}\n`);
   });

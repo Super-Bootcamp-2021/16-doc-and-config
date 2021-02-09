@@ -14,6 +14,9 @@ let increaseCancelledTaskSub;
 let increaseTotalWorkerSub;
 let decreaseTotalWorkerSub;
 
+/**
+ * Mengintegrasikan message bus dengan aksi
+ */
 function run() {
   increaseTotalTaskSub = bus.subscribe('task.added', increaseTotalTask);
   increaseDoneTaskSub = bus.subscribe('task.done', increaseDoneTask);
@@ -28,6 +31,9 @@ function run() {
   decreaseTotalWorkerSub = bus.subscribe('worker.removed', decreaseTotalWorker);
 }
 
+/**
+ * Memberhentikan langganan
+ */
 function stop() {
   if (increaseTotalTaskSub) {
     bus.unsubscribe(increaseTotalTaskSub);

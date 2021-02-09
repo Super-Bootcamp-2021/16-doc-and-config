@@ -1,4 +1,7 @@
 {
+  "tags": {
+		"allowUnknownTags": true
+	},
   "plugins": ["plugins/markdown"],
   "source": {
     "include": ["./service"],
@@ -8,14 +11,17 @@
     "destination": "./docs/service",
     "recurse": true,
     "readme": "service/README.md",
-    "encoding": "utf8"
+    "encoding": "utf8",
+    "template": "./node_modules/docdash"
   },
+  "metadata": {
+		"title": "Some title"
+	},
   "templates": {
-    "referenceTitle": "Task Manager Service",
-    "disableSort": false,
-    "collapse": true,
-    "resources": {
-        "google": "https://www.google.com/"
-    }
-  }
+		"cleverLinks": false,
+		"monospaceLinks": false,
+		"default": {
+			"outputSourceFiles": true
+		}
+	}
 }

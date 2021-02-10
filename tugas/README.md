@@ -49,6 +49,11 @@ Syarat :
   npm run web:dev
   ``` 
 
+## Changelog Versi 1.2
+menambahkan :
+- schema task service
+- dokumentasi library webapp
+
 ## Changelog Versi 1.1
 menambahkan :
 - schema worker service

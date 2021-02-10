@@ -174,7 +174,7 @@ paths:
           description: 'alamat tidak ditemukan'
         '500':
           description: 'kesalahan server'
-  
+
 definitions:
   WorkerData:
     type: object
@@ -203,6 +203,3 @@ definitions:
         type: string
         description: foto worker
         example: 1612521903495-673.jpeg
-        
-  
-  

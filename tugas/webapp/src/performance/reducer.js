@@ -1,3 +1,8 @@
+/**
+ * @module Reducer Performance
+ */
+
+
 // setup state
 const initialState = {
   loading: false,
@@ -10,16 +15,31 @@ const initialState = {
   },
 };
 
+/**
+ * ### Mengatur state loading
+ * @param {State} state 
+ */
 function loading(state) {
   state.loading = true;
   state.error = null;
 }
 
+/**
+ * ### Mengatur state error
+ * @param {State} state 
+ * @param {Action} action 
+ */
 function error(state, action) {
   state.loading = false;
   state.error = action.payload;
 }
 
+/**
+ * ### State menampilkan data pekerja dan data pekerjaan
+ * @param {State} state 
+ * @param {Action} action
+ * @returns {State} data pekerja dan data pekerjaan
+ */
 function summaryLoaded(state, action) {
   state.summary = action.payload;
   state.loading = false;

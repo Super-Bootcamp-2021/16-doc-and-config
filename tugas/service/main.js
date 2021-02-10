@@ -18,6 +18,7 @@ async function init() {
       username: 'root',
       password: '',
       database: 'sanbercode2',
+
     });
     console.log('database connected');
   } catch (err) {

@@ -1,3 +1,7 @@
+/**
+ * @module Store Performance
+ */
+
 const {
   createAction,
   createReducer,

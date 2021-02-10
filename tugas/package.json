@@ -1,6 +1,6 @@
 {
   "name": "task-manager",
-  "version": "1.0.0",
+  "version": "1.1.0",
   "description": "sample service mesh implementation",
   "main": "index.js",
   "scripts": {

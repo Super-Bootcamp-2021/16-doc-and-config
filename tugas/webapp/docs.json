@@ -1,12 +1,12 @@
 {
   "plugins": ["plugins/markdown"],
   "source": {
-    "include": ["./src"],
+    "include": ["./webapp/src"],
     "exclude": []
   },
   "opts": {
     "destination": "./docs/webapp",
     "recurse": true,
-    "readme": "README.md"
+    "readme": "webapp/README.md"
   }
 }

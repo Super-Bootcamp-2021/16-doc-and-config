@@ -1,8 +1,8 @@
 const SwaggerUI = require('swagger-ui');
 require('swagger-ui/dist/swagger-ui.css');
-const spec = require('./todo.yaml');
+const spec = require('./task.yaml');
 
-spec.host = 'localhost:9999';
+spec.host = 'localhost:7002';
 
 SwaggerUI({
   spec,

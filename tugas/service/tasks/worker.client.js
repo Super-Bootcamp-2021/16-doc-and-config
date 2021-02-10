@@ -22,7 +22,7 @@ function info(id) {
         resolve(worker);
       });
       res.on('error', (err) => {
-        reject(err?.message || err.toString());
+        reject(err.message || err.toString());
       });
     });
     req.end();

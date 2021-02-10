@@ -6,15 +6,24 @@ const defaultConfig = {
     host: 'localhost',
     port: 5432,
     username: 'postgres',
-    password: '',
+    password: 'root',
     database: 'database',
   },
   server: {
-    port: 80,
+    task_port: 80,
+    worker_port: 81,
+    performance_port: 82,
+  },
+  minio: {
+    endPoint: '127.0.0.1',
+    port: 9000,
+    useSSL: false,
+    accessKey: 'local-minio',
+    secretKey: 'local-test-secret',
   },
 };
 
-const config = rc('todo', defaultConfig);
+const config = rc('tm', defaultConfig);
 
 module.exports = {
   config,

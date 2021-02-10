@@ -53,6 +53,11 @@ render(state);
 store$.dispatch(getList);
 store$.dispatch(getWorkersList);
 
+/**
+ * @function render task
+ * @param {Object} state data yang akan di tampilakn di DOM
+ */
+
 function render(state) {
   // render error
   if (state.error) {

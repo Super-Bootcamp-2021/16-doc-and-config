@@ -35,7 +35,7 @@ async function connect(_bucketname, options) {
   try {
     await client.makeBucket(bucketname);
   } catch (err) {
-    if (err?.code === 'BucketAlreadyOwnedByYou') {
+    if (err.code === 'BucketAlreadyOwnedByYou') {
       return;
     }
     throw err;
@@ -92,7 +92,7 @@ async function readFile(objectName) {
   try {
     await client.statObject(bucketname, objectName);
   } catch (err) {
-    if (err?.code === 'NotFound') {
+    if (err.code === 'NotFound') {
       throw ERROR_FILE_NOT_FOUND;
     }
     throw err;

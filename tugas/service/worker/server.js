@@ -11,6 +11,7 @@ const {
 // eslint-disable-next-line no-unused-vars
 const { IncomingMessage, ServerResponse } = require('http');
 
+const { config } = require('../config');
 let server;
 
 /**
@@ -81,7 +82,7 @@ function run(callback) {
   });
 
   // run server
-  const PORT = 7001;
+  const PORT = config.server.worker_port;
   server.listen(PORT, () => {
     stdout.write(`🚀 worker service listening on port ${PORT}\n`);
   });

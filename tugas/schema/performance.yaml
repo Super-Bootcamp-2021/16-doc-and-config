@@ -1,0 +1,90 @@
+swagger: '2.0'
+info:
+  title: 'Performance Service'
+  description: 'API to monitor performance'
+  version: '1.0.0'
+  license:
+    name: 'GPL-3.0'
+    url: 'https://www.gnu.org/licenses/gpl-3.0.en.html'
+host: 'localhost'
+tags:
+  - name: 'performance'
+    description: 'endpoint untuk memantau performance'
+schemes:
+  - 'http'
+paths:
+  /summary:
+    get:
+      summary: Gets all summary.
+      operationId: 'listSummary'
+      description: mengembalikan data keseluruhan performance
+      tags:
+        - 'performance'
+      consumes:
+        - 'application/json'
+      produces:
+        - 'application/json'
+        - 'text/plain'
+      responses:
+        200:
+          description: Summary Result
+          schema:
+            type: array
+            items:
+              $ref: '#/definitions/Summary'
+        401:
+          $ref: '#/responses/Unauthorized'
+        404:
+          $ref: '#/responses/NotFound'
+        500:
+          $ref: '#/responses/ServerEror'
+  
+responses:
+  NotFound:
+    description: The specified resource was not found
+    schema:
+      $ref: '#/definitions/Error'
+  Unauthorized:
+    description: Unauthorized
+    schema:
+      $ref: '#/definitions/Error'
+  ServerEror:
+    description: Unauthorized
+    schema:
+      $ref: '#/definitions/Error'         
+
+definitions:
+  Summary:
+    type: object
+    properties:
+      total_task:
+        type: number
+        description: total task
+        example: 10
+      task_done:
+        type: number
+        description: total task done
+        example: 3
+      task_cancelled:
+        type: number
+        description: total task cancelled
+        example: 1
+      total_worker:
+        type: number
+        description: total worker registered
+        example: 3  
+      
+    
+  Error:
+    type: object
+    properties:
+      code:
+        type: string
+        example: 404/404/500/etc
+      message:
+        type: string
+        example: Error! Not Found / etc..
+    required:
+      - code
+      - message 
+      

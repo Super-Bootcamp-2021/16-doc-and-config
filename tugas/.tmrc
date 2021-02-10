@@ -15,8 +15,11 @@
     "secretKey": "minioadmin"
   },
   "server": {
-    "portWorker": 7001,
-    "portTask": 7002,
-    "portPerformance": 7003
+    "portWorker": 9028,
+    "portTask": 9029,
+    "portPerformance": 9030
+  },
+  "host": {
+    "worker": "http://localhost:9028"
   }
 }

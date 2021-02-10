@@ -1,3 +1,5 @@
+/** @module main */
+
 const { summary } = require('./async-action');
 const { store$ } = require('./store');
 

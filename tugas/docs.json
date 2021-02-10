@@ -1,7 +1,7 @@
 {
   "plugins": ["plugins/markdown"],
   "source": {
-    "include": ["./src"],
+    "include": ["./webapp/src"],
     "exclude": []
   },
   "opts": {

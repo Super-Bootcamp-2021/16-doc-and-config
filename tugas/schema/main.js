@@ -23,3 +23,5 @@ SwaggerUI({
   spec: specPerformance,
   dom_id: '#swagger3',
 });
+
+

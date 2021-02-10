@@ -17,7 +17,8 @@ async function init() {
       port: 3306,
       username: 'root',
       password: '',
-      database: 'dubnium',
+      database: 'sanbercode2',
+
     });
     console.log('database connected');
   } catch (err) {
@@ -30,8 +31,8 @@ async function init() {
       endPoint: '127.0.0.1',
       port: 9000,
       useSSL: false,
-      accessKey: 'admin',
-      secretKey: 'password',
+      accessKey: 'minioadmin',
+      secretKey: 'minioadmin',
     });
     console.log('object storage connected');
   } catch (err) {

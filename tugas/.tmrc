@@ -4,8 +4,8 @@
     "host": "localhost",
     "port": 5432,
     "username": "postgres",
-    "password": "postgres123",
-    "database": "sanbercode1"
+    "password": "123456",
+    "database": "sanbercode2"
   },
   "objectStorage": {
     "endPoint": "127.0.0.1",
@@ -18,5 +18,8 @@
     "portWorker": 9028,
     "portTask": 9029,
     "portPerformance": 9030
+  },
+  "host": {
+    "worker": "http://localhost:9028"
   }
 }

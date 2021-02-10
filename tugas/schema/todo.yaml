@@ -1,0 +1,85 @@
+swagger: '2.0'
+info:
+  title: 'Todo Service'
+  description: 'API to manage todo activity'
+  version: '1.0.0'
+  license:
+    name: 'GPL-3.0'
+    url: 'https://www.gnu.org/licenses/gpl-3.0.en.html'
+host: 'localhost'
+tags:
+  - name: 'todo'
+    description: 'endpoint untuk mengedit todo'
+schemes:
+  - 'http'
+paths:
+  /add:
+    post:
+      tags:
+        - 'todo'
+      operationId: 'addTask'
+      description: 'untuk menambahkan task baru'
+      consumes:
+        - 'application/json'
+      produces:
+        - 'application/json'
+        - 'text/plain'
+      parameters:
+        - in: body
+          name: body
+          description: informasi tugas
+          required: true
+          schema:
+            $ref: '#/definitions/TaskData'
+      responses:
+        '200':
+          description: 'task yang baru di input'
+          schema:
+            $ref: '#/definitions/Task'
+        '400':
+          description: 'data pekerjaan tidak valid'
+        '500':
+          description: 'kesalahan server'
+  /list:
+    get:
+      operationId: 'listTask'
+      description: mengembalikan daftar task
+      tags:
+        - 'todo'
+      consumes:
+        - 'application/json'
+      produces:
+        - 'application/json'
+        - 'text/plain'
+      responses:
+        '200':
+          description: daftar task
+          schema:
+            type: array
+            items:
+              $ref: '#/definitions/Task'
+        '500':
+          description: kesalahan server
+
+definitions:
+  TaskData:
+    type: object
+    properties:
+      task:
+        type: string
+        description: detail pekerjaan / tugas
+        example: makan
+  Task:
+    type: object
+    properties:
+      id:
+        type: number
+        description: identifier pekerjaan
+        example: 1
+      task:
+        type: string
+        description: detail pekerjaan / tugas
+        example: makan
+      done:
+        type: boolean
+        description: 'true mendandakan pekerjaan sudah selesai'

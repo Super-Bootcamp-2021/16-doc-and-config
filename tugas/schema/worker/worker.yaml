@@ -1,112 +1,100 @@
 swagger: '2.0'
 info:
-  title: 'Worker Service'
-  description: 'API untuk mengelola data pekerja'
+  title: 'Task Service'
+  description: 'API to manage task feature'
   version: '1.0.0'
   license:
     name: 'GPL-3.0'
     url: 'https://www.gnu.org/licenses/gpl-3.0.en.html'
-host: 'localhost:7001'
+host: 'localhost:7002'
 tags:
-  - name: 'worker'
-    description: 'endpoint untuk mengelola daftar pekerja'
+  - name: 'task'
+    description: 'endpoint to edit task'
 schemes:
   - 'http'
 paths:
-  /register:
+  /add:
     post:
-      operationId: 'addWorker'
-      description: menambah worker baru
+      operationId: 'addTask'
+      description: menambah pekerjaan baru
       tags:
-        - 'worker'
+        - 'task'
       consumes:
         - multipart/form-data
       parameters:
         - in: formData
-          name: photo
+          name: attachment
           type: file
-          description: The file to upload.
+          description: attachment yang akan diupload
         - in: formData
-          name: name
+          name: job
           type: string
-          description: Nama pekerja
+          description: nama/detail pekerjaan
         - in: formData
-          name: address
-          type: string
-          description: Alamat pekerja
-        - in: formData
-          name: age
+          name: assignee_id
           type: number
-          description: Umur pekerja
-        - in: formData
-          name: bio
-          type: string
-          description: Biiografi pekerja
+          description: id pekerjaan yang akan dikenai pekerjaan
       produces:
         - 'application/json'
         - 'text/plain'
       responses:
         '200':
-          description: detail pekerja dengan id
+          description: detail pekerjaan dengan id
           schema:
-            $ref: '#/definitions/worker'
-        '401':
-          description: 'data registrasi pekerja tidak lengkap'
+            $ref: '#/definitions/task'
         '404':
           description: 'method tidak diperbolehkan'
         '500':
           description: 'kesalahan server'
   /list:
     get:
-      operationId: 'listWorker'
-      description: mengembalikan daftar pekerja
+      operationId: 'listTask'
+      description: mengembalikan daftar pekerjaan
       tags:
-        - 'worker'
+        - 'task'
       produces:
         - 'application/json'
         - 'text/plain'
       responses:
         '200':
-          description: daftar pekerja
+          description: daftar pekerjaan
           schema:
             type: array
             items:
-              $ref: '#/definitions/worker'
+              $ref: '#/definitions/task'
         '404':
           description: 'method tidak diperbolehkan'
         '500':
           description: 'kesalahan server'
-  /info:
-    get:
-      operationId: 'infoWorker'
-      description: mengembalikan detail pekerja
+  /done:
+    put:
+      operationId: 'doneTask'
+      description: mengubah status pekerjaan menjadi done
       tags:
-        - 'worker'
+        - 'task'
       parameters:
         - in: query
           name: id
           type: integer
-          description: worker ID
+          description: task ID
       produces:
         - 'application/json'
         - 'text/plain'
       responses:
         '200':
-          description: info detail pekerja
+          description: info detail pekerjaan
           schema:
-            $ref: '#/definitions/worker'
-        '401':
-          description: 'parameter id tidak ditemukan'
+            $ref: '#/definitions/taskDone'
         '404':
-          description: 'pekerja tidak ditemukan'
+          description: 'method tidak diperbolehkan'
         '500':
           description: 'kesalahan server'
-  /remove:
-    delete:
-      operationId: 'removeWorker'
-      description: menghapus daftar pekerja
+  /cancel:
+    put:
+      operationId: 'cancelWorker'
+      description: mengubah status pekerjaan menjadi cancel/batal
       tags:
-        - 'worker'
+        - 'task'
       consumes:
       - application/json
       parameters:
@@ -114,47 +102,183 @@ paths:
         name: id
         type: integer
         required: true
-        description: worker ID
+        description: task ID
       produces:
         - 'application/json'
         - 'text/plain'
       responses:
         '200':
-          description: info detail pekerja yang dihapus
+          description: info detail pekerjaan
           schema:
-            $ref: '#/definitions/worker'
-        '401':
-          description: 'parameter id tidak ditemukan'
+            $ref: '#/definitions/taskCancel'
         '404':
-          description: 'pekerja tidak ditemukan'
+          description: 'method tidak diperbolehkan'
         '500':
           description: 'kesalahan server'
 
 definitions:
-  worker:
+  task:
     type: object
     properties:
       id:
         type: number
-        description: id pekerja
+        description: id pekerjaan
         example: 20
-      name:
+      job:
         type: string
-        description: nama pekerja
-        example: Budi
-      age:
-        type: number
-        description: umur pekerja
-        example: 30
-      bio:
+        description: nama pekerjaan
+        example: belajar node js
+      done:
+        type: boolean
+        description: bernilai benar jika pekerjaan selesai
+        example: false
+      cancelled:
+        type: boolean
+        description: bernilai benar jika pekerjaan batal
+        example: false
+      addedAt:
         type: string
-        description: biografi pekerja
-        example: seorang programmer
-      address:
+        description: waktu pekerjaan ditambahkan
+        example: '2021-02-09T09:05:15.340Z'
+      attachment:
         type: string
-        description: alamat pekerja
-        example: Jalan ramai sekali, Bandung
-      photo:
-        type: string
-        description: nama file foto pekerja
+        description: nama file attachment pekerjaan
         example: 1612874959796-184.png
+      assignee:
+        type: object
+        description: detail pekerja yang dikenai pekerjaan
+        properties:
+          id:
+            type: number
+            description: id pekerja
+            example: 20
+          name:
+            type: string
+            description: nama pekerja
+            example: Budi
+          age:
+            type: number
+            description: umur pekerja
+            example: 30
+          bio:
+            type: string
+            description: biografi pekerja
+            example: seorang programmer
+          address:
+            type: string
+            description: alamat pekerja
+            example: Jalan ramai sekali, Bandung
+          photo:
+            type: string
+            description: nama file foto pekerja
+            example: 1612874959796-184.png
+  taskDone:
+    type: object
+    properties:
+      id:
+        type: number
+        description: id pekerjaan
+        example: 20
+      job:
+        type: string
+        description: nama pekerjaan
+        example: belajar node js
+      done:
+        type: boolean
+        description: bernilai benar jika pekerjaan selesai
+        example: true
+      cancelled:
+        type: boolean
+        description: bernilai benar jika pekerjaan batal
+        example: false
+      addedAt:
+        type: string
+        description: waktu pekerjaan ditambahkan
+        example: '2021-02-09T09:05:15.340Z'
+      attachment:
+        type: string
+        description: nama file attachment pekerjaan
+        example: 1612874959796-184.png
+      assignee:
+        type: object
+        description: detail pekerja yang dikenai pekerjaan
+        properties:
+          id:
+            type: number
+            description: id pekerja
+            example: 20
+          name:
+            type: string
+            description: nama pekerja
+            example: Budi
+          age:
+            type: number
+            description: umur pekerja
+            example: 30
+          bio:
+            type: string
+            description: biografi pekerja
+            example: seorang programmer
+          address:
+            type: string
+            description: alamat pekerja
+            example: Jalan ramai sekali, Bandung
+          photo:
+            type: string
+            description: nama file foto pekerja
+            example: 1612874959796-184.png
+  taskCancel:
+    type: object
+    properties:
+      id:
+        type: number
+        description: id pekerjaan
+        example: 20
+      job:
+        type: string
+        description: nama pekerjaan
+        example: belajar node js
+      done:
+        type: boolean
+        description: bernilai benar jika pekerjaan selesai
+        example: false
+      cancelled:
+        type: boolean
+        description: bernilai benar jika pekerjaan batal
+        example: true
+      addedAt:
+        type: string
+        description: waktu pekerjaan ditambahkan
+        example: '2021-02-09T09:05:15.340Z'
+      attachment:
+        type: string
+        description: nama file attachment pekerjaan
+        example: 1612874959796-184.png
+      assignee:
+        type: object
+        description: detail pekerja yang dikenai pekerjaan
+        properties:
+          id:
+            type: number
+            description: id pekerja
+            example: 20
+          name:
+            type: string
+            description: nama pekerja
+            example: Budi
+          age:
+            type: number
+            description: umur pekerja
+            example: 30
+          bio:
+            type: string
+            description: biografi pekerja
+            example: seorang programmer
+          address:
+            type: string
+            description: alamat pekerja
+            example: Jalan ramai sekali, Bandung
+          photo:
+            type: string
+            description: nama file foto pekerja
+            example: 1612874959796-184.png

@@ -11,7 +11,14 @@ const {
   ERROR_TASK_NOT_FOUND,
 } = require('./task');
 const { saveFile, readFile, ERROR_FILE_NOT_FOUND } = require('../lib/storage');
+// eslint-disable-next-line no-unused-vars
+const { ClientRequest, IncomingMessage, ServerResponse } = require('http');
 
+/**
+ * service to add Task
+ * @param {ClientRequest} req
+ * @param {ServerResponse} res
+ */
 function addSvc(req, res) {
   const busboy = new Busboy({ headers: req.headers });
 
@@ -88,6 +95,11 @@ function addSvc(req, res) {
   req.pipe(busboy);
 }
 
+/**
+ * service to get list of Task
+ * @param {IncomingMessage} req
+ * @param {ServerResponse} res
+ */
 async function listSvc(req, res) {
   try {
     const tasks = await list();
@@ -101,6 +113,11 @@ async function listSvc(req, res) {
   }
 }
 
+/**
+ * service to set a task to done by id
+ * @param {IncomingMessage} req
+ * @param {ServerResponse} res
+ */
 async function doneSvc(req, res) {
   const uri = url.parse(req.url, true);
   const id = uri.query['id'];
@@ -129,6 +146,11 @@ async function doneSvc(req, res) {
   }
 }
 
+/**
+ * service to set a task to cancel by id
+ * @param {IncomingMessage} req
+ * @param {ServerResponse} res
+ */
 async function cancelSvc(req, res) {
   const uri = url.parse(req.url, true);
   const id = uri.query['id'];
@@ -157,6 +179,11 @@ async function cancelSvc(req, res) {
   }
 }
 
+/**
+ * service to get attachment of Task
+ * @param {ClientRequest} req
+ * @param {ServerResponse} res
+ */
 async function getAttachmentSvc(req, res) {
   const uri = url.parse(req.url, true);
   const objectName = uri.pathname.replace('/attachment/', '');

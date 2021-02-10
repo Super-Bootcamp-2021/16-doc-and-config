@@ -21,6 +21,15 @@ function clearError(state) {
   state.error = null;
 }
 
+/**@module reducer-workers */
+
+/**
+ * register worker
+ * @function
+ * @param {Object} state 
+ * @param {function} action
+ * @return {Object} state
+ */
 function registered(state, action) {
   const worker = action.payload;
   state.workers.push({
@@ -34,6 +43,13 @@ function registered(state, action) {
   return state;
 }
 
+/**
+ * remove worker
+ * @function
+ * @param {Object} state 
+ * @param {function} action
+ * @return {Object} state
+ */
 function removed(state, action) {
   const idx = state.workers.findIndex((t) => t.id === action.payload);
   state.workers.splice(idx, 1);
@@ -42,6 +58,13 @@ function removed(state, action) {
   return state;
 }
 
+/**
+ * load all workers
+ * @function
+ * @param {Object} state 
+ * @param {function} action
+ * @return {Object} state
+ */
 function workersLoaded(state, action) {
   state.workers = action.payload.map((worker) => ({
     id: worker.id,

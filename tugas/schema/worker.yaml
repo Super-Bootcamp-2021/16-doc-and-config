@@ -1,0 +1,189 @@
+swagger: '2.0'
+info:
+  title: 'Worker Service'
+  description: 'API to manage worker list'
+  version: '1.1.0'
+  license:
+    name: 'GPL-3.0'
+    url: 'https://www.gnu.org/licenses/gpl-3.0.en.html'
+host: 'localhost'
+tags:
+  - name: 'worker'
+    description: 'endpoint untuk mengedit list worker'
+schemes:
+  - 'http'
+paths:
+  /register:
+    post:
+      tags:
+        - 'worker'
+      operationId: 'registerWorker'
+      description: 'untuk menambahkan worker baru'
+      consumes:
+        - 'multipart/form-data'
+      produces:
+        - 'application/json'
+      parameters:
+        - in: formData
+          name: name
+          type: string
+          description: informasi pekerja
+          required: true
+        - in: formData
+          name: age
+          type: number
+          description: umur pekerja
+          required: true
+        - in: formData
+          name: bio
+          type: string
+          description: biografi pekerja
+          required: true
+        - in: formData
+          name: address
+          type: string
+          description: alamat pekerja
+          required: true
+        - in: formData
+          name: photo
+          type: file
+          description: foto pekerja
+          required: true
+      responses:
+        '200':
+          description: 'worker yang baru di input'
+          schema:
+            $ref: '#/definitions/Worker'
+        '401':
+          description: 'data registrasi pekerja tidak lengkap'
+        '403':
+          description: 'aborted'
+        '500':
+          description: 'kesalahan server'
+  /list:
+    get:
+      operationId: 'listWorker'
+      description: mengembalikan daftar worker
+      tags:
+        - 'worker'
+      consumes:
+        - 'application/json'
+      produces:
+        - 'application/json'
+        - 'text/plain'
+      responses:
+        '200':
+          description: daftar worker
+          schema:
+            type: array
+            items:
+              $ref: '#/definitions/Worker'
+        '500':
+          description: kesalahan server
+  /info:
+    get:
+      tags:
+        - 'worker'
+      operationId: 'infoWorker'
+      description: 'untuk mendapatkan worker dengan id tertentu'
+      parameters:
+        - in: query
+          name: id
+          type: number
+          description: id pekerja
+      consumes:
+        - 'application/json'
+      produces:
+        - 'application/json'
+      responses:
+        '200':
+          description: 'data worker dengan id yang diinput'
+          schema:
+            $ref: '#/definitions/Worker'
+        '401':
+          description: 'parameter id tidak ditemukan'
+        '404':
+          description: 'pekerja tidak ditemukan'
+        '500':
+          description: 'kesalahan server'
+  /remove:
+    delete:
+      tags:
+        - 'worker'
+      operationId: 'removeWorker'
+      description: 'untuk menghapus data worker tertentu'
+      consumes:
+        - 'application/json'
+      produces:
+        - 'application/json'
+      parameters:
+        - in: query
+          name: id
+          type: number
+          description: id pekerja
+      responses:
+        '200':
+          description: 'data worker yang dihapus'
+          schema:
+            $ref: '#/definitions/Worker'
+        '401':
+          description: 'parameter id tidak ditemukan'
+        '404':
+          description: 'pekerja tidak ditemukan'
+        '500':
+          description: 'kesalahan server'
+  /photo/{file}:
+    get:
+      tags:
+        - 'worker'
+      operationId: 'readPhoto'
+      description: 'untuk menampilkan foto worker'
+      consumes:
+        - 'application/json'
+      produces:
+        - 'image/jpeg'
+        - 'image/bmp'
+        - 'image/png'
+      parameters:
+        - in: path
+          name: file
+          type: string
+          required: true
+          description: nama file.
+      responses:
+        '200':
+          description: 'file yang dibaca'
+        '400':
+          description: 'request tidak sesuai'
+        '404':
+          description: 'error file tidak ditemukan'
+        '500':
+          description: 'kesalahan server'
+definitions:
+  Worker:
+    type: object
+    properties:
+      id:
+        type: number
+        description: identifier pekerjaan
+        example: 1
+      name:
+        type: string
+        description: nama pekerja
+        example: bambang
+      age:
+        type: number
+        description: umur pekerja
+        example: 31
+      bio:
+        type: string
+        description: biografi pekerja
+        example: developer keren
+      address:
+        type: string
+        description: alamat pekerja
+        example: jalan gagak no 10
+      photo:
+        type: string
+        description: nama file foto pekerja
+        example: 090220211649-220.jpg

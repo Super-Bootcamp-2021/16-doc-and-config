@@ -18,10 +18,24 @@ function error(state, action) {
   state.error = action.payload;
 }
 
+/**
+ * mengubah state error menjadu null
+ * @function
+ * @param {Object} state 
+ */
 function clearError(state) {
   state.error = null;
 }
 
+/**@module reducer-tasks */
+
+/**
+ * menambahkan item pada state
+ * @function
+ * @param {Object} state 
+ * @param {function} action 
+ * @returns {state}
+ */
 function added(state, action) {
   const task = action.payload;
   state.tasks.push({
@@ -36,6 +50,13 @@ function added(state, action) {
   return state;
 }
 
+/**
+ * mengubah status done pada task tertentu menjadi true
+ * @function
+ * @param {Object} state 
+ * @param {function} action 
+ * @returns {Object}
+ */
 function done(state, action) {
   const idx = state.tasks.findIndex((t) => t.id === action.payload);
   state.tasks[idx].done = true;
@@ -44,6 +65,13 @@ function done(state, action) {
   return state;
 }
 
+/**
+ * mengubah status cancel pada task tertentu menjadi true
+ * @function
+ * @param {Object} state 
+ * @param {function} action 
+ * @returns {Object}
+ */
 function canceled(state, action) {
   const idx = state.tasks.findIndex((t) => t.id === action.payload);
   state.tasks.splice(idx, 1);
@@ -52,6 +80,13 @@ function canceled(state, action) {
   return state;
 }
 
+/**
+ * me-load semua task yang ada pada db
+ * @function
+ * @param {Object} state 
+ * @param {function} action 
+ * @returns {Object}
+ */
 function tasksLoaded(state, action) {
   state.tasks = action.payload
     .filter((t) => !t.cancelled)
@@ -67,6 +102,13 @@ function tasksLoaded(state, action) {
   return state;
 }
 
+/**
+ * me-load semua worker yang ada pada db
+ * @function
+ * @param {Object} state 
+ * @param {function} action 
+ * @returns {Object}
+ */
 function workersLoaded(state, action) {
   state.workers = action.payload.map((worker) => ({
     id: worker.id,

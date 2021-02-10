@@ -1,6 +1,21 @@
+/** @module TaskModel */
+
 const { EntitySchema } = require('typeorm');
 
+/**
+ * Task Model
+ */
 class Task {
+  /**
+   *
+   * @param {string} id
+   * @param {string} job
+   * @param {object} assignee
+   * @param {boolean} done
+   * @param {boolean} cancelled
+   * @param {string} attachment
+   * @param {date} addedAt
+   */
   constructor(id, job, assignee, done, cancelled, attachment, addedAt) {
     this.id = id;
     this.job = job;
@@ -12,6 +27,9 @@ class Task {
   }
 }
 
+/**
+ * entry schema of Task model
+ */
 const TaskSchema = new EntitySchema({
   name: 'Task',
   tableName: 'tasks',

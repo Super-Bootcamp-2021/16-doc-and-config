@@ -147,6 +147,31 @@ definitions:
       assignee:
         type: object
         description: detail pekerja yang dikenai pekerjaan
+        properties:
+          id:
+            type: number
+            description: id pekerja
+            example: 20
+          name:
+            type: string
+            description: nama pekerja
+            example: Budi
+          age:
+            type: number
+            description: umur pekerja
+            example: 30
+          bio:
+            type: string
+            description: biografi pekerja
+            example: seorang programmer
+          address:
+            type: string
+            description: alamat pekerja
+            example: Jalan ramai sekali, Bandung
+          photo:
+            type: string
+            description: nama file foto pekerja
+            example: 1612874959796-184.png
   taskDone:
     type: object
     properties:
@@ -177,6 +202,31 @@ definitions:
       assignee:
         type: object
         description: detail pekerja yang dikenai pekerjaan
+        properties:
+          id:
+            type: number
+            description: id pekerja
+            example: 20
+          name:
+            type: string
+            description: nama pekerja
+            example: Budi
+          age:
+            type: number
+            description: umur pekerja
+            example: 30
+          bio:
+            type: string
+            description: biografi pekerja
+            example: seorang programmer
+          address:
+            type: string
+            description: alamat pekerja
+            example: Jalan ramai sekali, Bandung
+          photo:
+            type: string
+            description: nama file foto pekerja
+            example: 1612874959796-184.png
   taskCancel:
     type: object
     properties:
@@ -207,3 +257,28 @@ definitions:
       assignee:
         type: object
         description: detail pekerja yang dikenai pekerjaan
+        properties:
+          id:
+            type: number
+            description: id pekerja
+            example: 20
+          name:
+            type: string
+            description: nama pekerja
+            example: Budi
+          age:
+            type: number
+            description: umur pekerja
+            example: 30
+          bio:
+            type: string
+            description: biografi pekerja
+            example: seorang programmer
+          address:
+            type: string
+            description: alamat pekerja
+            example: Jalan ramai sekali, Bandung
+          photo:
+            type: string
+            description: nama file foto pekerja
+            example: 1612874959796-184.png

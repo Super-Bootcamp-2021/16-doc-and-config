@@ -1,7 +1,7 @@
 swagger: '2.0'
 info:
   title: 'Todo Service'
-  description: 'API to manage todo activity'
+  description: 'API untuk mengatur daftar pekerjaan yg tertunda'
   version: '1.0.0'
   license:
     name: 'GPL-3.0'
@@ -9,7 +9,7 @@ info:
 host: 'localhost'
 tags:
   - name: 'todo'
-    description: 'endpoint untuk mengedit todo'
+    description: 'endpoint untuk mengubah pekerjaan'
 schemes:
   - 'http'
 paths:
@@ -18,7 +18,7 @@ paths:
       tags:
         - 'todo'
       operationId: 'addTask'
-      description: 'untuk menambahkan task baru'
+      description: 'untuk menambahkan pekerjaan baru'
       consumes:
         - 'application/json'
       produces:
@@ -40,10 +40,37 @@ paths:
           description: 'data pekerjaan tidak valid'
         '500':
           description: 'kesalahan server'
+  /remove:
+    post:
+      tags:
+        - 'todo'
+      operationId: 'removeTask'
+      description: 'untuk menghapus task lama'
+      consumes:
+        - 'application/json'
+      produces:
+        - 'application/json'
+        - 'text/plain'
+      parameters:
+        - in: query
+          name: id
+          type: integer
+          description: id dari task
+      responses:
+        '200':
+          description: 'pekerjaan yang barusan di hapus'
+          schema:
+            $ref: '#/definitions/Task'
+        '401':
+          description: 'parameter id tidak ditemukan'
+        '404':
+          description: 'pekerjaan tidak ditemukan'
+        '500':
+          description: 'kesalahan server'
   /list:
     get:
       operationId: 'listTask'
-      description: mengembalikan daftar task
+      description: mengembalikan daftar pekerjaan
       tags:
         - 'todo'
       consumes:
@@ -60,6 +87,60 @@ paths:
               $ref: '#/definitions/Task'
         '500':
           description: kesalahan server
+  /done:
+    put:
+      tags:
+        - 'todo'
+      operationId: 'doneTask'
+      description: 'untuk menandakan pekerjaan sudah selesai'
+      consumes:
+        - 'application/json'
+      produces:
+        - 'application/json'
+        - 'text/plain'
+      parameters:
+        - in: query
+          name: id
+          type: integer
+          description: id dari task
+      responses:
+        '200':
+          description: 'task yang ditandakan sebagai sudah selesai'
+          schema:
+            $ref: '#/definitions/Task'
+        '401':
+          description: 'parameter id tidak ditemukan'
+        '404':
+          description: 'pekerjaan tidak ditemukan'
+        '500':
+          description: 'kesalahan server'
+  /undone:
+    put:
+      tags:
+        - 'todo'
+      operationId: 'undoneTask'
+      description: 'untuk membatalkan penyelesaian sebuah pekerjaan'
+      consumes:
+        - 'application/json'
+      produces:
+        - 'application/json'
+        - 'text/plain'
+      parameters:
+        - in: query
+          name: id
+          type: integer
+          description: id dari task
+      responses:
+        '200':
+          description: 'task yang dibatalkan penyelesainnya'
+          schema:
+            $ref: '#/definitions/Task'
+        '401':
+          description: 'parameter id tidak ditemukan'
+        '404':
+          description: 'pekerja tidak ditemukan'
+        '500':
+          description: 'kesalahan server'
 
 definitions:
   TaskData:

@@ -1,14 +1,14 @@
 /**
- * State type definition
- * @typedef {Object} State 
+ * PerformanceState type definition
+ * @typedef {Object} PerformanceState
  * @property {boolean} loading loading status
  * @property {boolean} error error status
- * @property {Summary} summary true when task are finished
+ * @property {PerformanceSummary} summary true when task are finished
  */
 
  /**
- * Summary type definition
- * @typedef {Object} Summary
+ * PerformanceSummary type definition
+ * @typedef {Object} PerformanceSummary
  * @property {number} total_task count of total all task
  * @property {number} task_done count of total task with **done** status
  * @property {number} task_cancelled count of total task with **cancel** status

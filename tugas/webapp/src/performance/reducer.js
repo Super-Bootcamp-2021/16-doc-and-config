@@ -16,7 +16,7 @@ const initialState = {
 
 /**
  * loading Reducer
- * @param {State} state state of application
+ * @param {PerformanceState} state state of application
  */
 function loading(state) {
   state.loading = true;
@@ -25,7 +25,7 @@ function loading(state) {
 
 /**
  * error Reducer
- * @param {State} state state of application
+ * @param {PerformanceState} state state of application
  * @param {*} action 
  */
 function error(state, action) {
@@ -34,8 +34,8 @@ function error(state, action) {
 }
 
 /**
- * 
- * @param {State} state state of application
+ * Load Summary Reducer
+ * @param {PerformanceState} state state of application
  * @param {*} action 
  */
 function summaryLoaded(state, action) {

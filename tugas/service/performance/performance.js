@@ -9,7 +9,7 @@ const WORKER_TOTAL_KEY = 'worker.total';
 /**
  * get summary of task & worker
  * @async
- * @returns {Promise<SummaryData[]>} summary of task & worker
+ * @returns {Promise<PerformanceSummary[]>} summary of task & worker
  */
 async function summary() {
   const data = {

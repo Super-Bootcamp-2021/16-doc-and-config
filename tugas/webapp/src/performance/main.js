@@ -27,7 +27,7 @@ refresh.onclick = () => {
 
 /**
  * render application
- * @param {State} state state of application
+ * @param {PerformanceState} state state of application
  */
 function render(state) {
   // render error

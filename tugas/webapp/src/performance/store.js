@@ -14,19 +14,19 @@ const thunkMiddleware = require('redux-thunk');
 /**
  * error Action Reducer
  * @function errorAction
- * @returns {PayloadAction<State, 'error'>}
+ * @returns {PayloadAction<PerformanceState, 'error'>}
  */
 const errorAction = createAction('error');
 /**
  * loading Action Reducer
  * @function loadingAction
- * @returns {PayloadAction<State, 'loading'>}
+ * @returns {PayloadAction<PerformanceState, 'loading'>}
  */
 const loadingAction = createAction('loading');
 /**
  * summary Action Reducer
- * @function loadingAction
- * @returns {PayloadAction<State, 'summaryLoaded'>}
+ * @function summaryLoadedAction
+ * @returns {PayloadAction<PerformanceState, 'summaryLoaded'>}
  */
 const summaryLoadedAction = createAction('summaryLoaded');
 

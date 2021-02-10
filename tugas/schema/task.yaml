@@ -1,0 +1,90 @@
+swagger: "2.0"
+info:
+  description: "api dok untuk task app"
+  version: "1.0.0"
+  title: "Task Api"
+host: "localhost:9999"
+basePath: "/"
+tags:
+- name: "task"
+  description: "semua yang berhubungan dengan task"
+schemes:
+- "http"
+paths:
+  /add:
+    post:
+      tags:
+      - "task"
+      summary: "menambahkan pekerjaan"
+      description: "end point untuk meambahkan pekerjaan baru"
+      operationId: "addTask"
+      consumes:
+      - "multipart/form-data"
+      parameters:
+      - in: "formData"
+        name: "job"
+        description: "nama pekerjaan"
+        type: string
+        required: true
+      - in: "formData"
+        name: "assigneeId"
+        description: "Id pekerja yang melakukan pekerjaan"
+        type: string
+        required: true
+      - in: "formData"
+        name: "attachment"
+        description: "file lampiran pekerjaan"
+        type: file
+        required: true
+      responses:
+        "200":
+          description: "OK"
+        "404":
+          description: "pekerjaan tidak ditemukan"
+        "500":
+          description: "file tidak ditemukan"
+        "401":
+          description: "parameter id tidak ditemukan"
+        "400":
+          description: "request tidak sesuai"
+          
+  /list:
+    get:
+      tags:
+      - "task"
+      summary: "mengambil semua pekerjaan"
+      description: "end point untuk mengambil data pekerjaan dari database"
+      operationId: "listTask"
+      produces:
+      - "application/json"
+      responses:
+        '200':
+          description: "daftar semua pekerjaan"
+          schema:
+            type: "object"
+            properties:
+              id:
+                type: "integer"
+                description: "ID pekerjaan"
+              job:
+                type: "string"
+                description: "nama pekerjaan"
+                example: "makan nasi ayam"
+              done:
+                type: "boolean"
+                description: "pekerjaan selesai"
+                example: "false"
+              cancelled:
+                type: "boolean"
+                description: "pekerjaan dibatalkan"
+                example: "false"
+              attachment:
+                type: "text"
+                description: "nama file"
+                example: "2021-02-21.png"
+              assigneeId:
+                type: "integer"
+                description: "Id pekerja"
+                example: "2"
+                
+            

@@ -1,0 +1,205 @@
+swagger: '2.0'
+info:
+  title: 'Worker Service'
+  description: 'API to manage todo activity'
+  version: '1.0.0'
+  license:
+    name: 'GPL-3.0'
+    url: 'https://www.gnu.org/licenses/gpl-3.0.en.html'
+host: 'localhost'
+tags:
+  - name: 'worker'
+    description: 'endpoint untuk mengedit worker'
+schemes:
+  - 'http'
+paths:
+  /register:
+    post:
+      summary: 'Menambahkan Worker Baru'
+      tags:
+      - 'worker'
+      operationId: 'addWorker'
+      description: 'untuk menambahkan worker baru'
+      consumes:
+        - 'multipart/form-data'
+      produces:
+        - 'application/json'
+        - 'text/plain'
+      parameters:
+        - in: 'formData'
+          name: 'name'
+          description: 'nama worker'
+          required: true
+          type: 'string'
+        - in: 'formData'
+          name: 'age'
+          description: 'usia worker'
+          required: true
+          type: 'number'
+        - in: 'formData'
+          name: 'bio'
+          description: 'biografi worker'
+          required: true 
+          type: 'string'
+        - in: 'formData'
+          name: 'address'
+          description: 'alamat worker'
+          required: true
+          type: 'string'
+        - in: 'formData'
+          name: 'photo'
+          description: 'file foto worker'
+          required: true
+          type: 'file'
+      responses:
+        '200':
+          description: 'worker baru berhasil diinput'
+          schema:
+            $ref: '#/definitions/WorkerData'
+        '401':
+          description: 'data worker tidak valid'
+        '404':
+          description: 'alamat tidak ditemukan'
+        '413':
+          description: 'inputan file tidak valid'
+        '500':
+          description: 'kesalahan server'
+  /list:
+    get:
+      summary: 'Menampilkan Semua Worker'
+      tags:
+      - 'worker'
+      operationId: 'listWorker'
+      description: 'untuk menampilkan semua data setiap worker'
+      consumes:
+        - 'application/json'
+      produces:
+        - 'application/json'
+        - 'text/plain'
+      responses:
+        '200':
+          description: 'daftar task'
+          schema:
+            type: 'array'
+            items:
+              $ref: '#/definitions/WorkerData' 
+        '404':
+          description: 'alamat tidak ditemukan'
+        '500':
+          description: 'kesalahan server'
+  /info:
+    get:
+      summary: 'Mencari Worker Berdasarkan Id'
+      tags:
+      - 'worker'
+      operationId: 'workerById'
+      description: 'untuk menampilkan semua data setiap worker'
+      consumes:
+        - 'application/json'
+      produces:
+        - 'application/json'
+        - 'text/plain'
+      parameters:
+        - in: query
+          name: id
+          description: id dari data worker yang mau dicari
+          required: true
+          type: "integer"
+          format: "int64"
+      responses:
+        '200':
+          description: 'daftar task'
+          schema:
+            $ref: '#/definitions/WorkerData' 
+        '401':
+          description: 'Id worker tidak valid'
+        '404':
+          description: 'alamat tidak ditemukan'
+        '500':
+          description: 'kesalahan server'
+  /remove:
+    delete:
+      summary: 'Menghapus Data Worker Berdasarkan Id'
+      tags:
+      - 'worker'
+      operationId: 'workerDelById'
+      description: 'menghapus data worker berdasarkan Id'
+      consumes:
+        - 'application/json'
+      produces:
+        - 'application/json'
+        - 'text/plain'
+      parameters:
+        - in: query
+          name: id
+          description: id dari data worker yang mau dihapus
+          required: true
+          type: "integer"
+          format: "int64"
+      responses:
+        '200':
+          description: 'daftar task'
+          schema:
+            $ref: '#/definitions/WorkerData' 
+        '401':
+          description: 'Id worker tidak valid'
+        '404':
+          description: 'alamat tidak ditemukan'
+        '500':
+          description: 'kesalahan server'
+  /photo/{namefile}:
+    get:
+      summary: 'Menampilkan foto worker'
+      operationId: 'photoWorker'
+      description: 'menampilkan foto worker'
+      tags:
+        - 'Worker'
+      produces:
+        - 'application/pdf'
+        - 'image/jpeg'
+      parameters:
+        - in: path
+          name: namefile
+          description: Nama file dari Worker
+          required: true
+          type: string
+      responses:
+        '200':
+          description: Task yang berhasil
+          schema:
+           example: 1612521903495-673.jpeg
+        '401':
+          description: 'query tidak valid'
+        '404':
+          description: 'alamat tidak ditemukan'
+        '500':
+          description: 'kesalahan server'
+
+definitions:
+  WorkerData:
+    type: object
+    properties:
+      id:
+        type: number
+        description: id worker
+        example: 1
+      name:
+        type: string
+        description: nama worker
+        example: Silvi
+      age:
+        type: number
+        description: umur worker
+        example: 22
+      bio:
+        type: string
+        description: biografi worker
+        example: perempuan, masih idup
+      address:
+        type: string
+        description: alamat worker
+        example: Bandung
+      photo:
+        type: string
+        description: foto worker
+        example: 1612521903495-673.jpeg

@@ -52,6 +52,10 @@ render(state);
 
 store$.dispatch(getList);
 
+/**
+ * ### Render aplikasi berdasarkan state
+ * @param {State} state
+ */
 function render(state) {
   // render error
   if (state.error) {

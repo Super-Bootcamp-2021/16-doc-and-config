@@ -4,6 +4,7 @@ const kv = require('./lib/kv');
 const bus = require('./lib/bus');
 const { TaskSchema } = require('./tasks/task.model');
 const { WorkerSchema } = require('./worker/worker.model');
+const { config } = require('./config');
 const workerServer = require('./worker/server');
 const tasksServer = require('./tasks/server');
 const performanceServer = require('./performance/server');
@@ -12,12 +13,12 @@ async function init() {
   try {
     console.log('connect to database');
     await orm.connect([WorkerSchema, TaskSchema], {
-      type: 'postgres',
-      host: 'localhost',
-      port: 5432,
-      username: 'postgres',
-      password: 'postgres',
-      database: 'sanbercode2',
+      type: config.database.type,
+      host: config.database.host,
+      port: config.database.port,
+      username: config.database.username,
+      password: config.database.password,
+      database: config.database.database,
     });
     console.log('database connected');
   } catch (err) {
@@ -27,11 +28,11 @@ async function init() {
   try {
     console.log('connect to object storage');
     await storage.connect('task-manager', {
-      endPoint: '127.0.0.1',
-      port: 9000,
-      useSSL: false,
-      accessKey: 'local-minio',
-      secretKey: 'local-test-secret',
+      endPoint: config.objectStorage.endPoint,
+      port: config.objectStorage.port,
+      useSSL: config.objectStorage.useSSL,
+      accessKey: config.objectStorage.accessKey,
+      secretKey: config.objectStorage.secretKey,
     });
     console.log('object storage connected');
   } catch (err) {

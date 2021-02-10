@@ -1,3 +1,7 @@
+/**
+ * @module Store Task
+ */
+
 const {
   createAction,
   createReducer,

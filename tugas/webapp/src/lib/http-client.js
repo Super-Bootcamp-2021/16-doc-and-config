@@ -1,3 +1,11 @@
+/** @module httpClient */
+
+/**
+ * ### Basic client untuk request ke `server`
+ * @param {string} endpoint target / url endpoint
+ * @param {RequestInit} options tambahan opsi [request](http://localhost)
+ * @returns {Promise<any>} hasil request
+ */
 async function client(endpoint, json, { method, body, ...customConf } = {}) {
   let headers;
   if (json) {
@@ -39,18 +47,41 @@ async function client(endpoint, json, { method, body, ...customConf } = {}) {
   }
 }
 
+/**
+ *  ### Request dengan method GET
+ * @param {string} endpoint target / url endpoint
+ * @param {RequestInit} options tambahan opsi request
+ */
 client.get = (endpoint, customConf = {}) => {
   return client(endpoint, true, { method: 'GET', ...customConf });
 };
 
+/**
+ *  ### Request dengan method POST
+ * @param {string} endpoint target / url endpoint
+ * @param {Object} body konten dari request
+ * @param {RequestInit} options tambahan opsi request
+ */
 client.post = (endpoint, body, json, customConf = {}) => {
   return client(endpoint, json, { method: 'POST', body, ...customConf });
 };
 
+/**
+ *  ### Request dengan method PUT
+ * @param {string} endpoint target / url endpoint
+ * @param {Object} body konten dari request
+ * @param {RequestInit} options tambahan opsi request
+ */
 client.put = (endpoint, body, json, customConf = {}) => {
   return client(endpoint, json, { method: 'PUT', body, ...customConf });
 };
 
+/**
+ *  ### Request dengan method DELETE
+ * @param {string} endpoint target / url endpoint
+ * @param {Object} body konten dari request
+ * @param {RequestInit} options tambahan opsi request
+ */
 client.del = (endpoint, body, json, customConf = {}) => {
   return client(endpoint, json, { method: 'DELETE', body, ...customConf });
 };

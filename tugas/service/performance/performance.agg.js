@@ -13,6 +13,9 @@ let increaseCancelledTaskSub;
 let increaseTotalWorkerSub;
 let decreaseTotalWorkerSub;
 
+/**
+ * function to subscribe all message from message bus
+ */
 function run() {
   increaseTotalTaskSub = bus.subscribe('task.added', increaseTotalTask);
   increaseDoneTaskSub = bus.subscribe('task.done', increaseDoneTask);
@@ -27,6 +30,9 @@ function run() {
   decreaseTotalWorkerSub = bus.subscribe('worker.removed', decreaseTotalWorker);
 }
 
+/**
+ * stop subcription from all message bus
+ */
 function stop() {
   if (increaseTotalTaskSub) {
     bus.unsubscribe(increaseTotalTaskSub);

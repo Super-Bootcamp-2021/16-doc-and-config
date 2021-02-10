@@ -1,3 +1,4 @@
+/** @module taskServer */
 const { createServer } = require('http');
 const url = require('url');
 const { stdout } = require('process');
@@ -8,9 +9,13 @@ const {
   listSvc,
   getAttachmentSvc,
 } = require('./task.service');
-
+const { config } = require('../config');
 let server;
 
+/**
+ * function to run task API service
+ * @param {callback} callback 
+ */
 function run(callback) {
   server = createServer((req, res) => {
     // cors
@@ -75,7 +80,7 @@ function run(callback) {
   });
 
   // run server
-  const PORT = 7002;
+  const PORT = config.server?.port.task;
   server.listen(PORT, () => {
     stdout.write(`🚀 task service listening on port ${PORT}\n`);
   });
@@ -98,6 +103,9 @@ function cors(req, res) {
   }
 }
 
+/**
+ * function to stop task API service
+ */
 function stop() {
   if (server) {
     server.close();

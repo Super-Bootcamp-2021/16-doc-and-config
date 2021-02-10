@@ -1,3 +1,4 @@
+/** @module workerServer */
 const { createServer } = require('http');
 const url = require('url');
 const { stdout } = require('process');
@@ -8,9 +9,13 @@ const {
   infoSvc,
   getPhotoSvc,
 } = require('./worker.service');
-
+const { config } = require('../config');
 let server;
 
+/**
+ * to run worker API service
+ * @param {callback} callback 
+ */
 function run(callback) {
   server = createServer((req, res) => {
     // cors
@@ -75,7 +80,7 @@ function run(callback) {
   });
 
   // run server
-  const PORT = 7001;
+  const PORT = config.server?.port.worker;
   server.listen(PORT, () => {
     stdout.write(`🚀 worker service listening on port ${PORT}\n`);
   });
@@ -98,6 +103,9 @@ function cors(req, res) {
   }
 }
 
+/**
+ * to stop worker API service
+ */
 function stop() {
   if (server) {
     server.close();

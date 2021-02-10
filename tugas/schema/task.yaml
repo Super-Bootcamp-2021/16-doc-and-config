@@ -1,0 +1,219 @@
+swagger: '2.0'
+info:
+  title: 'Task Service'
+  description: 'API to manage task of worker activity'
+  version: '1.0.0'
+  license:
+    name: 'GPL-3.0'
+    url: 'https://www.gnu.org/licenses/gpl-3.0.en.html'
+host: 'localhost:7002'
+tags:
+  - name: 'Task'
+    description: 'Endpoint for management task'
+schemes:
+  - 'http'
+paths:
+  /add:
+    post:
+      summary: 'Menambah kan task baru'
+      tags:
+        - 'Task'
+      operationId: 'addTask'
+      description: 'untuk menambahkan task baru'
+      consumes:
+        - 'multipart/form-data'
+      produces:
+        - 'application/json'
+        - 'text/plain'
+      parameters:
+      - name: "job"
+        in: "formData"
+        description: "Nama pekerjaan"
+        required: true
+        type: "string"
+      - name: "assignee_id"
+        in: "formData"
+        description: "Pekerja yang dikenai pekerjaan"
+        required: true
+        type: "number"
+      - name: "attachment"
+        in: "formData"
+        description: "file attachment"
+        required: true
+        type: "file"
+      responses:
+        '200':
+          description: 'task yang baru di input'
+          schema:
+            $ref: '#/definitions/Task'
+        '400':
+          description: 'data pekerjaan tidak valid'
+        '404':
+          description: 'Alamat tidak ditemukan'
+        '413':
+          description: 'File di input error'
+        '500':
+          description: 'kesalahan server'
+  /done:
+    put:
+      summary: 'Update task menjadi selesai'
+      operationId: 'doneTask'
+      description: Mengubah task menjadi selesai
+      tags:
+        - 'Task'
+      produces:
+        - 'application/json'
+        - 'text/plain'
+      parameters:
+        - in: query
+          name: id
+          description: dari task yang mau di selesaikan
+          required: true
+          type: "integer"
+          format: "int64"
+      responses:
+        '200':
+          description: Task yang berhasil
+          schema:
+            $ref: '#/definitions/Task'
+        '401':
+          description: 'Query tidak ditemukan'
+        '404':
+          description: 'Alamat tidak ditemukan'
+        '500':
+          description: kesalahan server
+  /cancel:
+    put:
+      summary: 'Membatalkan task'
+      operationId: 'cancelTask'
+      description: Mengubah task menjadi batal
+      tags:
+        - 'Task'
+      produces:
+        - 'application/json'
+        - 'text/plain'
+      parameters:
+        - in: query
+          name: id
+          description: dari task yang mau di selesaikan
+          required: true
+          type: "integer"
+          format: "int64"
+      responses:
+        '200':
+          description: Task yang berhasil
+          schema:
+            $ref: '#/definitions/Task'
+        '401':
+          description: 'Query tidak ditemukan'
+        '404':
+          description: 'Alamat tidak ditemukan' 
+        '500':
+          description: kesalahan server
+          
+  /attachment/{namefile}:
+    get:
+      summary: 'Menampilkan attachment task'
+      operationId: 'attachmentTask'
+      description: Mengubah task menjadi batal
+      tags:
+        - 'Task'
+      produces:
+        - 'application/pdf'
+        - 'image/png'
+      parameters:
+        - in: path
+          name: namefile
+          description: Nama file dari task
+          required: true
+          type: string
+      responses:
+        '200':
+          description: Task yang berhasil
+          schema:
+           example: Ini-gambar.png
+        '400':
+          description: 'request salah'
+        '404':
+          description: 'Alamat tidak ditemukan'
+        '500':
+          description: kesalahan server
+  /list:
+    get:
+      summary: 'Menampilkan semua task yang ada'
+      operationId: 'listTask'
+      description: mengembalikan daftar task
+      tags:
+        - 'Task'
+      consumes:
+        - 'application/json'
+      produces:
+        - 'application/json'
+        - 'text/plain'
+      responses:
+        '200':
+          description: daftar task
+          schema:
+            type: array
+            items:
+              $ref: '#/definitions/Task'
+        '500':
+          description: kesalahan server
+
+definitions:
+  Task:
+    type: object
+    properties:
+      id:
+        type: number
+        description: identifier pekerjaan
+        example: 1
+      job:
+        type: string
+        description: detail pekerjaan / tugas
+        example: membuat Dokumentasi    
+      done:
+        type: boolean
+        description: 'true mendandakan pekerjaan sudah selesai'
+      cancelled:
+        type: boolean
+        description: 'true mendandakan pekerjaan sudah dihapus'
+      addedAt:
+        type: string
+        format: date-time
+        description: tanggal pekerjaan / tugas
+        example: '2021-02-09T08:14:57.558Z'
+      attachment:
+        type: string
+        description: file attachmanet dari pekerjaan
+        example: '1612858497484-148.png'
+      assiggne:
+        $ref: '#/definitions/Assignee'
+          
+  Assignee:
+    type: object
+    properties:
+      id:
+        type: number
+        description: identifier pekerjaan
+        example: 1
+      name:
+        type: string
+        description: nama Pekerja
+        example: Annas
+      age:
+        type: string
+        description: Umur pekerja
+        example: 23
+      bio:
+        type: string
+        description: Detail pekerja
+        example: QA
+      address:
+        type: string
+        description: Alamat pekerja
+        example: Jl semarang
+      photo:
+        type: string
+        description: Foto Pekerja
+        example: 1612858486704-99.jpeg                

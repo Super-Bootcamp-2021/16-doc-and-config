@@ -1,6 +1,21 @@
-const { EntitySchema } = require('typeorm');
+/** @module taskSchema */
+// eslint-disable-next-line no-unused-vars
+const { EntitySchema, Timestamp } = require('typeorm');
 
+/**
+ * model pekerjaan
+ */
 class Task {
+  /**
+   * Membuat object baru berdasarkan model pekerjaan
+   * @param {number} id id dari pekerjaan
+   * @param {string} job nama pekerjaan
+   * @param {number} assignee id pekerja yang ditugaskan
+   * @param {boolean} done status diselesaikan
+   * @param {boolean} cancelled status dibatalkan
+   * @param {string} attachment nama file lampiran pekerjaan
+   * @param {Timestamp} addedAt tanggal data dibuat
+   */
   constructor(id, job, assignee, done, cancelled, attachment, addedAt) {
     this.id = id;
     this.job = job;
@@ -12,6 +27,9 @@ class Task {
   }
 }
 
+/**
+ * Membuat skema dari model pekerjaan
+ */
 const TaskSchema = new EntitySchema({
   name: 'Task',
   tableName: 'tasks',

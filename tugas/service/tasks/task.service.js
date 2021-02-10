@@ -1,3 +1,4 @@
+/** @module taskService */
 const Busboy = require('busboy');
 const url = require('url');
 const mime = require('mime-types');
@@ -11,7 +12,14 @@ const {
   ERROR_TASK_NOT_FOUND,
 } = require('./task');
 const { saveFile, readFile, ERROR_FILE_NOT_FOUND } = require('../lib/storage');
+// eslint-disable-next-line no-unused-vars
+const { IncomingMessage, ServerResponse } = require('http');
 
+/**
+ * service untuk menambahkan pekerjaan baru
+ * @param {IncomingMessage} req
+ * @param {ServerResponse} res
+ */
 function addSvc(req, res) {
   const busboy = new Busboy({ headers: req.headers });
 
@@ -88,6 +96,12 @@ function addSvc(req, res) {
   req.pipe(busboy);
 }
 
+/**
+ * service untuk mendapatkan data semua pekerjaan
+ * @async
+ * @param {IncomingMessage} req
+ * @param {ServerResponse} res
+ */
 async function listSvc(req, res) {
   try {
     const tasks = await list();
@@ -101,6 +115,12 @@ async function listSvc(req, res) {
   }
 }
 
+/**
+ * service untuk mengubah status pekerjaan menjadi diselesaikan
+ * @async
+ * @param {IncomingMessage} req
+ * @param {ServerResponse} res
+ */
 async function doneSvc(req, res) {
   const uri = url.parse(req.url, true);
   const id = uri.query['id'];
@@ -129,6 +149,12 @@ async function doneSvc(req, res) {
   }
 }
 
+/**
+ * service untuk mengubah status pekerjaan menjadi dibatalkan
+ * @async
+ * @param {IncomingMessage} req
+ * @param {ServerResponse} res
+ */
 async function cancelSvc(req, res) {
   const uri = url.parse(req.url, true);
   const id = uri.query['id'];
@@ -157,6 +183,12 @@ async function cancelSvc(req, res) {
   }
 }
 
+/**
+ * service untuk mendapatkan file lampiran pekerjaan
+ * @async
+ * @param {IncomingMessage} req
+ * @param {ServerResponse} res
+ */
 async function getAttachmentSvc(req, res) {
   const uri = url.parse(req.url, true);
   const objectName = uri.pathname.replace('/attachment/', '');

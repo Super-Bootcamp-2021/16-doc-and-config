@@ -1,3 +1,4 @@
+/**@module server */
 const { createServer } = require('http');
 const url = require('url');
 const { stdout } = require('process');
@@ -5,6 +6,15 @@ const { summarySvc } = require('./performance.service');
 const agg = require('./performance.agg');
 
 let server;
+
+/**
+ * @callback requestCallback
+ */
+
+/**
+ * Does something asynchronously and executes the callback on completion.
+ * @param {requestCallback} callback The callback that handles the response
+ */
 
 function run(callback) {
   server = createServer((req, res) => {
@@ -56,6 +66,13 @@ function run(callback) {
   });
 }
 
+/**
+ * 
+ * @param {method} req OPTIONS, GET, POST, PUT
+ * @param {method} res OPTIONS, GET, POST, PUT
+ * @returns {boolean} true if method options
+ */
+
 function cors(req, res) {
   // handle preflight request
   res.setHeader('Access-Control-Allow-Origin', '*');
@@ -69,6 +86,10 @@ function cors(req, res) {
     return true;
   }
 }
+
+/**
+ * close the server
+ */
 
 function stop() {
   if (server) {

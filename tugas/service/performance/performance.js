@@ -1,9 +1,16 @@
+/** @module performance */
+
 const { read, save } = require('../lib/kv');
 
 const TASK_TOTAL_KEY = 'task.total';
 const TASK_DONE_KEY = 'task.done';
 const TASK_CANCELLED_KEY = 'task.cancelled';
 const WORKER_TOTAL_KEY = 'worker.total';
+
+/**
+ * menampilkan total task, task selesai, task dibatalkan, total worker
+ * @returns {Promise<data>} new data
+ */
 
 async function summary() {
   const data = {
@@ -15,12 +22,20 @@ async function summary() {
   return data;
 }
 
+/**
+ *  menambah total task
+ */
+
 async function increaseTotalTask() {
   const raw = await read(TASK_TOTAL_KEY);
   let val = parseInt(raw || '0', 10);
   val++;
   await save(TASK_TOTAL_KEY, val);
 }
+
+/**
+ *  menambah task selesai
+ */
 
 async function increaseDoneTask() {
   const raw = await read(TASK_DONE_KEY);
@@ -29,6 +44,10 @@ async function increaseDoneTask() {
   await save(TASK_DONE_KEY, val);
 }
 
+/**
+ *  menambah task yang dibatalkan
+ */
+
 async function increaseCancelledTask() {
   const raw = await read(TASK_CANCELLED_KEY);
   let val = parseInt(raw || '0', 10);
@@ -36,12 +55,20 @@ async function increaseCancelledTask() {
   await save(TASK_CANCELLED_KEY, val);
 }
 
+/**
+ *  menambahkan total worker
+ */
+
 async function increaseTotalWorker() {
   const raw = await read(WORKER_TOTAL_KEY);
   let val = parseInt(raw || '0', 10);
   val++;
   await save(WORKER_TOTAL_KEY, val);
 }
+
+/**
+ *  mengurangi total worker
+ */
 
 async function decreaseTotalWorker() {
   const raw = await read(WORKER_TOTAL_KEY);

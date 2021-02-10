@@ -1,6 +1,11 @@
+/**@module async-action */
 const { loadingAction, errorAction, summaryLoadedAction } = require('./store');
 const perfSvc = require('./performance.client');
 
+/**
+ * 
+ * @param {function} dispatch command for input data to db 
+ */
 exports.summary = async (dispatch) => {
   dispatch(loadingAction());
   try {

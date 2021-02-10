@@ -1,0 +1,13 @@
+{
+    "plugins": ["plugins/markdown"],
+    "source": {
+      "include": ["./service/worker"],
+      "exclude": []
+    },
+    "opts": {
+      "destination": "./service/worker/docs",
+      "recurse": true,
+      "readme": "./service/worker/README.md"
+    }
+  }
+  

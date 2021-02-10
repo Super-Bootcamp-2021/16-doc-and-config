@@ -1,3 +1,5 @@
+/** @module taskService */
+
 const Busboy = require('busboy');
 const url = require('url');
 const mime = require('mime-types');
@@ -12,6 +14,11 @@ const {
 } = require('./task');
 const { saveFile, readFile, ERROR_FILE_NOT_FOUND } = require('../lib/storage');
 
+/**
+ * service to add a new task
+ * @param {IncomingMessage} req
+ * @param {ServerResponse} res
+ */
 function addSvc(req, res) {
   const busboy = new Busboy({ headers: req.headers });
 
@@ -76,6 +83,7 @@ function addSvc(req, res) {
         data.assigneeId = parseInt(val, 10);
         break;
     }
+    console.log(fieldname, val)
   });
 
   busboy.on('finish', async () => {
@@ -88,6 +96,11 @@ function addSvc(req, res) {
   req.pipe(busboy);
 }
 
+/**
+ * service to get list of tasks
+ * @param {IncomingMessage} req
+ * @param {ServerResponse} res
+ */
 async function listSvc(req, res) {
   try {
     const tasks = await list();
@@ -101,9 +114,15 @@ async function listSvc(req, res) {
   }
 }
 
+/**
+ * service to get done of a task
+ * @param {IncomingMessage} req
+ * @param {ServerResponse} res
+ */
 async function doneSvc(req, res) {
   const uri = url.parse(req.url, true);
   const id = uri.query['id'];
+  console.log(id)
   if (!id) {
     res.statusCode = 401;
     res.write('parameter id tidak ditemukan');
@@ -129,6 +148,11 @@ async function doneSvc(req, res) {
   }
 }
 
+/**
+ * service to cancel / soft delete a task
+ * @param {IncomingMessage} req
+ * @param {ServerResponse} res
+ */
 async function cancelSvc(req, res) {
   const uri = url.parse(req.url, true);
   const id = uri.query['id'];
@@ -157,6 +181,11 @@ async function cancelSvc(req, res) {
   }
 }
 
+/**
+ * service to get attachment file
+ * @param {IncomingMessage} req
+ * @param {ServerResponse} res
+ */
 async function getAttachmentSvc(req, res) {
   const uri = url.parse(req.url, true);
   const objectName = uri.pathname.replace('/attachment/', '');

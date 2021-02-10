@@ -46,6 +46,21 @@
         }
       ]
     },
+    {
+      "type": "node",
+      "request": "launch",
+      "name": " svc",
+      "skipFiles": [
+        "<node_internals>/**"
+      ],
+      "program": "${workspaceFolder}",
+      "console": "integratedTerminal",
+      "runtimeExecutable": "npm",
+      "runtimeArgs": [
+        "run-script", "svc:dev", "worker"
+      ],
+    },
+
   ],
   "compounds": [
     {

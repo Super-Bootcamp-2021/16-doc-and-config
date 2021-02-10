@@ -1,0 +1,13 @@
+{
+    "plugins": ["plugins/markdown"],
+    "source": {
+      "include": ["./webapp/src/performance"],
+      "exclude": []
+    },
+    "opts": {
+      "destination": "./webapp/src/performance/docs",
+      "recurse": true,
+      "readme": "./webapp/src/performance/README.md"
+    }
+  }
+  

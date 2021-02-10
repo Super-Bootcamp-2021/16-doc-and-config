@@ -1,7 +1,10 @@
+/** @module workerStore */
 const {
   createAction,
   createReducer,
   configureStore,
+  // eslint-disable-next-line no-unused-vars
+  PayloadAction,
 } = require('@reduxjs/toolkit');
 const {
   initialState,
@@ -14,6 +17,11 @@ const {
 } = require('./reducer');
 const thunkMiddleware = require('redux-thunk');
 
+/**
+ * error action
+ * @function error
+ * @returns {PayloadAction<Worker, 'error'>}
+ */
 const errorAction = createAction('error');
 const loadingAction = createAction('loading');
 const registeredAction = createAction('registered');

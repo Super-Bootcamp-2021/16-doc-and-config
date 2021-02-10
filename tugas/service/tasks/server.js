@@ -8,9 +8,16 @@ const {
   listSvc,
   getAttachmentSvc,
 } = require('./task.service');
+// eslint-disable-next-line no-unused-vars
+const { IncomingMessage, ServerResponse } = require('http');
+
 const { config } = require('../config');
 let server;
 
+/**
+ * Membuat server dan menjalankan server
+ * @param {callback} callback callback ketika server dimatikan
+ */
 function run(callback) {
   server = createServer((req, res) => {
     // cors
@@ -81,6 +88,11 @@ function run(callback) {
   });
 }
 
+/**
+ * Menangani CORS
+ * @param {IncomingMessage} req
+ * @param {ServerResponse} res
+ */
 function cors(req, res) {
   // handle preflight request
   res.setHeader('Access-Control-Allow-Origin', '*');
@@ -98,6 +110,9 @@ function cors(req, res) {
   }
 }
 
+/**
+ * Mematikan server
+ */
 function stop() {
   if (server) {
     server.close();

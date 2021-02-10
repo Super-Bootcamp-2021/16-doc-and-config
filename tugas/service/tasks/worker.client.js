@@ -3,6 +3,10 @@ const http = require('http');
 const WORKER_HOST = 'http://localhost:7001';
 const ERROR_WORKER_NOT_FOUND = 'pekerja tidak ditemukan';
 
+/**
+ * Menggunakan worker service untuk mengecek pekerja yang ditugaskan
+ * @param {number} id id dari pekerja yang ditugaskan
+ */
 function info(id) {
   return new Promise((resolve, reject) => {
     const req = http.request(`${WORKER_HOST}/info?id=${id}`, (res) => {

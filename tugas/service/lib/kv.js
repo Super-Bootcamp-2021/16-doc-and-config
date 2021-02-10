@@ -1,8 +1,13 @@
+/** @module keyValue */
 const redis = require('redis');
 const { promisify } = require('util');
 
 let client;
 
+/**
+ * Membuat koneksi ke key value store
+ * @param {Object} options konfigurasi tambahan jika dibutuhkan
+ */
 function connect(options) {
   return new Promise((resolve, reject) => {
     client = redis.createClient(options);
@@ -15,22 +20,45 @@ function connect(options) {
   });
 }
 
+/**
+ * Menyimpan data di key value store
+ * @param {string} db nama key untuk menyimpan data
+ * @param {string} data nilai yang akan disimpan di dalam key
+ *
+ * @returns {Promise<string>} informasi proses penyimpanan
+ */
 function save(db, data) {
   const setAsync = promisify(client.set).bind(client);
   return setAsync(db, data);
 }
 
+/**
+ * Mengambil data dari key value store
+ * @async
+ * @param {string} db nama key untuk mengambil data
+ *
+ * @returns {Promise<string>} value dari key yang diberikan
+ */
 async function read(db) {
   const getAsync = promisify(client.get).bind(client);
   const val = await getAsync(db);
   return JSON.parse(val);
 }
 
+/**
+ * Menghapus data dari key value store
+ * @param {string} db nama key yang akan dihapus datanya
+ *
+ * @returns {Promise<number>} status proses penghapusan data
+ */
 function drop(db) {
   const delAsync = promisify(client.del).bind(client);
   return delAsync(db);
 }
 
+/**
+ * Menutup koneksi ke key value store
+ */
 function close() {
   if (!client) {
     return;

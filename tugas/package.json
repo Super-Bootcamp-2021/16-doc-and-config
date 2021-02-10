@@ -9,7 +9,9 @@
     "svc:dev": "nodemon ./service/main.js",
     "lint": "eslint .",
     "web:build": "webpack --mode production",
-    "web:dev": "webpack serve --open --mode development"
+    "web:dev": "webpack serve --open --mode development",
+    "docs:svc": "jsdoc -c service/docs.json",
+    "docs:web": "jsdoc -c docs.json"
   },
   "author": "",
   "license": "ISC",
@@ -40,9 +42,11 @@
     "nodemon": "^2.0.7",
     "pg": "^8.5.1",
     "pg-hstore": "^2.3.3",
+    "rc": "^1.2.8",
     "redis": "^3.0.2",
-    "redux-thunk": "^2.3.0",
+    "@reduxjs/toolkit": "^1.5.0",
     "rxjs": "^6.6.3",
+    "redux-thunk": "^2.3.0",
     "swagger-ui": "^3.42.0",
     "typeorm": "^0.2.30"
   }

@@ -1,3 +1,4 @@
+/** @module taskServer */
 const { createServer } = require('http');
 const url = require('url');
 const { stdout } = require('process');
@@ -11,6 +12,10 @@ const {
 const { config } = require('../config');
 let server;
 
+/**
+ * function to run task API service
+ * @param {callback} callback 
+ */
 function run(callback) {
   server = createServer((req, res) => {
     // cors
@@ -98,6 +103,9 @@ function cors(req, res) {
   }
 }
 
+/**
+ * function to stop task API service
+ */
 function stop() {
   if (server) {
     server.close();

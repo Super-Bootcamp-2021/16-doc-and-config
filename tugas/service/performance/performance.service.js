@@ -1,5 +1,10 @@
 const { summary } = require('./performance');
 
+/**
+ * to get performance summary from KV
+ * @param {ClientRequest} req 
+ * @param {ServerResponse} res 
+ */
 async function summarySvc(req, res) {
   try {
     const sums = await summary();

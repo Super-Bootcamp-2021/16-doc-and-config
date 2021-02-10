@@ -7,6 +7,10 @@ const { config } = require('../config');
 
 let server;
 
+/**
+ * to run performance server
+ * @param {callback} callback 
+ */
 function run(callback) {
   server = createServer((req, res) => {
     // cors
@@ -71,6 +75,9 @@ function cors(req, res) {
   }
 }
 
+/**
+ * function to stop performance server
+ */
 function stop() {
   if (server) {
     server.close();

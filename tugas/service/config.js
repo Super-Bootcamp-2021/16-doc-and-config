@@ -27,7 +27,7 @@ const defaultConfig = {
   },
 };
 
-const config = rc('todo', defaultConfig);
+const config = rc('tm', defaultConfig);
 
 module.exports = {
   config,

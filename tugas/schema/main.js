@@ -4,8 +4,8 @@ const workerPerformance = require('./worker.yaml');
 const taskPerformance = require('./task.yaml');
 const specPerformance = require('./performance.yaml');
 
-workerPerformance.host = 'localhost:7003';
-taskPerformance.host = 'localhost:7003';
+workerPerformance.host = 'localhost:7001';
+taskPerformance.host = 'localhost:7002';
 specPerformance.host = 'localhost:7003';
 
 

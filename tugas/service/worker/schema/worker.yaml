@@ -1,0 +1,193 @@
+swagger: '2.0'
+info:
+  title: 'API Worker Documentation'
+  description: 'API to manage worker'
+  version: '1.0.0'
+  license:
+    name: 'GPL-3.0'
+    url: 'https://www.gnu.org/licenses/gpl-3.0.en.html'
+host: 'localhost'
+tags:
+  - name: 'worker'
+    description: 'API endpoint for manage worker'
+schemes:
+  - 'http'
+paths:
+  /register:
+    post:
+      tags:
+        - 'worker'
+      operationId: 'addWorker'
+      description: 'Add new worker'
+      consumes:
+        - 'multipart/form-data'
+      produces:
+        - 'application/json'
+      parameters:
+         - in: formData
+           name: name
+           description: worker's name
+           type: string
+           required: true
+           example: budiman
+         - in: formData
+           name: address
+           description: worker's address
+           type: string
+           required: true
+           example: Jakarta
+         - in: formData
+           name: age
+           description: worker's age
+           type: string
+           required: true
+           example: 20
+         - in: formData
+           name: bio
+           description: worker's biografi
+           type: string
+           required: true
+           example: suka olahraga
+         - in: formData
+           name: photo
+           description: worker's photo
+           type: file
+           required: true
+           example: "myphoto.jpg"
+          
+      responses:
+        '200':
+          description: 'Success add new worker data'
+          schema:
+            $ref: '#/definitions/Worker'
+        '401':
+          description: 'data registrasi pekerja tidak lengkap'
+        '500':
+          description: 'kesalahan server'
+  /list:
+    get:
+      operationId: 'listWorker'
+      description: Get list of worker
+      tags:
+        - 'worker'
+      consumes:
+        - 'application/json'
+      produces:
+        - 'application/json'
+        - 'text/plain'
+      responses:
+        '200':
+          description: 'Success get list worker'
+          schema:
+            type: array
+            items:
+              $ref: '#/definitions/Worker'
+        '500':
+          description: kesalahan server
+  /info:
+    get:
+      operationId: 'infoWorker'
+      description: Get info of worker
+      tags:
+        - 'worker'
+      consumes:
+        - 'application/json'
+      produces:
+        - 'application/json'
+        - 'text/plain'
+      parameters:
+      - in: query
+        name: id
+        description: id worker
+        type: number
+        required: true
+      responses:
+        '200':
+          description: 'Success get info worker'
+          schema:
+            $ref: '#/definitions/Worker'
+        '401':
+          description: parameter id tidak ditemukan
+        '404':
+          description: pekerja tidak ditemukan
+        '500':
+          description: kesalahan server
+  /remove:
+    delete:
+      operationId: 'removeWorker'
+      description: Remove worker data
+      tags:
+        - 'worker'
+      consumes:
+        - 'application/json'
+      produces:
+        - 'application/json'
+        - 'text/plain'
+      parameters:
+      - in: query
+        name: id
+        description: id worker
+        type: number
+        required: true
+      responses:
+        '200':
+          description: 'Success remove worker'
+          schema:
+            $ref: '#/definitions/Worker'
+        '401':
+          description: parameter id tidak ditemukan
+        '404':
+          description: pekerja tidak ditemukan
+        '500':
+          description: kesalahan server
+  /photo/{fileName}:
+      get:
+        operationId: 'photoWorker'
+        description: Get worker's photo
+        tags:
+          - 'worker'
+        consumes:
+          - 'application/json'
+        produces:
+          - 'image/jpeg'
+        parameters:
+        - in: path
+          name: fileName
+          description: file name photo
+          type: string
+          example: "1612910542055-912.jpeg"
+          required: true
+        responses:
+          '200':
+            description: 'Success get photo'
+            schema:
+              type: file
+          '400':
+            description: request tidak sesuai
+          '404':
+            description: error file tidak ditemukan
+          '500':
+            description: gagal membaca file
+
+definitions:
+  Worker:
+    type: object
+    properties:
+      id:
+        type: number
+        description: worker's id
+      name:
+        type: string
+        description: worker's name
+      age:
+        type: number
+        description: worker's age
+      bio:
+        type: string
+        description: worker's biografi
+      address:
+        type: string
+        description: worker's address
+      photo:
+        type: string
+        description: worker's photo file name

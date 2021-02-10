@@ -1,0 +1,12 @@
+{
+  "plugins": ["plugins/markdown"],
+  "source": {
+    "include": ["./service/tasks"],
+    "exclude": []
+  },
+  "opts": {
+    "destination": "./service/tasks/docs",
+    "recurse": true,
+    "readme": "./service/tasks/README.md"
+  }
+}

@@ -1,3 +1,4 @@
+/**@module reducer */
 // setup state
 const initialState = {
   loading: false,
@@ -10,16 +11,32 @@ const initialState = {
   },
 };
 
+/**
+ * loading action
+ * @param {Data} state loading <- true dan error <- null
+ */
+
 function loading(state) {
   state.loading = true;
   state.error = null;
 }
+
+/**error action
+ * 
+ * @param {Data} state loading <- false
+ * @param {error} action menyimpan suatu error pada data
+ */
 
 function error(state, action) {
   state.loading = false;
   state.error = action.payload;
 }
 
+/**
+ * 
+ * @param {Data} state loading <- false dan error <- null
+ * @param {summary} action menyimpan total_task, task_done, task_cancelled, total_worker
+ */
 function summaryLoaded(state, action) {
   state.summary = action.payload;
   state.loading = false;

@@ -1,6 +1,19 @@
 const { EntitySchema } = require('typeorm');
 
+/**
+ * Task Model
+ */
 class Task {
+  /**
+   * create new instance of todo model
+   * @param {number} id id of a task
+   * @param {string} job job name
+   * @param {boolean} done true when task is done
+   * @param {boolean} cancelled true when task is cancelled
+   * @param {Date} addedAt time of task created
+   * @param {object} attachment task attachent's file
+   * @param {number} assignee task relation with worker
+   */
   constructor(id, job, assignee, done, cancelled, attachment, addedAt) {
     this.id = id;
     this.job = job;
@@ -12,6 +25,9 @@ class Task {
   }
 }
 
+/**
+ * entity schema of Task Model
+ */
 const TaskSchema = new EntitySchema({
   name: 'Task',
   tableName: 'tasks',

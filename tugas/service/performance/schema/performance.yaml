@@ -1,0 +1,68 @@
+swagger: '2.0'
+info:
+  title: 'Performance Service'
+  description: 'API to manage performance activity'
+  version: '1.0.0'
+  license:
+    name: 'GPL-3.0'
+    url: 'https://www.gnu.org/licenses/gpl-3.0.en.html'
+host: 'localhost'
+tags:
+  - name: 'performance'
+    description: 'endpoint untuk mengedit performance'
+schemes:
+  - 'http'
+paths:
+  /summary:
+    get:
+      tags:
+        - 'performance'
+      operationId: 'summary'
+      description: 'detail task dan worker'
+      consumes:
+        - 'application/json'
+      produces:
+        - 'application/json'
+        - 'text/plain'
+      parameters:
+        - in: body
+          name: body
+          description: performance service
+          required: true
+          schema:
+            $ref: '#/definitions/Data'
+      responses:
+        '500':
+          description: 'kesalahan server'
+
+definitions:
+  Data:
+    type: object
+    properties:
+      loading:
+        type: boolean
+        description: loading condition
+        example: false
+      error:
+        type: string
+        description: error condition
+        example: null
+      summary:
+        type: object
+        properties:
+          total_task:
+            type: number
+            description: total task
+            example: 5
+          task_done:
+            type: number
+            description: total task selesai
+            example: 3
+          task_cancelled:
+            type: number
+            description: total task batal
+            example: 2
+          total_worker:
+            type: number
+            description: total worker
+            example: 3

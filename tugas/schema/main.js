@@ -1,22 +1,25 @@
 const SwaggerUI = require('swagger-ui');
 require('swagger-ui/dist/swagger-ui.css');
-const specTask = require('./task.yaml');
-const specWorker = require('./worker.yaml');
-const specPeformance = require('./peformance.yaml');
+const workerPerformance = require('./worker.yaml');
+//const taskPerformance = require('./task.yaml');
+//const specPerformance = require('./performance.yaml');
 
-spec.host = 'localhost:9999';
+workerPerformance.host = 'localhost:7001';
+// taskPerformance.host = 'localhost:7002';
+// specPerformance.host = 'localhost:7003';
+
 
 SwaggerUI({
-  specTask,
+  spec: workerPerformance,
   dom_id: '#swagger1',
 });
 
-SwaggerUI({
-  specWorker,
-  dom_id: '#swagger2',
-});
+// SwaggerUI({
+//   spec: taskPerformance,
+//   dom_id: '#swagger2',
+// });
 
-SwaggerUI({
-  specPeformance,
-  dom_id: '#swagger3',
-});
+// SwaggerUI({
+//   spec: specPerformance,
+//   dom_id: '#swagger3',
+// });

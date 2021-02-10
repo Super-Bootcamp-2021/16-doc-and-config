@@ -39,19 +39,30 @@ definitions:
   Data:
     type: object
     properties:
-      total_task:
-        type: number
-        description: total task
-        example: 5
-      task_done:
-        type: number
-        description: total task selesai
-        example: 3
-      task_cancelled:
-        type: number
-        description: total task batal
-        example: 2
-      total_worker:
-        type: number
-        description: total worker
-        example: 3
+      loading:
+        type: boolean
+        description: loading condition
+        example: false
+      error:
+        type: string
+        description: error condition
+        example: null
+      summary:
+        type: object
+        properties:
+          total_task:
+            type: number
+            description: total task
+            example: 5
+          task_done:
+            type: number
+            description: total task selesai
+            example: 3
+          task_cancelled:
+            type: number
+            description: total task batal
+            example: 2
+          total_worker:
+            type: number
+            description: total worker
+            example: 3

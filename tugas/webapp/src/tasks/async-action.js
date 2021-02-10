@@ -1,3 +1,5 @@
+/** @module async-action */
+
 const {
   loadingAction,
   errorAction,
@@ -10,6 +12,10 @@ const {
 const workerSvc = require('./worker.client');
 const taskSvc = require('./task.client');
 
+/**
+ * to add tasks
+ * @param {any} data 
+ */
 exports.add = (data) => async (dispatch) => {
   dispatch(loadingAction());
   try {
@@ -20,6 +26,10 @@ exports.add = (data) => async (dispatch) => {
   }
 };
 
+/**
+ * to make a check that the task is done
+ * @param {number} id 
+ */
 exports.done = (id) => async (dispatch) => {
   dispatch(loadingAction());
   try {
@@ -30,6 +40,10 @@ exports.done = (id) => async (dispatch) => {
   }
 };
 
+/**
+ * to cancel the task
+ * @param {number} id 
+ */
 exports.cancel = (id) => async (dispatch) => {
   dispatch(loadingAction());
   try {
@@ -40,6 +54,10 @@ exports.cancel = (id) => async (dispatch) => {
   }
 };
 
+/**
+ * @module getList
+ * to get all task list 
+ */
 exports.getList = async (dispatch) => {
   dispatch(loadingAction());
   try {
@@ -50,6 +68,10 @@ exports.getList = async (dispatch) => {
   }
 };
 
+/**
+ * @module getWorkersList
+ * to get all worker list
+ */
 exports.getWorkersList = async (dispatch) => {
   dispatch(loadingAction());
   try {

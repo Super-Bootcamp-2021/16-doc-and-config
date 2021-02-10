@@ -21,6 +21,9 @@ const defaultConfig = {
     portTask: 7002,
     portPerformance: 7003,
   },
+  host: {
+    worker: 'http://localhost:7001',
+  },
 };
 
 const config = rc('tm', defaultConfig);

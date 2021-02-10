@@ -6,6 +6,7 @@ module.exports = {
     tasks: './webapp/src/tasks/main.js',
     worker: './webapp/src/worker/main.js',
     performance: './webapp/src/performance/main.js',
+    apiWorker: './service/worker/schema/main.js',
     schema: './schema/main.js',
   },
   output: {

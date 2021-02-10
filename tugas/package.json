@@ -10,6 +10,10 @@
     "lint": "eslint .",
     "web:build": "webpack --mode production",
     "web:dev": "webpack serve --open --mode development",
+    "docs:svc:worker": "jsdoc -c service/worker/docs.json",
+    "docs:web:worker": "jsdoc -c webapp/src/worker/docs.json",
+    "live:svc:worker": "live-server service/worker/docs",
+    "live:web:worker": "live-server webapp/src/worker/docs",
     "docs:svc:task": "jsdoc -c service/tasks/docs.json",
     "docs:web:task": "jsdoc -c webapp/src/tasks/docs.json",
     "live:svc:task": "live-server service/tasks/docs",
@@ -36,6 +40,9 @@
   "dependencies": {
     "@reduxjs/toolkit": "^1.5.0",
     "busboy": "^0.3.1",
+    "jsdoc": "^3.6.6",
+    "json-loader": "^0.5.7",
+    "live-server": "^1.2.1",
     "mariadb": "^2.5.2",
     "mime-types": "^2.1.28",
     "minio": "^7.0.18",
@@ -49,6 +56,7 @@
     "redux-thunk": "^2.3.0",
     "rxjs": "^6.6.3",
     "swagger-ui": "^3.42.0",
-    "typeorm": "^0.2.31"
+    "typeorm": "^0.2.31",
+    "yaml-loader": "^0.6.0"
   }
 }

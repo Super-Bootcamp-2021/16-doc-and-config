@@ -1,3 +1,5 @@
+/** @module task */
+
 const { getConnection } = require('typeorm');
 const workerClient = require('./worker.client');
 const bus = require('../lib/bus');
@@ -6,6 +8,12 @@ const ERROR_TASK_DATA_INVALID = 'data pekerjaan baru tidak lengkap';
 const ERROR_TASK_NOT_FOUND = 'pekerjaan tidak ditemukan';
 const ERROR_TASK_ALREADY_DONE = 'pekerjaan sudah selesai';
 
+/**
+ * add new task
+ * @param {Task} data task detail
+ * @returns {Promise<Task>} new task detail with id
+ * @throws {string} when data not contain task property
+ */
 async function add(data) {
   if (!data.job || !data.assigneeId) {
     throw ERROR_TASK_DATA_INVALID;
@@ -25,6 +33,12 @@ async function add(data) {
   return task;
 }
 
+/**
+ * done task by id
+ * @param {number} id task's id
+ * @returns {Promise<Task>} task done 
+ * @throws {string} when worker id not found in database
+ */
 async function done(id) {
   const taskRepo = getConnection().getRepository('Task');
   const task = await taskRepo.findOne(id, { relations: ['assignee'] });
@@ -40,6 +54,12 @@ async function done(id) {
   return task;
 }
 
+/**
+ * cancel task by id
+ * @param {number} id task's id
+ * @returns {Promise<Task>} cancel worker 
+ * @throws {string} when worker id not found in database
+ */
 async function cancel(id) {
   const taskRepo = getConnection().getRepository('Task');
   const task = await taskRepo.findOne(id, { relations: ['assignee'] });
@@ -52,6 +72,10 @@ async function cancel(id) {
   return task;
 }
 
+/**
+ * get list task
+ * @returns {Promise<Worker[]>} list of tasks
+ */
 function list() {
   const taskRepo = getConnection().getRepository('Task');
   return taskRepo.find({ relations: ['assignee'] });

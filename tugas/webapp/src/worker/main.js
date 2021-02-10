@@ -51,7 +51,10 @@ const state = store$.getState();
 render(state);
 
 store$.dispatch(getList);
-
+/**
+ * render application
+ * @param {State} state state of application
+ */
 function render(state) {
   // render error
   if (state.error) {

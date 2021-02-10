@@ -1,1 +1,1 @@
-exports.SERVICE_BASEURL = 'http://localhost:7003';
+exports.PERFORMANCE_SERVICE_BASEURL = process.env.PERFORMANCE_SERVICE_BASEURL || 'http://localhost:7003';

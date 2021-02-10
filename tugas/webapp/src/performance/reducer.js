@@ -10,16 +10,37 @@ const initialState = {
   },
 };
 
+/**
+ * funsi untuk mengelola state loading
+ * @function
+ * @param {Object} state
+ */
 function loading(state) {
   state.loading = true;
   state.error = null;
 }
 
+/**
+ * funsi untuk mengelola state error
+ * @function
+ * @param {Object} state
+ * @param {function} action
+ */
 function error(state, action) {
   state.loading = false;
   state.error = action.payload;
 }
 
+
+/**@module reducer-performance  */
+
+/**
+ * funsi untuk memngeluarkan summary
+ * @function
+ * @param {Object} state
+ * @param {function} action
+ * @return {Object} state
+ */
 function summaryLoaded(state, action) {
   state.summary = action.payload;
   state.loading = false;

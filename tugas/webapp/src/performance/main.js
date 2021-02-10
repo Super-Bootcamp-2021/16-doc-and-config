@@ -25,6 +25,11 @@ refresh.onclick = () => {
   store$.dispatch(summary);
 };
 
+/**
+ * merender objek yang ada dalam state
+ * @function
+ * @param {Object} state item yang terinput
+ */
 function render(state) {
   // render error
   if (state.error) {

@@ -1,3 +1,5 @@
+/**@module async-action-tasks */
+
 const {
   loadingAction,
   errorAction,
@@ -10,6 +12,11 @@ const {
 const workerSvc = require('./worker.client');
 const taskSvc = require('./task.client');
 
+/**
+ * add new task
+ * @function
+ * @param {TaskData} data item yang akan ditambahkan pada task
+ */
 exports.add = (data) => async (dispatch) => {
   dispatch(loadingAction());
   try {
@@ -20,6 +27,11 @@ exports.add = (data) => async (dispatch) => {
   }
 };
 
+/**
+ * change done status to be true
+ * @function
+ * @param {number} id merubah status task menjadi done malalui id
+ */
 exports.done = (id) => async (dispatch) => {
   dispatch(loadingAction());
   try {
@@ -30,6 +42,11 @@ exports.done = (id) => async (dispatch) => {
   }
 };
 
+/**
+ * change cancelled status to be true
+ * @function
+ * @param {number} id merubah status task menjadi cancelled malalui id
+ */
 exports.cancel = (id) => async (dispatch) => {
   dispatch(loadingAction());
   try {
@@ -40,6 +57,10 @@ exports.cancel = (id) => async (dispatch) => {
   }
 };
 
+/**
+ * get all item in task
+ * @function
+ */
 exports.getList = async (dispatch) => {
   dispatch(loadingAction());
   try {
@@ -50,6 +71,10 @@ exports.getList = async (dispatch) => {
   }
 };
 
+/**
+ * get all worker in task
+ * @function
+ */
 exports.getWorkersList = async (dispatch) => {
   dispatch(loadingAction());
   try {

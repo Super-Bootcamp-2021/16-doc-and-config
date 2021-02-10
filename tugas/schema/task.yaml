@@ -1,0 +1,218 @@
+swagger: '2.0'
+info:
+  title: 'Task Service'
+  description: 'API to manage task list'
+  version: '1.1.0'
+  license:
+    name: 'GPL-3.0'
+    url: 'https://www.gnu.org/licenses/gpl-3.0.en.html'
+host: 'localhost'
+tags:
+  - name: 'task'
+    description: 'endpoint untuk mengedit list task'
+schemes:
+  - 'http'
+paths:
+  /add:
+    post:
+      tags:
+        - 'task'
+      operationId: 'addTask'
+      description: 'untuk menambahkan task baru'
+      consumes:
+        - 'multipart/form-data'
+      produces:
+        - 'application/json'
+      parameters:
+        - in: formData
+          name: job
+          type: string
+          description: informasi nama pekerjaan
+          required: true
+        - in: formData
+          name: assignee_id
+          type: number
+          description: id pekerja yang diberikan task
+          required: true
+        - in: formData
+          name: attachment
+          type: file
+          description: file pendukung pekerjaan
+          required: true
+      responses:
+        '200':
+          description: 'worker yang baru di input'
+          schema:
+            $ref: '#/definitions/Task'
+        '401':
+          description: 'data pekerjaan baru tidak lengkap'
+        '500':
+          description: 'internal server error'
+  /list:
+    get:
+      operationId: 'listTask'
+      description: mengembalikan daftar task
+      tags:
+        - 'task'
+      consumes:
+        - 'application/json'
+      produces:
+        - 'application/json'
+        - 'text/plain'
+      responses:
+        '200':
+          description: daftar task
+          schema:
+            type: array
+            items:
+              $ref: '#/definitions/Task'
+        '500':
+          description: kesalahan server
+  /done:
+    put:
+      operationId: 'taskDone'
+      description: 'untuk membuat pekerjaan selesai'
+      tags:
+        - 'task'
+      parameters:
+        - in: query
+          name: id
+          type: number
+          description: id pekerjaan
+      consumes:
+        - 'application/json'
+      produces:
+        - 'application/json'
+      responses:
+        '200':
+          description: 'data task dengan id yang diinput'
+          schema:
+            $ref: '#/definitions/Task'
+        '401':
+          description: 'parameter id tidak ditemukan'
+        '404':
+          description: 'pekerjaan tidak ditemukan'
+        '500':
+          description: 'kesalahan server'
+  /cancel:
+    put:
+      tags:
+        - 'task'
+      operationId: 'cancelTask'
+      description: 'untuk membatalkan pekerjaan tertentu'
+      consumes:
+        - 'application/json'
+      produces:
+        - 'application/json'
+      parameters:
+        - in: query
+          name: id
+          type: number
+          description: id pekerjaan
+      responses:
+        '200':
+          description: 'data pekerjaan yang dibatalkan'
+          schema:
+            $ref: '#/definitions/Task'
+        '401':
+          description: 'parameter id tidak ditemukan'
+        '404':
+          description: 'pekerjaan tidak ditemukan'
+        '500':
+          description: 'kesalahan server'
+  /attachment/{file}:
+    get:
+      tags:
+        - 'task'
+      operationId: 'readAttachment'
+      description: 'untuk menampilkan file lampiran'
+      consumes:
+        - 'application/json'
+      produces:
+        - 'image/jpeg'
+        - 'image/bmp'
+        - 'image/png'
+        - 'image/gif'
+        - 'text/csv'
+        - 'application/msword'
+        - 'application/json'
+        - 'application/xml'
+        - 'text/plain'
+        - 'text/html'
+        - 'application/pdf'
+        - 'application/vnd.ms-powerpoint'
+        - 'application/vnd.ms-excel'
+        - 'application/vnd.rar'
+        - 'application/zip'
+      parameters:
+        - in: path
+          name: file
+          type: string
+          required: true
+          description: nama file.
+      responses:
+        '200':
+          description: 'file yang dibaca'
+        '400':
+          description: 'request tidak sesuai'
+        '404':
+          description: 'error file tidak ditemukan'
+        '500':
+          description: 'kesalahan server'
+definitions:
+  Task:
+    type: object
+    properties:
+      id:
+        type: number
+        description: identifier pekerjaan
+        example: 1
+      job:
+        type: string
+        description: informasi pekerjaan
+        example: makan
+      done:
+        type: boolean
+        description: identifikasi apakah pekerjaan sudah selesai
+        example: false
+      cancel:
+        type: boolean
+        description: identifikasi apakah pekerjaan dibatalkan
+        example: false
+      addedAt:
+        type: string
+        description: waktu saat pekerjaan ditambahkan
+        example: 2021-02-09T14:19:54.697Z
+      attachment:
+        type: string
+        description: nama file pendukung
+        example: 090220211630-332.md
+      assignee:
+        $ref: '#/definitions/Worker'
+  Worker:
+    type: object
+    properties:
+      id:
+        type: number
+        description: identifier pekerjaan
+        example: 1
+      name:
+        type: string
+        description: nama pekerja
+        example: bambang
+      age:
+        type: number
+        description: umur pekerja
+        example: 31
+      bio:
+        type: string
+        description: biografi pekerja
+        example: developer keren
+      address:
+        type: string
+        description: alamat pekerja
+        example: jalan gagak no 10
+      photo:
+        type: string
+        description: nama file foto pekerja
+        example: 090220211649-220.jpg

@@ -10,6 +10,10 @@
     "lint": "eslint .",
     "web:build": "webpack --mode production",
     "web:dev": "webpack serve --open --mode development",
+    "docs:svc:performance": "jsdoc -c service/performance/docs.json",
+    "docs:web:performance": "jsdoc -c webapp/src/performance/docs.json",
+    "live:svc:performance": "live-server service/performance/docs",
+    "live:web:performance": "live-server webapp/src/performance/docs",
     "docs:svc:worker": "jsdoc -c service/worker/docs.json",
     "docs:web:worker": "jsdoc -c webapp/src/worker/docs.json",
     "live:svc:worker": "live-server service/worker/docs",
@@ -55,6 +59,7 @@
     "redis": "^3.0.2",
     "redux-thunk": "^2.3.0",
     "rxjs": "^6.6.3",
+    "service": "^0.1.4",
     "swagger-ui": "^3.42.0",
     "typeorm": "^0.2.31",
     "yaml-loader": "^0.6.0"

@@ -7,7 +7,8 @@ module.exports = {
     worker: './webapp/src/worker/main.js',
     performance: './webapp/src/performance/main.js',
     apiWorker: './service/worker/schema/main.js',
-    apiTask: './service/tasks/schema/main.js'
+    apiTask: './service/tasks/schema/main.js',
+    apiPerformance: './service/performance/schema/main.js',
   },
   output: {
     path: path.resolve(__dirname, 'www'),

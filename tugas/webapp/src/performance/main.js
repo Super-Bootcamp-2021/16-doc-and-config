@@ -25,6 +25,10 @@ refresh.onclick = () => {
   store$.dispatch(summary);
 };
 
+/**
+ * 
+ * @param {Data} state type object
+ */
 function render(state) {
   // render error
   if (state.error) {

@@ -1,0 +1,25 @@
+{
+  "database": {
+    "type": "postgres",
+    "host": "localhost",
+    "port": 5432,
+    "username": "postgres",
+    "password": "123456",
+    "database": "sanbercode2"
+  },
+  "objectStorage": {
+    "endPoint": "127.0.0.1",
+    "port": 9000,
+    "useSSL": false,
+    "accessKey": "minioadmin",
+    "secretKey": "minioadmin"
+  },
+  "server": {
+    "portWorker": 9028,
+    "portTask": 9029,
+    "portPerformance": 9030
+  },
+  "host": {
+    "worker": "http://localhost:9028"
+  }
+}

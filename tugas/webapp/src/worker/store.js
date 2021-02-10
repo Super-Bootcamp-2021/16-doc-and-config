@@ -1,3 +1,5 @@
+/** @module store - state management (redux) */
+
 const {
   createAction,
   createReducer,
@@ -21,6 +23,13 @@ const removedAction = createAction('removed');
 const workersLoadedAction = createAction('workersLoaded');
 const clearErrorAction = createAction('clearError');
 
+
+/**
+ * to createReducer from action
+ * @module createAction
+ * @param {any} initialState default state 
+ * @param {any} action all action 
+ */
 const reducer = createReducer(initialState, {
   [errorAction]: error,
   [clearErrorAction]: clearError,
@@ -30,6 +39,11 @@ const reducer = createReducer(initialState, {
   [workersLoadedAction]: workersLoaded,
 });
 
+/**
+ * to store reducer
+ * @module configureStore
+ * @param {any} reducer 
+ */
 const store$ = configureStore({
   reducer,
   middleware: [thunkMiddleware.default],

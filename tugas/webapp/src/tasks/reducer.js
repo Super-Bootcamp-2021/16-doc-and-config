@@ -1,4 +1,9 @@
+
+/** @module reducer - state management (redux) */
+
 const { SERVICE_BASEURL } = require('./config');
+
+const { TASK_SERVICE_BASEURL } = require('../config');
 
 // setup state
 const initialState = {
@@ -8,27 +13,46 @@ const initialState = {
   tasks: [],
 };
 
+/** 
+ * to change state.loading and state.error
+ * @param {any} state
+ */
 function loading(state) {
   state.loading = true;
   state.error = null;
 }
 
+/** 
+ * to change state.erro and state.loading from action.payload
+ * @param {any} state
+ * @param {any} action
+ */
 function error(state, action) {
   state.loading = false;
   state.error = action.payload;
 }
 
+/** 
+ * to change state.error to null / no error
+ * @param {any} state
+ */
 function clearError(state) {
   state.error = null;
 }
 
+/** 
+ * to push data to tasks
+ * @param {any} state
+ * @param {any} action
+ * @returns {any} state
+ */
 function added(state, action) {
   const task = action.payload;
   state.tasks.push({
     id: task.id,
     job: task.job,
     assignee: task.assignee.name,
-    attachment: `${SERVICE_BASEURL}/attachment/${task.attachment}`,
+    attachment: `${TASK_SERVICE_BASEURL}/attachment/${task.attachment}`,
     done: false,
   });
   state.loading = false;
@@ -36,6 +60,12 @@ function added(state, action) {
   return state;
 }
 
+/** 
+ * to make check that data is done 
+ * @param {any} state
+ * @param {any} action
+ * @returns {any} state
+ */
 function done(state, action) {
   const idx = state.tasks.findIndex((t) => t.id === action.payload);
   state.tasks[idx].done = true;
@@ -44,6 +74,12 @@ function done(state, action) {
   return state;
 }
 
+/** 
+ * to cancel the task 
+ * @param {any} state
+ * @param {any} action
+ * @returns {any} state
+ */
 function canceled(state, action) {
   const idx = state.tasks.findIndex((t) => t.id === action.payload);
   state.tasks.splice(idx, 1);
@@ -52,6 +88,12 @@ function canceled(state, action) {
   return state;
 }
 
+/** 
+ * to load all task 
+ * @param {any} state
+ * @param {any} action
+ * @returns {any} state
+ */
 function tasksLoaded(state, action) {
   state.tasks = action.payload
     .filter((t) => !t.cancelled)
@@ -59,7 +101,7 @@ function tasksLoaded(state, action) {
       id: task.id,
       job: task.job,
       assignee: task.assignee.name,
-      attachment: `${SERVICE_BASEURL}/attachment/${task.attachment}`,
+      attachment: `${TASK_SERVICE_BASEURL}/attachment/${task.attachment}`,
       done: task.done,
     }));
   state.loading = false;
@@ -67,6 +109,12 @@ function tasksLoaded(state, action) {
   return state;
 }
 
+/** 
+ * to load all worker 
+ * @param {any} state
+ * @param {any} action
+ * @returns {any} state
+ */
 function workersLoaded(state, action) {
   state.workers = action.payload.map((worker) => ({
     id: worker.id,

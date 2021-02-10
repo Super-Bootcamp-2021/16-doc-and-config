@@ -1,0 +1,284 @@
+swagger: '2.0'
+info:
+  title: 'Task Service'
+  description: 'API to manage task feature'
+  version: '1.0.0'
+  license:
+    name: 'GPL-3.0'
+    url: 'https://www.gnu.org/licenses/gpl-3.0.en.html'
+host: 'localhost:7002'
+tags:
+  - name: 'task'
+    description: 'endpoint to edit task'
+schemes:
+  - 'http'
+paths:
+  /add:
+    post:
+      operationId: 'addTask'
+      description: menambah pekerjaan baru
+      tags:
+        - 'task'
+      consumes:
+        - multipart/form-data
+      parameters:
+        - in: formData
+          name: attachment
+          type: file
+          description: attachment yang akan diupload
+        - in: formData
+          name: job
+          type: string
+          description: nama/detail pekerjaan
+        - in: formData
+          name: assignee_id
+          type: number
+          description: id pekerjaan yang akan dikenai pekerjaan
+      produces:
+        - 'application/json'
+        - 'text/plain'
+      responses:
+        '200':
+          description: detail pekerjaan dengan id
+          schema:
+            $ref: '#/definitions/task'
+        '404':
+          description: 'method tidak diperbolehkan'
+        '500':
+          description: 'kesalahan server'
+  /list:
+    get:
+      operationId: 'listTask'
+      description: mengembalikan daftar pekerjaan
+      tags:
+        - 'task'
+      produces:
+        - 'application/json'
+        - 'text/plain'
+      responses:
+        '200':
+          description: daftar pekerjaan
+          schema:
+            type: array
+            items:
+              $ref: '#/definitions/task'
+        '404':
+          description: 'method tidak diperbolehkan'
+        '500':
+          description: 'kesalahan server'
+  /done:
+    put:
+      operationId: 'doneTask'
+      description: mengubah status pekerjaan menjadi done
+      tags:
+        - 'task'
+      parameters:
+        - in: query
+          name: id
+          type: integer
+          description: task ID
+      produces:
+        - 'application/json'
+        - 'text/plain'
+      responses:
+        '200':
+          description: info detail pekerjaan
+          schema:
+            $ref: '#/definitions/taskDone'
+        '404':
+          description: 'method tidak diperbolehkan'
+        '500':
+          description: 'kesalahan server'
+  /cancel:
+    put:
+      operationId: 'cancelWorker'
+      description: mengubah status pekerjaan menjadi cancel/batal
+      tags:
+        - 'task'
+      consumes:
+      - application/json
+      parameters:
+      - in: query
+        name: id
+        type: integer
+        required: true
+        description: task ID
+      produces:
+        - 'application/json'
+        - 'text/plain'
+      responses:
+        '200':
+          description: info detail pekerjaan
+          schema:
+            $ref: '#/definitions/taskCancel'
+        '404':
+          description: 'method tidak diperbolehkan'
+        '500':
+          description: 'kesalahan server'
+
+definitions:
+  task:
+    type: object
+    properties:
+      id:
+        type: number
+        description: id pekerjaan
+        example: 20
+      job:
+        type: string
+        description: nama pekerjaan
+        example: belajar node js
+      done:
+        type: boolean
+        description: bernilai benar jika pekerjaan selesai
+        example: false
+      cancelled:
+        type: boolean
+        description: bernilai benar jika pekerjaan batal
+        example: false
+      addedAt:
+        type: string
+        description: waktu pekerjaan ditambahkan
+        example: '2021-02-09T09:05:15.340Z'
+      attachment:
+        type: string
+        description: nama file attachment pekerjaan
+        example: 1612874959796-184.png
+      assignee:
+        type: object
+        description: detail pekerja yang dikenai pekerjaan
+        properties:
+          id:
+            type: number
+            description: id pekerja
+            example: 20
+          name:
+            type: string
+            description: nama pekerja
+            example: Budi
+          age:
+            type: number
+            description: umur pekerja
+            example: 30
+          bio:
+            type: string
+            description: biografi pekerja
+            example: seorang programmer
+          address:
+            type: string
+            description: alamat pekerja
+            example: Jalan ramai sekali, Bandung
+          photo:
+            type: string
+            description: nama file foto pekerja
+            example: 1612874959796-184.png
+  taskDone:
+    type: object
+    properties:
+      id:
+        type: number
+        description: id pekerjaan
+        example: 20
+      job:
+        type: string
+        description: nama pekerjaan
+        example: belajar node js
+      done:
+        type: boolean
+        description: bernilai benar jika pekerjaan selesai
+        example: true
+      cancelled:
+        type: boolean
+        description: bernilai benar jika pekerjaan batal
+        example: false
+      addedAt:
+        type: string
+        description: waktu pekerjaan ditambahkan
+        example: '2021-02-09T09:05:15.340Z'
+      attachment:
+        type: string
+        description: nama file attachment pekerjaan
+        example: 1612874959796-184.png
+      assignee:
+        type: object
+        description: detail pekerja yang dikenai pekerjaan
+        properties:
+          id:
+            type: number
+            description: id pekerja
+            example: 20
+          name:
+            type: string
+            description: nama pekerja
+            example: Budi
+          age:
+            type: number
+            description: umur pekerja
+            example: 30
+          bio:
+            type: string
+            description: biografi pekerja
+            example: seorang programmer
+          address:
+            type: string
+            description: alamat pekerja
+            example: Jalan ramai sekali, Bandung
+          photo:
+            type: string
+            description: nama file foto pekerja
+            example: 1612874959796-184.png
+  taskCancel:
+    type: object
+    properties:
+      id:
+        type: number
+        description: id pekerjaan
+        example: 20
+      job:
+        type: string
+        description: nama pekerjaan
+        example: belajar node js
+      done:
+        type: boolean
+        description: bernilai benar jika pekerjaan selesai
+        example: false
+      cancelled:
+        type: boolean
+        description: bernilai benar jika pekerjaan batal
+        example: true
+      addedAt:
+        type: string
+        description: waktu pekerjaan ditambahkan
+        example: '2021-02-09T09:05:15.340Z'
+      attachment:
+        type: string
+        description: nama file attachment pekerjaan
+        example: 1612874959796-184.png
+      assignee:
+        type: object
+        description: detail pekerja yang dikenai pekerjaan
+        properties:
+          id:
+            type: number
+            description: id pekerja
+            example: 20
+          name:
+            type: string
+            description: nama pekerja
+            example: Budi
+          age:
+            type: number
+            description: umur pekerja
+            example: 30
+          bio:
+            type: string
+            description: biografi pekerja
+            example: seorang programmer
+          address:
+            type: string
+            description: alamat pekerja
+            example: Jalan ramai sekali, Bandung
+          photo:
+            type: string
+            description: nama file foto pekerja
+            example: 1612874959796-184.png

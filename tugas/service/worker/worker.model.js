@@ -1,6 +1,17 @@
+/** @module WorkerSchema */
+
 const { EntitySchema } = require('typeorm');
 
 class Worker {
+  /**
+   * buat instance baru dari worker model
+   * @param {string} id id dari pekerja
+   * @param {string} name nama dari pekerja
+   * @param {string} age umur dari pekerja
+   * @param {string} bio biografi dari pekerja
+   * @param {string} address alamat pekerja
+   * @param {photo} attachment foto pekerja
+   */
   constructor(id, name, age, bio, address, photo) {
     this.id = id;
     this.name = name;
@@ -11,6 +22,9 @@ class Worker {
   }
 }
 
+/**
+ * enty schema of worker model
+ */
 const WorkerSchema = new EntitySchema({
   name: 'Worker',
   target: Worker,

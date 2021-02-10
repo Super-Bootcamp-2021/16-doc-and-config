@@ -1,3 +1,5 @@
+/** @module http_client */
+
 const { loadingAction, errorAction, summaryLoadedAction } = require('./store');
 const perfSvc = require('./performance.client');
 

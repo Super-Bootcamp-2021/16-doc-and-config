@@ -1,6 +1,6 @@
 {
   "name": "task-manager",
-  "version": "1.0.0",
+  "version": "1.2.0",
   "description": "sample service mesh implementation",
   "main": "index.js",
   "scripts": {
@@ -9,7 +9,9 @@
     "svc:dev": "nodemon .",
     "lint": "eslint .",
     "web:build": "webpack --mode production",
-    "web:dev": "webpack serve --open --mode development"
+    "web:dev": "webpack serve --open --mode development",
+    "docs:svc": "jsdoc -c service/docs.json",
+    "docs:web": "jsdoc -c webapp/docs.json"
   },
   "author": "",
   "license": "ISC",
@@ -22,7 +24,12 @@
     "style-loader": "^2.0.0",
     "webpack": "^5.17.0",
     "webpack-cli": "^4.4.0",
-    "webpack-dev-server": "^3.11.2"
+    "webpack-dev-server": "^3.11.2",
+    "dotenv-webpack": "^6.0.0",
+    "jsdoc": "^3.6.6",
+    "json-loader": "^0.5.7",
+    "livereload": "^0.9.1",
+    "yaml-loader": "^0.6.0"
   },
   "dependencies": {
     "busboy": "^0.3.1",
@@ -38,6 +45,8 @@
     "typeorm": "^0.2.30",
     "@reduxjs/toolkit": "^1.5.0",
     "rxjs": "^6.6.3",
-    "redux-thunk": "^2.3.0"
+    "redux-thunk": "^2.3.0",
+    "rc": "^1.2.8",
+    "swagger-ui": "^3.42.0"
   }
 }

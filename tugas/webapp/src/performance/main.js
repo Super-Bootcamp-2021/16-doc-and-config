@@ -25,6 +25,10 @@ refresh.onclick = () => {
   store$.dispatch(summary);
 };
 
+/**
+ * render application
+ * @param {PerformanceState} state state of application
+ */
 function render(state) {
   // render error
   if (state.error) {

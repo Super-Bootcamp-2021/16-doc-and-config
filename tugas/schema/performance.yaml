@@ -1,0 +1,55 @@
+swagger: '2.0'
+info:
+  title: 'Performance Service'
+  description: 'API to manage performance activity'
+  version: '1.0.0'
+  license:
+    name: 'GPL-3.0'
+    url: 'https://www.gnu.org/licenses/gpl-3.0.en.html'
+host: 'localhost'
+tags:
+  - name: 'performance'
+    description: 'endpoint untuk performance'
+schemes:
+  - 'http'
+paths:
+  /summary:
+    get:
+      operationId: 'resumePerformance'
+      description: Menampilkan resume dari task & worker
+      tags:
+        - 'performance'
+      consumes:
+        - 'application/json'
+      produces:
+        - 'application/json'
+        - 'text/plain'
+      responses:
+        '200':
+          description: resume task & worker
+          schema:
+            $ref: '#/definitions/Resume'
+
+definitions:
+  Resume:
+    type: object
+    properties:
+      data:
+        type: object
+        properties:
+          total_task:
+            type: integer
+            description: count of all task
+            example: 10
+          task_done:
+            type: integer
+            description: count of total task with done status
+            example: 4
+          task_cancelled:
+            type: integer
+            description: count of total task with cancel status
+            example: 2
+          total_worker:
+            type: integer
+            description: count of total worker
+            example: 2

@@ -1,3 +1,4 @@
+/** @module lib_objectStorage */
 const mime = require('mime-types');
 const { Client } = require('minio');
 
@@ -7,6 +8,12 @@ const ERROR_FILE_NOT_FOUND = 'error file tidak ditemukan';
 let client;
 let bucketname;
 
+/**
+ * Connect Function of MinIO
+ * @param {String} _bucketname 
+ * @param {*} options additional
+ * @see https://github.com/minio/minio-js#initialize-minio-client
+ */
 async function connect(_bucketname, options) {
   client = new Client({
     ...options,
@@ -23,6 +30,11 @@ async function connect(_bucketname, options) {
   }
 }
 
+/**
+ * Generate random filename of File
+ * @param {String} mimetype mimetype of File
+ * @returns {String} Filename
+ */
 function randomFileName(mimetype) {
   return (
     new Date().getTime() +
@@ -33,6 +45,11 @@ function randomFileName(mimetype) {
   );
 }
 
+/**
+ * Save Function for save/store file into Object Storage - MinIO
+ * @param {*} file 
+ * @param {String} mimetype mimetype of File
+ */
 function saveFile(file, mimetype) {
   const objectName = randomFileName(mimetype);
   return new Promise((resolve, reject) => {
@@ -46,6 +63,10 @@ function saveFile(file, mimetype) {
   });
 }
 
+/**
+ * Read Function for read/get file from Object Storage - MinIO
+ * @param {String} objectName name of object/file
+ */
 async function readFile(objectName) {
   if (!objectName) {
     throw ERROR_REQUIRE_OBJECT_NAME;
